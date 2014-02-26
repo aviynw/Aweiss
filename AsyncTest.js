@@ -2,7 +2,7 @@
 var importList = ['Aweiss.Test2'];
 DEFINE('Aweiss.AsyncTest', Class, importList);
 
-function Class() {
+function Class(){
 	eval(this.eval);
 	Static.Public.obj={
 		b:'b'
@@ -12,11 +12,11 @@ function Class() {
 	}
 	
 	Public.init=function(a){
-		eval(this.eval);
+		var _ = this;
 	}
 	
 	Public.Async.test=function(p, callback){
-		eval(this.eval)
+		var _ = this
 		if(false){
 			callback('potato');		
 		}
@@ -27,7 +27,7 @@ function Class() {
 	}
 	
 	Public.Async.test2=function(q){
-		eval(this.eval)
+		var _ = this
 		debugger;
 		var test2 = new Test2();
 		var q = test2.q()
@@ -37,7 +37,7 @@ function Class() {
 	}
 	
 	Public.test3=function(q){
-		eval(this.eval)
+		var _ = this
 		return 'AsyncTEST3'+q;
 	}
 };

@@ -6,20 +6,20 @@
 
 	DEFINE(name, Class, importList);
 
-	function Class() {
-		eval(this.eval);
+	function Class(){
+	eval(this.eval);
 		Private.transitionAnimations = null;
 		Private.events = {
 			ANIMATION_DONE : 'ANIMATION_DONE'
 		};
 		
 		Public.init = function() {
-			eval(this.eval);
+			var _ = this;
 			_.transitionAnimations = new S2.FX.Queue();
 		}
 
 		Public.transition = function(oldPage, newPage, callback) {
-			eval(this.eval);
+			var _ = this;
 			function done() {
 				if (callback != null) {
 					callback();
@@ -50,7 +50,7 @@
 		}
 
 		Private.endAnimations = function() {
-			eval(this.eval);
+			var _ = this;
 			if (activeAnimations.active()) {
 				var effects = activeAnimations.getEffects();
 				var effectsToCancel = [];

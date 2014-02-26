@@ -1,7 +1,7 @@
 (function(){
 DEFINE('Aweiss.Utils.Tools', Class);
 
-function Class() {
+function Class(){
 	eval(this.eval);
 	/*if ( typeof String.prototype.startsWith != 'function') {
 		String.prototype.startsWith = function(str) {
@@ -46,7 +46,7 @@ Static.Public.unescapeXML=function(string){
   };
   	
 	Static.Public.ie = ( function() {
-		eval(this.eval);
+		var _ = this;
 
 			var undef, v = 3, div = document.createElement('div'), all = div.getElementsByTagName('i');
 
@@ -88,13 +88,13 @@ Static.Public.unescapeXML=function(string){
 	};
 	
 	Static.Public.getShortenedName = function (name) {
-		eval(this.eval);
+		var _ = this;
 		var last = name.lastIndexOf(".");
 		return name.substring(last + 1);
 	};
 	
 	Static.Public.getParentNameSpace=function(parent, name){
-		eval(this.eval);
+		var _ = this;
 		var lastDot= name.lastIndexOf('.');
 		if(lastDot!=-1){
 			name=name.substring(0, lastDot);
@@ -106,7 +106,7 @@ Static.Public.unescapeXML=function(string){
 	}
 	
 	Static.Public.getNameSpace = function(parent, name) {
-		eval(this.eval);
+		var _ = this;
 		var parts = name.split('.');
 		var currentPart = '';
 
@@ -120,7 +120,7 @@ Static.Public.unescapeXML=function(string){
 	};
 	
 	Static.Public.executeFunctionByName = function(functionName, context /* , args */) {
-		eval(this.eval);
+		var _ = this;
 		var args = Array.prototype.slice.call(arguments).splice(2);
 		var namespaces = functionName.split(".");
 		var func = namespaces.pop();
@@ -132,7 +132,7 @@ Static.Public.unescapeXML=function(string){
 	
 	
 	Static.Public.isAutoHeight = function(element) {
-		eval(this.eval);
+		var _ = this;
 		// http://gregpettit.ca/2012/jquery-check-if-element-has-auto-widthheight/
 		// make a staging area for all our work.
 		var autoHeight = false;
@@ -158,7 +158,7 @@ Static.Public.unescapeXML=function(string){
 	};
 
 	Static.Public.getSiblingsHeight = function(e, debug) {
-		eval(this.eval);
+		var _ = this;
 		if (debug) {
 			alert('getting siblings For:' + e.attr('id'));
 		}
@@ -179,7 +179,7 @@ Static.Public.unescapeXML=function(string){
 	 //can't now if to get hieght or width fo siblings, based on the context should call 
 	 //'top':e.position().top+siblingsdimension.height ore.position().left+siblingsdimension.width
 	/*Static.Public.getTruePosition=function(e, dimension, debug){  
-		eval(this.eval);
+		var _ = this;
 		var siblingsdimension = _model.getSiblingsDimension(e, dimension, 'before');
 		var truePosition
 		switch (dimension) {
@@ -199,7 +199,7 @@ Static.Public.unescapeXML=function(string){
 		};
 	*/
 	Static.Public.getSiblingsDimension = function(e, dimension, type, debug) {
-		eval(this.eval);
+		var _ = this;
 		/*if(dimension==_model.Dimension.BOTH){
 			var dimensions={
 					'height':_model.getSiblingsDimension(e, _model.Dimension.HEIGHT, type, debug),
@@ -257,7 +257,7 @@ Static.Public.unescapeXML=function(string){
 	};
 
 	Static.Public.fill_rest = function(e, dimension, debug) {
-		eval(this.eval);
+		var _ = this;
 		if (debug) {
 			alert("element:" + e.attr('id'));
 		}
@@ -315,7 +315,7 @@ Static.Public.unescapeXML=function(string){
 	};
 
 	Static.Public.verticallyCenter = function(e) {
-		eval(this.eval);
+		var _ = this;
 		var halfSize = e.outerHeight() / 2;
 		var parentHeight = e.parent().height();
 		var top = (parentHeight / 2) - halfSize;
@@ -324,7 +324,7 @@ Static.Public.unescapeXML=function(string){
 	};
 
 	Static.Public.verticallyCenterText = function(e) {
-		eval(this.eval);
+		var _ = this;
 		var centerWrapperClass = 'center_wrapper';
 		var outerDiv = jQuery(e).children(":first");
 		if(outerDiv.length==0){
@@ -338,46 +338,46 @@ Static.Public.unescapeXML=function(string){
 	};
 
 	Static.Public.hide = function(e) {
-		eval(this.eval);
+		var _ = this;
 		e.css('visibility', 'hidden');
 	};
 
 	Static.Public.show = function(e) {
-		eval(this.eval);
+		var _ = this;
 		e.css('visibility', 'visible');
 	};
 
 	Static.Public.fadeIn = function(e, duration, easing, callBack) {
-		eval(this.eval);
+		var _ = this;
 		e.fadeTo(duration, 1, easing, callBack);
 		_model.show(e);
 		e.show(e);
 	};
 
 	Static.Public.fadeOut = function(e, duration, easing, callBack) {
-		eval(this.eval);
+		var _ = this;
 		e.fadeTo(duration, 0, easing, callBack);
 		_model.hide(e);
 		e.hide();
 	};
 
 	Static.Public.getParam = function(name) {
-		eval(this.eval);
+		var _ = this;
 		return _model.getParamFromString(_model.getHash(), name);
 	};
 
 	Static.Public.removeParam = function(name) {
-		eval(this.eval);
+		var _ = this;
 		_model.setHash(removeParamFromString(_model.getHash(), name));
 	};
 
 	Static.Public.addParam = function(name, value) {
-		eval(this.eval);
+		var _ = this;
 		_model.setHash(addParamToString(_model.getHash(), name, value, '#'));
 	};
 
 	Static.Public.removeParamFromString = function(string, name) {
-		eval(this.eval);
+		var _ = this;
 		var toReplace = name + '=' + _model.getParamFromString(string, name);
 		var indexOf = string.indexOf(toReplace);
 		var newString = string;
@@ -394,7 +394,7 @@ Static.Public.unescapeXML=function(string){
 	};
 
 	Static.Public.getParamFromString = function(string, name) {
-		eval(this.eval);
+		var _ = this;
 		var hash = string;
 		if (!hash) {
 			return null;
@@ -413,7 +413,7 @@ Static.Public.unescapeXML=function(string){
 	};
 
 	Static.Public.addParamToString = function(string, name, value, seperator) {
-		eval(this.eval);
+		var _ = this;
 		if (!_model.getParamFromString(string, name)) {
 
 			if (string.indexOf(seperator) != -1) {
@@ -429,7 +429,7 @@ Static.Public.unescapeXML=function(string){
 	};
 
 	Static.Public.getParamsFromString = function(hash) {
-		eval(this.eval);
+		var _ = this;
 		if (!hash) {
 			return null;
 		}
@@ -449,7 +449,7 @@ Static.Public.unescapeXML=function(string){
 	};
 
 	Static.Public.addParamsToString = function(string, params, seperator) {
-		eval(this.eval);
+		var _ = this;
 		for (var param in params) {
 			string = _model.addParamToString(string, param, params[param], seperator);
 		}
@@ -457,7 +457,7 @@ Static.Public.unescapeXML=function(string){
 	};
 
 	Static.Public.removeParamsFromString = function(string, params) {
-		eval(this.eval);
+		var _ = this;
 		if (params instanceof Array) {
 			for (var i = 0; i < params.length; i++) {
 				string = _model.removeParamFromString(string, params[i]);
@@ -471,26 +471,26 @@ Static.Public.unescapeXML=function(string){
 	};
 
 	Static.Public.addParams = function(params) {
-		eval(this.eval);
+		var _ = this;
 		for (var param in params) {
 			_model.addParam(getHash(), param);
 		}
 	};
 
 	Static.Public.getParams = function() {
-		eval(this.eval);
+		var _ = this;
 		return _model.getParamsFromString(getHash());
 	};
 
 	Static.Public.removeParams = function(params) {
-		eval(this.eval);
+		var _ = this;
 		for (var param in params) {
 			_model.removeParam(param);
 		}
 	};
 
 	Static.Public.setHash = function(hash) {
-		eval(this.eval);
+		var _ = this;
 		if (string.indexOf('#') != -1) {
 			hash = '#' + hash;
 		}
@@ -498,7 +498,7 @@ Static.Public.unescapeXML=function(string){
 	};
 
 	Static.Public.extractHash = function(string) {
-		eval(this.eval);
+		var _ = this;
 		var position = string.indexOf('#');
 		if (position == -1) {
 			return null;
@@ -508,7 +508,7 @@ Static.Public.unescapeXML=function(string){
 	};
 	
 	Static.Public.extractDomain = function(string){
-		eval(this.eval);
+		var _ = this;
 		var domain='';
 		var parts = string.split('/');
 		if(string.indexOf('://')>0){
@@ -521,23 +521,23 @@ Static.Public.unescapeXML=function(string){
 	};
 	
 	Static.Public.isSameDomain = function(string){
-		eval(this.eval);
+		var _ = this;
 		return(location.host==_model.extractDomain(string));
 	};
 	
 	Static.Public.isLinkSameDomain = function(link){
-		eval(this.eval);
+		var _ = this;
 		//return(_model.extractDomain(link.baseURI)==_model.extractDomain(link.href));
 		return (location.host==link.host);
 	};
 	
 	Static.Public.isLinkSameBase=function(link){
-		eval(this.eval);
+		var _ = this;
 		return (_model.removeHash(location.href)==_model.removeHash(link.href));
 	};
 		
 	Static.Public.getPage = function(string) {
-		eval(this.eval);
+		var _ = this;
 		var position = string.indexOf('#');
 		if (position == -1) {
 			position = String.length;
@@ -546,18 +546,18 @@ Static.Public.unescapeXML=function(string){
 	};
 	
 	Static.Public.removeHash = function(string){
-		eval(this.eval);
+		var _ = this;
 		var newString =string.replace(_model.extractHash(string), '').replace('#', '');
 		return newString;
 	}
 	
 	Static.Public.getHash = function() {
-		eval(this.eval);
+		var _ = this;
 		return decodeURIComponent(window.location.hash).substring(1);
 	};
 
 	Static.Public.hasOverFlow = function(element) {
-		eval(this.eval);
+		var _ = this;
 		if (element.offsetHeight < element.scrollHeight || element.offsetWidth < element.scrollWidth) {
 			return true;
 		} else {
@@ -566,7 +566,7 @@ Static.Public.unescapeXML=function(string){
 	};
 	
 	Static.Public.modulateFontSize = function(element) {
-		eval(this.eval);
+		var _ = this;
 		/*if(!_model.hasOverFlow(element)){
 			while(!_model.hasOverFlow(element)){
 				_model.increaseFontSizeBy(element, 1);
@@ -595,21 +595,21 @@ Static.Public.unescapeXML=function(string){
 	};
 	
 	Static.Public.increaseFontSizeBy = function(element, amount){
-		eval(this.eval);
+		var _ = this;
 		jQuery(element).css('font-size', parseInt(jQuery(element).css('font-size').replace('px', '')) + amount);
 	};
 	
 	Static.Public.decreaseFontSizeBy = function(element, amount){
-		eval(this.eval);
+		var _ = this;
 		_model.increaseFontSizeBy(element, -1 * amount);
 	};
 	
 	Static.Public.redraw = function(element){
-		eval(this.eval);
+		var _ = this;
 	};
 	
 	Static.Public.changeAlpha = function(original, alpha){
-		eval(this.eval);
+		var _ = this;
 		var parts = original.split(',');
 		var newColor;
 		if(parts[3]){
@@ -623,11 +623,11 @@ Static.Public.unescapeXML=function(string){
 	};
 	
 	Static.Public.getClass = function(object){
-		  eval(this.eval);
+		  var _ = this;
 		  return Object.prototype.toString.call(object).match(/^\[object\s(.*)\]$/)[1];
 		};
 	Static.Public.getWindowByName=function(name) {
-		eval(this.eval);
+		var _ = this;
 		if (window.name == name) {
 			return window;
 		} else {
@@ -642,7 +642,7 @@ Static.Public.unescapeXML=function(string){
 	};
 	
 	Static.Public.isInDocument=function(el) {
-    eval(this.eval);
+    var _ = this;
     var html = document.body.parentNode;
     while (el) {
         if (el === html) {

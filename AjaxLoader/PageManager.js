@@ -3,14 +3,14 @@
 	var importList = ['Aweiss.Utils.Tools', 'Aweiss.Events.EventManager', 'Aweiss.Events.BaseEvent', 'Aweiss.AjaxLoader.Events.WindowLoadedEvent', 
 	'Aweiss.AjaxLoader.Events.ResourceDownloadedEvent', 'Aweiss.AjaxLoader.Events.PageRenderedEvent',
 	'Aweiss.AjaxLoader.Page', 'Aweiss.AjaxLoader.ManagedPage', 'Aweiss.AjaxLoader.Animator', 
-	{'scripty2/dist/s2.js' : 'http://ajax.googleapis.com/ajax/libs/prototype/1.7.1.0/prototype.js'}, 'history/src/history.js', {'js_cols/LinkedList.js':'js_cols/base.js'}];
+	{'scripty2/dist/s2.js' : 'http://ajax.googleapis.com/ajax/libs/prototype/1.7.1.0/prototype.js'}, 'history/src/history.js', {'Libs/js_cols/LinkedList.js':'Libs/js_cols/base.js'}];
 
 	var name = 'Aweiss.AjaxLoader.PageManager';
 
 	DEFINE(name, Class, importList);
 
-	function Class() {
-		eval(this.eval);
+	function Class(){
+	eval(this.eval);
 
 		Private.pages = {};
 		Private.currentPage = null;
@@ -24,7 +24,7 @@
 		Private.pageBeingRendered=null;
 
 		Public.init = function(animator) {
-			eval(this.eval);
+			var _ = this;
 			_.animator = animator;
 
 			window.onpopstate = function(event) {
@@ -35,7 +35,7 @@
 		}
 
 		Private.changeToHead = function(page) {
-			eval(this.eval);
+			var _ = this;
 			function isNotRequired() {
 				_.match = function(element) {
 					if (element.hasClassName('aweiss_ajax_load_required')) {
@@ -85,19 +85,19 @@
 		};
 
 		Public.removePage = function(id) {
-			eval(this.eval);
+			var _ = this;
 			page.removeFromStage();
 			_.pages[id] = null;
 		}
 
 		Private.createPage = function(url) {
-			eval(this.eval);
+			var _ = this;
 			var newPage = new ManagedPage(url, true);
 			return newPage
 		}
 
 		Public.addPage = function(url) {
-			eval(this.eval);
+			var _ = this;
 			url = unescape(url);
 			var newPage;
 			if(_.pages[url]!=null){
@@ -111,18 +111,18 @@
 		}
 		
 		Public.removePage=function(url){
-			eval(this.eval);
+			var _ = this;
 			_.page[url]=null;
 		}
 		
 		/*Public.removeBackgroundPage=function(url){
-			eval(this.eval);
+			var _ = this;
 			var page = _.pages[url];
 			page.removeFromStage();
 		}
 		
 		ublic.bringToBackground = function(page) {
-			eval(this.eval);
+			var _ = this;
 			page.bringToBackground();
 			page.setOpacity(1);
 			page.hide();
@@ -130,14 +130,14 @@
 		}
 
 		Public.bringToForeground = function(page, callback) {
-			eval(this.eval);
+			var _ = this;
 			page.bringToForeground();
 			page.setOpacity(1);
 			page.show();
 		}*/
 
 		Public.addBackgroundPage = function(url) {
-			eval(this.eval);
+			var _ = this;
 			if(_.pages[url]==null){
 			var newPage = _.addPage(url);
 			newPage.bringToBackground();
@@ -156,7 +156,7 @@
 		}
 		
 		Private.addBackgroundPages = function(urls) {
-			eval(this.eval);
+			var _ = this;
 			for(var i=0;i<urls.length;i++){
 				var url=urls[i];
 				_.addBackgroundPage(url);
@@ -164,14 +164,14 @@
 		};
 		
 		Public.getPage = function(id) {
-			eval(this.eval);
+			var _ = this;
 			return _.pages[id];
 		}
 
 
 
 		Public.setCurrentPage = function(url, pushState) {
-			eval(this.eval);
+			var _ = this;
 			var page=_.pages[url];
 			if(page==null){
 				page=_.addPage(url);
@@ -226,7 +226,7 @@
 		};
 		
 		Private.initPage=function(page){
-			eval(this.eval);
+			var _ = this;
 			_.changeToHead(page);
 			var urls = page.getLinkUrls();
 			_.addBackgroundPages(urls);
@@ -235,7 +235,7 @@
 		}
 		
 		Private.removeAllBut=function(urls){
-			eval(this.eval);
+			var _ = this;
 			for(var pageid in _.pages){
 				var page =_.pages[pageid];
 				if(urls.indexOf(page.url)==-1){
@@ -248,19 +248,19 @@
 		}
 		
 		Private.setDestination = function(destination) {
-			eval(this.eval);
+			var _ = this;
 			//var initiatorWindow = _.getInitiatorWindow();
 			destination = unescape(destination);
 			DataManager.setItem('destination', destination);
 		}
 
 		Private.getDestination = function() {
-			eval(this.eval);
+			var _ = this;
 			return DataManager.getItem('destination');
 		}
 
 		Private.appearPage = function(page, callback) {
-			eval(this.eval);
+			var _ = this;
 			//debugger;
 			if (_.destinationPage == Page) {
 				if (callback != null) {
@@ -283,7 +283,7 @@
 		}
 
 		Private.watchForUnload = function(page) {
-			eval(this.eval);
+			var _ = this;
 			page.onLinkClick(function(element) {
 				_.setCurrentPage(unescape(element.href), true);
 			});
@@ -291,7 +291,7 @@
 		}
 
 		Private.copyAndSwitch = function(oldPage) {
-			eval(this.eval);
+			var _ = this;
 			var oldWin = oldPage.window;
 			var destination = _.getDestination();
 			var originalLocation = oldWin.location.href;

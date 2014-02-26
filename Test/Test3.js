@@ -2,7 +2,7 @@
 var importList = ['Aweiss.Test.Test', 'Aweiss.Test2'];
 DEFINE('Aweiss.Test.Test3', Class, importList);
 
-function Class() {
+function Class(){
 	eval(this.eval);
 	
 	Static.Public.staticPUB=function(){

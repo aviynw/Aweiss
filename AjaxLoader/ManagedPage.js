@@ -11,15 +11,15 @@
 	function Class() {
 		
 	/*Public.addToBackground = function(){
-		eval(this.eval);
+		var _ = this;
 		//debugger;
 		_.bringToBackground();
 		//_.render(true);
 	}*/
 	
 	/*Public.remove = function() {
-		eval(this.eval);
-		_super.remove();
+		var _ = this;
+		this.super.remove();
 		/*_.clearMemory();
 		FrameManager.release(_.frame);
 		_.frame = null;
@@ -27,13 +27,13 @@
 	}*/
 	
 	/*Public.addToForeground = function(){
-		eval(this.eval);
+		var _ = this;
 		_.bringToForeground();
 		_.addToStage();
 	}*/
 	
 	Public.bringToForeground = function() {
-		eval(this.eval);
+		var _ = this;
 		if (_.isBackgroundPage) {
 			_.element.removeClassName(_.classes.background_page);
 		}
@@ -43,7 +43,7 @@
 	}
 
 	Public.bringToBackground = function() {
-		eval(this.eval);
+		var _ = this;
 		if (_.isForegroundPage) {
 			_.element.removeClassName(_.classes.foreground_page);
 		}
@@ -53,12 +53,12 @@
 	}
 
 	Public.Get.isBackgroundPage = function() {
-		eval(this.eval);
+		var _ = this;
 		return _.element.hasClassName(_.classes.background_page);
 	}
 
 	Public.Get.isForegroundPage = function() {
-		eval(this.eval);
+		var _ = this;
 		return _.element.hasClassName(_.classes.foreground_page);
 	}
 	

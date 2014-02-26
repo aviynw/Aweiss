@@ -7,8 +7,8 @@
 		'extends' : 'Aweiss.Dom.Element'
 	});
 
-	function Class() {
-		eval(this.eval);
+	function Class(){
+	eval(this.eval);
 
 		Public.originalUrl = '';
 		Public.currentUrl = '';
@@ -30,19 +30,19 @@
 		Public.lastDisplay=null;
 		
 		Public.init = function(originalUrl) {
-			eval(this.eval);
+			var _ = this;
 			_.originalUrl = originalUrl;
 			_.url = originalUrl;
 			_.element = new Element('span', {});
 			_.initFrame();
 		}
 		/*Public.preDownload = function(callback) {
-		 eval(this.eval);
+		 var _ = this;
 		 ResourceManager.download(_.url, callback);
 		 }*/
 
 		Public.downloadDoc = function(callback) {
-			eval(this.eval);
+			var _ = this;
 			ResourceManager.downloadDoc(_.url, function(doc) {
 				_.saveThis(doc.documentElement);
 				if (callback != null) {
@@ -52,7 +52,7 @@
 		}
 
 		Public.downloadAll = function(callback) {
-			eval(this.eval);
+			var _ = this;
 			ResourceManager.downloadDocAndDeps(_.url, function(doc) {
 				_.saveThis(doc.documentElement);
 				if (callback != null) {
@@ -62,7 +62,7 @@
 		}
 
 		Protected.initFrame = function() {
-			eval(this.eval);
+			var _ = this;
 			_.linksWatched = false;
 			_.frame = FrameManager.getFrame();
 			_.frame.url = _.url;
@@ -72,7 +72,7 @@
 		}
 
 		Protected.loadFromSave = function(inBackground, callback) {
-			eval(this.eval);
+			var _ = this;
 			_.win.addEventListener("load", function() {
 				_.hasLoaded = true;
 			});
@@ -265,7 +265,7 @@
 		}
 
 		Protected.load = function(inBackground, callback) {
-			eval(this.eval);
+			var _ = this;
 			if (!_.hasSave) {
 				_.downloadDoc(addContent);
 			} else {
@@ -283,43 +283,43 @@
 		}
 
 		Protected.replaceDoc = function(doc) {
-			eval(this.eval);
+			var _ = this;
 			//debugger;
 			_.frame.replaceDoc(doc);
 			_.linksWatched = false;
 		}
 
 		Protected.save = function() {
-			eval(this.eval);
+			var _ = this;
 			_.savedDocElement = _.frame.docElement;
 		}
 
 		Protected.saveThis = function(docElement) {
-			eval(this.eval);
+			var _ = this;
 			debugger;
 			_.savedDocElement = docElement;
 		}
 
 		Protected.Get.hasSave = function() {
-			eval(this.eval);
+			var _ = this;
 			return _.savedDocElement != null
 		}
 
 		Public.clearSave = function() {
-			eval(this.eval);
+			var _ = this;
 			_.savedDocElement = null;
 		}
 
 		Public.downloadToCache = function() {
-			eval(this.eval);
+			var _ = this;
 		}
 
 		Public.downloadToSave = function() {
-			eval(this.eval);
+			var _ = this;
 		}
 
 		Public.prepare = function() {
-			eval(this.eval);
+			var _ = this;
 			if (_.frame == null) {
 				_.initFrame();
 				_.frame.loadType = 'stop';
@@ -328,7 +328,7 @@
 		}
 
 		Public.downloadByRender = function(callback) {
-			eval(this.eval);
+			var _ = this;
 			var date = new Date();
 			_.frame.onComplete(function() { 
 				//console.log('downloadbyrender frame complete; \n;');
@@ -343,7 +343,7 @@
 		}
 		
 		Private.render=function(inBackground, callback){
-			eval(this.eval);
+			var _ = this;
 			function rendered() {
 				//console.log('page rendered \n;');
 				//debugger;
@@ -379,20 +379,20 @@
 		}
 		
 		Public.display = function(inBackground, callback) {
-			eval(this.eval);
+			var _ = this;
 			_.lastDisplay= new Date();
 			_.render(inBackground, callback);
 		}
 
 		Protected.addInBackground = function(callback) {
-			eval(this.eval);
+			var _ = this;
 			_.frame.loadType = 'stop';
 			_.frame.onReady(callback);
 			_.addToStage();
 		}
 
 		Protected.addInForeground = function() {
-			eval(this.eval);
+			var _ = this;
 			_.frame.onComplete(function() {
 				_.save();
 				_.hasExecuted = true;
@@ -402,7 +402,7 @@
 		}
 
 		Protected.addToStage = function() {
-			eval(this.eval);
+			var _ = this;
 			$$('body')[0].insert({
 				'top' : _.element
 			});
@@ -423,28 +423,28 @@
 		}
 
 		Public.show = function(page) {
-			eval(this.eval);
+			var _ = this;
 			_.element.setStyle({
 				display : 'inline'
 			});
 		};
 
 		Public.hide = function(page) {
-			eval(this.eval);
+			var _ = this;
 			_.element.setStyle({
 				display : 'none'
 			});
 		};
 
 		Public.setOpacity = function(page, num) {
-			eval(this.eval);
+			var _ = this;
 			_.element.setStyle({
 				opacity : 1
 			});
 		};
 
 		Protected.removeFromStage = function() {
-			eval(this.eval);
+			var _ = this;
 			if (_.isOnStage) {
 				$(_.element).remove();
 				_.rendered = false;
@@ -452,13 +452,13 @@
 		}
 
 		Public.clearMemory = function() {
-			eval(this.eval);
+			var _ = this;
 			_.savedDocElement = null;
 			_.hasExecuted = false;
 		}
 
 		Public.isMatchingLink = function(link, includeHashes) {
-			eval(this.eval);
+			var _ = this;
 			if (Tools.isLinkSameDomain(link) && link.href.indexOf('view=event') == -1) {
 				if (!includeHashes && link.hash != "") {
 					return false;
@@ -471,7 +471,7 @@
 		}
 
 		Public.getLinks = function(includeHashes) {
-			eval(this.eval);
+			var _ = this;
 			var links = [];
 
 			/*var linkWrapper = _.doc.body;
@@ -493,7 +493,7 @@
 		}
 
 		Public.getLinkUrls = function(includeHashes) {
-			eval(this.eval);
+			var _ = this;
 			var links = _.getLinks(includeHashes);
 			var urls = [];
 			for (var i = 0; i < links.length; i++) {
@@ -505,7 +505,7 @@
 		}
 
 		Protected.onBeforeUnload = function(theFunction) {
-			eval(this.eval);
+			var _ = this;
 			//var initiatorWindow=_.getInitiatorWindow();
 			//event.observe
 			var win = _.win;
@@ -519,7 +519,7 @@
 		}
 
 		Public.onLinkClick = function(theFunction, includeHashes) {
-			eval(this.eval);
+			var _ = this;
 			if (!_.linksWatched) {
 				/*var links = _.getLinks(_.url);
 				 links.each(function(element) {
@@ -545,34 +545,34 @@
 		}
 
 		Public.Get.doc = function() {
-			eval(this.eval);
+			var _ = this;
 			return _.frame.doc;
 		}
 
 		Public.Set.doc = function(doc) {
-			eval(this.eval);
+			var _ = this;
 			_.frame.doc = doc;
 		}
 
 		Public.Get.win = function() {
-			eval(this.eval);
+			var _ = this;
 			return _.frame.win;
 		}
 
 		Public.Get.url = function() {
-			eval(this.eval);
+			var _ = this;
 			return _.maskedUrl;
 		}
 
 		Public.Set.url = function(url) {
-			eval(this.eval);
+			var _ = this;
 			_.maskedUrl = url;
 			if (_.frame != null) {
 				_.frame.url = url;
 			}
 		}
 		Public.remove = function() {
-			eval(this.eval);
+			var _ = this;
 			console.log('removed:' + _.url)
 			_.clearMemory();
 			if (_.frame != null) {

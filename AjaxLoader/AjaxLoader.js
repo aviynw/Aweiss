@@ -6,7 +6,7 @@ var importList = ['Aweiss.AjaxLoader.PageManager', 'Aweiss.AjaxLoader.Page','Awe
 
 DEFINE(name, Class, importList);
 
-function Class() {
+function Class(){
 	eval(this.eval);
 	
 	Private.options={};
@@ -15,13 +15,13 @@ function Class() {
 	
 	
 	Public.init = function(options) {
-		eval(this.eval);
+		var _ = this;
 		_.options=options;
 		_.pageManager = new PageManager(new Animator());
 	};
 	
 	Public.initialize = function() {
-		eval(this.eval);
+		var _ = this;
 		/*var div = document.createElement("div");
 		 div.className += _.classes.foreground_page;
 		 div.id = unescape(location.href);
@@ -49,7 +49,7 @@ function Class() {
 		}
 	
 	Public.setOptions=function(options){
-		eval(this.eval);
+		var _ = this;
 		_.options=options;
 	}
 };

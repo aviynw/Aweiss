@@ -6,14 +6,14 @@
 
 	DEFINE(name, Class, importList);
 
-	function Class() {
-		eval(this.eval);
+	function Class(){
+	eval(this.eval);
 		Static.Private.loadingResources = {};
 		Static.Private.pastDownloads = [];
 		Static.Private.stage=null;
 		
 		Static.Public.init=function(){
-			eval(this.eval);
+			var _ = this;
 			_model.stage=FrameManager.getFrame();	
 		}
 		
@@ -55,24 +55,24 @@
 			}
 		
 		Static.Public.downloadDocAndDeps = function(url, callback) {
-			eval(this.eval);
+			var _ = this;
 			_model.downloadAsType(url, 'document', function(doc){
 				_model.downloadDeps(doc);
 			});
 		}
 
 		Static.Public.downloadDoc = function(url, callback){
-			eval(this.eval);
+			var _ = this;
 			_model.downloadAsType(url, 'document', callback);
 		}
 		
 		Static.Public.Async.download = function(url, callback) {
-			eval(this.eval);
+			var _ = this;
 			_model.downloadAsType(url, null, callback);
 		};
 		
 		Static.Private.downloadAsType = function(url, responseType, callback) {
-			eval(this.eval);
+			var _ = this;
 			EventManager.addListener(ResourceDownloadedEvent.getEventType(url), function(e){
 				if(callback!=null){
 					callback(e.content);
@@ -94,17 +94,17 @@
 		 };*/
 
 		Static.Private.isResourceLoading = function(url) {
-			eval(this.eval);
+			var _ = this;
 			return (_model.loadingResources[url]);
 		};
 		
 		Static.Private.markLoading=function(url, val){
-			eval(this.eval);
+			var _ = this;
 			_model.loadingResources[url]=val;
 		}
 		
 		Static.Private.retrieve = function(url, asynchronous, responseType, callback) {
-			eval(this.eval);
+			var _ = this;
 			/*var content;
 			 _model.markResourceLoading(url);
 			 var frame = ResourceManager.add(url, ready);

@@ -7,14 +7,14 @@ function Class(){
 	eval(this.eval);
 	
 	Static.Public.init=function(){
-		eval(this.eval);
-		_model._super('Page_Downloaded_');
+		var _ = this;
+		_model.this.super('Page_Downloaded_');
 	}
 	
 	Public.init = function(url){
 		//debugger;
-		eval(this.eval);
-		this._super(url);
+		var _ = this;
+		this.this.super(url);
 	};
 }
 })();

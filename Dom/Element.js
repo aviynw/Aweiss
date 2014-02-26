@@ -6,12 +6,12 @@
 
 	DEFINE(name, Class, importList);
 
-	function Class() {
-		eval(this.eval);
+	function Class(){
+	eval(this.eval);
 		Public.element=null;
 		
 		Public.Get.isOnStage = function() {
-			eval(this.eval);
+			var _ = this;
 			return Tools.isInDocument(_.element);
 	}
 	}

@@ -9,7 +9,7 @@ function Class(){
 	eval(this.eval);
 	
 	Static.Public.assert=function(statement){
-		eval(this.eval);
+		var _ = this;
 		if(!statement){
 			throw new Error('assertion failed');
 		}

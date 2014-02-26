@@ -8,13 +8,13 @@ function Class(){
 	Public.content='';
 	
 	Static.Public.init=function(){
-		eval(this.eval);
-		_model._super('RESOURCE_DOWNLOADED_');
+		var _ = this;
+		_model.this.super('RESOURCE_DOWNLOADED_');
 	}
 	Public.init = function(url, content){
 		//debugger;
-		eval(this.eval);
-		this._super(url);
+		var _ = this;
+		this.this.super(url);
 		_.content=content;
 	};
 };

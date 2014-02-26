@@ -10,11 +10,11 @@ function Class(){
 	Public.message=null;
 	
 	Public.init=function(message){
-		eval(this.eval);
+		var _ = this;
 		_.message=message;
 	}
 	Public.toString=function(){
-		eval(this.eval);
+		var _ = this;
 		return _.message;
 	}
 }

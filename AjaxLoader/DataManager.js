@@ -13,33 +13,33 @@ function Class(){
 	Static.Public.initiatorWindow=null;
 	
 	Static.Public.init=function(){
-		eval(this.eval);
+		var _ = this;
 		_model.initiatorWindow=_model.getWindowByName(_model.initiatorName);
 		_model.initiatorWindow[_model.contextName]={};
 	}
 	
 	Static.Private.getWindowByName = function(name){
-		eval(this.eval);
+		var _ = this;
 		return Tools.getWindowByName(_model.contextualizeName(name));
 	}
 	
 	Static.Private.setWindowName = function(theWindow, name){
-		eval(this.eval);
+		var _ = this;
 		theWindow.name=_model.contextualizeName(name);
 	}
 	
 	Static.Private.contextualizeName = function(name){
-		eval(this.eval);
+		var _ = this;
 		return _model.contextName+name;
 	}
 	
 	Static.Public.getItem=function(itemName, id){
-		eval(this.eval);
+		var _ = this;
 		return _model.getContext(id)[itemName];
 	}
 	
 	Static.Public.getContext = function(id){
-		eval(this.eval);
+		var _ = this;
 		id=unescape(id);
 		try{
 			var context = _model.initiatorWindow[_model.contextName];
@@ -59,23 +59,23 @@ function Class(){
 	}
 	
 	Static.Public.removeItem=function(itemName, id){
-		eval(this.eval);
+		var _ = this;
 		_model.setItem(itemName,null,id);
 	}
 	
 	Static.Public.clearContext = function(id){
-		eval(this.eval);
+		var _ = this;
 		_model.setContext(null, id);
 	}
 	
 	Static.Public.setItem=function(itemName, obj, id){
-		eval(this.eval);
+		var _ = this;
 		var context = _model.getContext(id);
 		context[itemName]=obj;
 	}
 	
 	Static.Public.setContext=function(context, id){
-		eval(this.eval);
+		var _ = this;
 		id=unescape(id);
 		if(_model.initiatorWindow[_model.contextName]==null){
 			_model.initiatorWindow[_model.contextName]={};

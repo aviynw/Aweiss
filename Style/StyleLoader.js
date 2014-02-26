@@ -6,13 +6,13 @@ var importList = ['Aweiss.Utils.Tools', 'Aweiss.Style.Style'];
 
 DEFINE(name, Class, importList);
 
-function Class() {
+function Class(){
 	eval(this.eval);
 	Private.loadingSheets = 0;
 	Private.sheets = new Array();
 	
 	Public.removeSheet=function(styleSheet) {
-		eval(this.eval);
+		var _ = this;
 		styleSheet.style.parentNode.removeChild(styleSheet.style);
 
 		var numberToRemove = 0;
@@ -40,7 +40,7 @@ function Class() {
 	}
 
 	Public.getSheet=function(name) {
-		eval(this.eval);
+		var _ = this;
 		for (var i=0;i<_.sheets.length;i++) {
 			var sheet = _.sheets[i];
 			if (sheet.name == name) {
@@ -50,7 +50,7 @@ function Class() {
 	}
 	
 	Public.addBaseStyle = function(name, data) {
-		eval(this.eval);
+		var _ = this;
 		_.loadingSheets += 1;
 		this.addStyle(name, data, function() {
 			_.loadingSheets -= 1;
@@ -58,7 +58,7 @@ function Class() {
 	};
 	
 	Public.addStyle = function(name, data, callBack) {
-		eval(this.eval);
+		var _ = this;
 		var sheetToBeRemoved = _.getSheet(name);
 		if (sheetToBeRemoved) {
 			_.removeSheet(sheetToBeRemoved, name);
@@ -164,7 +164,7 @@ function Class() {
 	};
 
 	Public.allCssLoading = function(callback) {
-		eval(this.eval);
+		var _ = this;
 		// alert('_.sheets loading at start'+_.loadingSheets);
 		var fi = window.setInterval(function() {
 			if (_.loadingSheets == 0) {

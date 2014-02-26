@@ -2,7 +2,7 @@
 var importList = [];
 DEFINE('Aweiss.Test.Test', Class, importList);
 
-function Class() {
+function Class(){
 	eval(this.eval);
 	
 	//Private.a=null;
@@ -13,23 +13,23 @@ function Class() {
 	Private.p='p';
 	Private.p2=function(){}
 	Public.init=function(a){
-		eval(this.eval);
+		var _ = this;
 	}
 	
 	PackagePriv.Get.a=function(){
-		eval(this.eval);
+		var _ = this;
 		var p='p';
 		return _.maskedA;
 		};
 		
 	PackagePriv.Set.a=function(l){
-		eval(this.eval);
+		var _ = this;
 		var p='p';
 		_.maskedA= Math.random();
 		};
 		
 	Public.Get.k=function(){
-		eval(this.eval);
+		var _ = this;
 		window.setTimeout(function(){
 			var p='p';
 			var k = _;
@@ -39,11 +39,11 @@ function Class() {
 		};
 		
 	Public.Set.k=function(l){
-		eval(this.eval);
+		var _ = this;
 		_.maskedA= l;
 		};
 	Public.potato=function(l){
-		eval(this.eval);
+		var _ = this;
 		var p='p';
 		};
 	Public.test=function(testArg){

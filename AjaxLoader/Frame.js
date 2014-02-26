@@ -8,8 +8,8 @@
 		'extends' : 'Aweiss.Dom.Element'
 	});
 
-	function Class() {
-		eval(this.eval);
+	function Class(){
+	eval(this.eval);
 
 		Public.id = null;
 		Public.url = null;
@@ -20,12 +20,12 @@
 		Private.pendingEvents=[];
 		
 		Private.stop = function() {
-			eval(this.eval);
+			var _ = this;
 			_.win.stop();
 		};
 
 		Public.init = function(id, url) {
-			eval(this.eval);
+			var _ = this;
 			_.element = new Element('iframe', {
 				seamless : 'seamless'
 			});
@@ -35,7 +35,7 @@
 		}
 
 		/*Private.initOnBeforeLoad = function() {
-			eval(this.eval);
+			var _ = this;
 			_.onBeforeLoad(function() {
 				//debugger;
 				switch(_.loadType){
@@ -53,92 +53,92 @@
 		}*/
 
 		Public.Get.url = function() {
-			eval(this.eval);
+			var _ = this;
 			if (_.element != null) {
 				return _.element.src;
 			}
 		}
 
 		Public.Set.url = function(url) {
-			eval(this.eval);
+			var _ = this;
 			if (url != null) {
 				_.element.src = url;
 			}
 		}
 
 		Public.Get.id = function() {
-			eval(this.eval);
+			var _ = this;
 			if (_.element != null) {
 				return _.element.id
 			}
 		}
 
 		Public.Set.id = function(id) {
-			eval(this.eval);
+			var _ = this;
 			_.element.id = id;
 		}
 
 		Public.Get.win = function() {
-			eval(this.eval);
+			var _ = this;
 			if (_.element != null) {
 				return _.element.contentWindow;
 			}
 		}
 
 		Public.Get.doc = function() {
-			eval(this.eval);
+			var _ = this;
 			if (_.element != null) {
 				return _.element.contentDocument;
 			}
 		}
 
 		Public.Set.doc = function(doc) {
-			eval(this.eval);
+			var _ = this;
 			_.element.contentdoc = doc;
 		}
 
 		Public.Get.docElement = function() {
-			eval(this.eval);
+			var _ = this;
 			if (_.doc != null) {
 				return _.doc.documentElement;
 			}
 		}
 
 		Public.Set.docElement = function(newDocElement) {
-			eval(this.eval);
+			var _ = this;
 			//_.doc.removeChild(_.doc.documentElement);
 			//_.doc.importNode(newDocElement, true); //doesn't work
 			_.doc.replaceChild(newDocElement, _.doc.documentElement);
 		}
 
 		Private.onBeforeLoad = function(callback) {
-			eval(this.eval);
+			var _ = this;
 			_.onEvent('iframeLoaded', callback);
 		}
 		
 		Public.onRender=function(callback){
-			eval(this.eval);
+			var _ = this;
 			_.onEvent('iframeRendered', callback);
 		}
 		
 		Public.onReady=function(callback){
-			eval(this.eval);
+			var _ = this;
 			_.onEvent('iframeReady', callback);
 			_.element.ready=callback;
 		}
 		
 		Public.onLoad=function(callback){
-			eval(this.eval);
+			var _ = this;
 			_.onEvent('iframeLoaded', callback);
 		}
 		
 		Public.onComplete=function(callback){
-			eval(this.eval);
+			var _ = this;
 			_.onEvent('iframeCompleted', callback);
 		}
 		
 		Private.onEvent=function(eventName, callback){
-			eval(this.eval);
+			var _ = this;
 			var eventName = "aweiss_ajax_load:"+eventName+'_'+ _.id;
 			function ready() {
 				window.removeEventListener(eventName, ready, true);
@@ -158,39 +158,39 @@
 			}
 		}
 		/*Private.alertReady=function() {
-		 	eval(this.eval);
+		 	var _ = this;
 			var event = doc.createEvent('CustomEvent');
 			event.initCustomEvent('aweiss_ajax_load:iframeReady_' + _.id, true, true, null);
 			window.dispatchEvent(event);
 		}*/
 		
 		Public.replaceDoc=function(doc){
-			eval(this.eval);
+			var _ = this;
 			//_.doc.documentElement.innerHTML=content;
 			_.docElement=doc.documentElement;
 		}
 		
 		Public.Get.loadType=function(){
-		 eval(this.eval);
+		 var _ = this;
 		 DataManager.getItem('type', _.id);
 		 }
 
 		 Private.Set.loadType=function(val){
-		 eval(this.eval);
+		 var _ = this;
 		 DataManager.setItem('type', val, _.id);
 		 }
 		 Public.setItem=function(obj, val){
-		 eval(this.eval);
+		 var _ = this;
 		 DataManager.setItem(obj, val, _.id);
 		 }
 
 		 Public.getItem=function(){
-		 eval(this.eval);
+		 var _ = this;
 		 DataManager.getItem(obj, _.id);
 		 }
 
 		/*Private.functionToScript = function(theFunction) {
-			eval(this.eval);
+			var _ = this;
 			var newScript = _.doc.createElement('script');
 			newScript.type = "text/javascript";
 			newScript.text = '('+theFunction.toString()+')();';
@@ -198,7 +198,7 @@
 		}
 
 		Public.loadDoc = function() {
-			eval(this.eval);
+			var _ = this;
 			ResourceManager.retrieve(_.url, ready, true);
 
 			function ready(content) {
@@ -228,7 +228,7 @@
 		}
 		
 		/*Private.write=function(content){
-		 eval(this.eval);
+		 var _ = this;
 		 /*var event = doc.createEvent('CustomEvent');
 		 event.initCustomEvent('aweiss_ajax_load:write_', false, true, {'content':content});
 		 _.win.dispatchEvent(event);

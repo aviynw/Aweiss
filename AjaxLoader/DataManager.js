@@ -14,35 +14,35 @@ function Class(){
 	
 	Static.Public.init=function(){
 		var _ = this;
-		_model.initiatorWindow=_model.getWindowByName(_model.initiatorName);
-		_model.initiatorWindow[_model.contextName]={};
+		_.static.initiatorWindow=_.static.getWindowByName(_.static.initiatorName);
+		_.static.initiatorWindow[_.static.contextName]={};
 	}
 	
 	Static.Private.getWindowByName = function(name){
 		var _ = this;
-		return Tools.getWindowByName(_model.contextualizeName(name));
+		return Tools.getWindowByName(_.static.contextualizeName(name));
 	}
 	
 	Static.Private.setWindowName = function(theWindow, name){
 		var _ = this;
-		theWindow.name=_model.contextualizeName(name);
+		theWindow.name=_.static.contextualizeName(name);
 	}
 	
 	Static.Private.contextualizeName = function(name){
 		var _ = this;
-		return _model.contextName+name;
+		return _.static.contextName+name;
 	}
 	
 	Static.Public.getItem=function(itemName, id){
 		var _ = this;
-		return _model.getContext(id)[itemName];
+		return _.static.getContext(id)[itemName];
 	}
 	
 	Static.Public.getContext = function(id){
 		var _ = this;
 		id=unescape(id);
 		try{
-			var context = _model.initiatorWindow[_model.contextName];
+			var context = _.static.initiatorWindow[_.static.contextName];
 		if(id!=null){
 			if(context[id]==null){
 				context[id]={};
@@ -60,27 +60,27 @@ function Class(){
 	
 	Static.Public.removeItem=function(itemName, id){
 		var _ = this;
-		_model.setItem(itemName,null,id);
+		_.static.setItem(itemName,null,id);
 	}
 	
 	Static.Public.clearContext = function(id){
 		var _ = this;
-		_model.setContext(null, id);
+		_.static.setContext(null, id);
 	}
 	
 	Static.Public.setItem=function(itemName, obj, id){
 		var _ = this;
-		var context = _model.getContext(id);
+		var context = _.static.getContext(id);
 		context[itemName]=obj;
 	}
 	
 	Static.Public.setContext=function(context, id){
 		var _ = this;
 		id=unescape(id);
-		if(_model.initiatorWindow[_model.contextName]==null){
-			_model.initiatorWindow[_model.contextName]={};
+		if(_.static.initiatorWindow[_.static.contextName]==null){
+			_.static.initiatorWindow[_.static.contextName]={};
 		}
-		var context = _model.initiatorWindow[_model.contextName];
+		var context = _.static.initiatorWindow[_.static.contextName];
 		if(id!=null){
 			context[id]=context;
 		}

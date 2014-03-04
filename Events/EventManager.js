@@ -15,20 +15,20 @@ function Class(){
 	
 	Static.Public.init=function(){
 		var _ = this;
-		_model.cumlativeListeners = new DirectedGraph();
-		_model.cumlativeListeners.setType('unidirectional');
-		_model.pastEvents = new js_cols.LinkedList();
+		_.static.cumlativeListeners = new DirectedGraph();
+		_.static.cumlativeListeners.setType('unidirectional');
+		_.static.pastEvents = new js_cols.LinkedList();
 	}
 	
 	Static.Public.addListener = function(eventType, todo, happenedMatters) {
 		var _ = this;
-		var todoList = _model.listeners[eventType];
+		var todoList = _.static.listeners[eventType];
 		if (todoList == null) {
-			_model.listeners[eventType] = new js_cols.LinkedList();
+			_.static.listeners[eventType] = new js_cols.LinkedList();
 		}
-		_model.listeners[eventType].addLast(todo);
+		_.static.listeners[eventType].addLast(todo);
 		if(happenedMatters===true){
-			_model.alertForPastEvents(eventType, _model.alertListeners);
+			_.static.alertForPastEvents(eventType, _.static.alertListeners);
 		}
 	};
 	
@@ -41,7 +41,7 @@ function Class(){
 				return false;
 			}
 		}
-		if (_model.pastEvents.containsPassingElement(test)) {
+		if (_.static.pastEvents.containsPassingElement(test)) {
 			return true;
 		}
 		else{
@@ -57,12 +57,12 @@ function Class(){
 				return false;
 			}
 		}
-		return _model.pastEvents.filter(test);
+		return _.static.pastEvents.filter(test);
 	};
 	
 	Static.Private.alertForPastEvents=function(eventType, alertFunction){
 		var _ = this;
-		var pastEventsOfType = _model.getPastEventsOfType(eventType);
+		var pastEventsOfType = _.static.getPastEventsOfType(eventType);
 		var lastEvent = pastEventsOfType[pastEventsOfType.length-1];
 		if(lastEvent!=null){
 			alertFunction(lastEvent);
@@ -75,7 +75,7 @@ function Class(){
 			result(event);
 		}
 		if (typeof result === 'string') {
-			_model.fire(new BaseEvent(result));
+			_.static.fire(new BaseEvent(result));
 		}
 	};
 	
@@ -92,46 +92,46 @@ function Class(){
 	
 	Static.Public.queueListener = function(eventType, todo) {
 		var _ = this;
-		_model.addToQueue(_model.queuedListeners, eventType, todo)
+		_.static.addToQueue(_.static.queuedListeners, eventType, todo)
 	};
 	
 	/*Static.Public.hasRelayedListeners = function(eventType){
-		var queue = _model.relayedListeners;
+		var queue = _.static.relayedListeners;
 		if(queue)
 	}*/
 	
 	Static.Public.queueRelayListener = function(eventType, todo) {
 		var _ = this;
-		var queueList = _model.relayedListeners;
-		var queue = _model.addToQueue(queueList, eventType, todo);
+		var queueList = _.static.relayedListeners;
+		var queue = _.static.addToQueue(queueList, eventType, todo);
 		if(queue.size==1){
 			queue.enqueue(function(e){
-				_model.alertRelayedListeners(e);
+				_.static.alertRelayedListeners(e);
 			});
-			_model.alertRelayedListeners(new BaseEvent(eventType, 'Fake Event.  listenered queued on empty queue, so running now.'));
+			_.static.alertRelayedListeners(new BaseEvent(eventType, 'Fake Event.  listenered queued on empty queue, so running now.'));
 		}
 	};
 	
 	Static.Public.addCumlativeListener = function(eventType, todo) {
 		var _ = this;
-		_model.cumlativeListeners.addNode(eventType);
-		_model.cumlativeListeners.addNode(todo);
-		_model.cumlativeListeners.addEdge(eventType, todo);
+		_.static.cumlativeListeners.addNode(eventType);
+		_.static.cumlativeListeners.addNode(todo);
+		_.static.cumlativeListeners.addEdge(eventType, todo);
 		/*if(happenedMatters===true){
-			alertForPastEvents(eventType, alert_model.cumlativeListeners);
+			alertForPastEvents(eventType, alert_.static.cumlativeListeners);
 		}*/
 	};
 
 	Static.Public.addCumlativeListeners= function(eventTypes, todo, happenedMatters) {
 		var _ = this;
-		_model.cumlativeListeners.addNodesFromArray(eventTypes);
-		_model.cumlativeListeners.addNode(todo);
+		_.static.cumlativeListeners.addNodesFromArray(eventTypes);
+		_.static.cumlativeListeners.addNode(todo);
 		for ( var i = 0; i < eventTypes.length; i++) {
-			_model.cumlativeListeners.addEdge(eventTypes[i], todo);
+			_.static.cumlativeListeners.addEdge(eventTypes[i], todo);
 		}
 		if(happenedMatters===true){
 			for ( var i = 0; i < eventTypes.length; i++) {
-				alertForPastEvents(eventType, alert_model.cumlativeListeners);
+				alertForPastEvents(eventType, alert_.static.cumlativeListeners);
 			};
 		};
 	};
@@ -155,15 +155,15 @@ function Class(){
 	
 	Static.Public.hasQueuedListener=function(eventType){
 		var _ = this;
-		return _model.listHasListener(eventType, _model.queuedListeners);
+		return _.static.listHasListener(eventType, _.static.queuedListeners);
 	}
 	
 	Static.Public.removeListener = function(eventType, todo) {
 		var _ = this;
-		_model.removeFromList(eventType, todo, _model.listeners);
-		_model.removeFromList(eventType, todo, _model.queuedListeners);
-		_model.removeFromList(eventType, todo, _model.cumlativeListeners);
-		_model.removeFromList(eventType, todo, _model.relayedListeners);
+		_.static.removeFromList(eventType, todo, _.static.listeners);
+		_.static.removeFromList(eventType, todo, _.static.queuedListeners);
+		_.static.removeFromList(eventType, todo, _.static.cumlativeListeners);
+		_.static.removeFromList(eventType, todo, _.static.relayedListeners);
 	};
 
 	Static.Private.removeFromList=function(eventType, todo, list) {
@@ -174,32 +174,32 @@ function Class(){
 
 	Static.Private.alert=function(event){
 		var _ = this;
-		_model.alertListeners(event);
-		_model.alertQueuedListeners(event);
-		_model.alertRelayedListeners(event);
-		_model.alertCumlativeListeners(event);
-		_model.pastEvents.addLast(event);
+		_.static.alertListeners(event);
+		_.static.alertQueuedListeners(event);
+		_.static.alertRelayedListeners(event);
+		_.static.alertCumlativeListeners(event);
+		_.static.pastEvents.addLast(event);
 	}
 	
 	Static.Public.fire = function(event) {
 		var _ = this;
-		_model.alert(event);
+		_.static.alert(event);
 		if(event instanceof DynamicEvent){
-			var generalEvent = new BaseEvent(event.__model.generalEventType, "General Event generated by:" + event.getEventType() +'Message:'+event.message);
-			_model.alert(generalEvent);
+			var generalEvent = new BaseEvent(event.__.static.generalEventType, "General Event generated by:" + event.getEventType() +'Message:'+event.message);
+			_.static.alert(generalEvent);
 		}
 		
 	};
 
 	Static.Private.alertListeners=function(event) {
 		var _ = this;
-		var todoList = _model.listeners[event.eventType];
+		var todoList = _.static.listeners[event.eventType];
 		if (todoList != null) {
-			var todoArray = _model.listeners[event.eventType].toArray();
-			_model.listeners[event.eventType] = null;
+			var todoArray = _.static.listeners[event.eventType].toArray();
+			_.static.listeners[event.eventType] = null;
 			for(var i=0;i<todoArray.length;i++) {
 				var todo = todoArray[i];
-				_model.handleEventResult(event, todo);
+				_.static.handleEventResult(event, todo);
 			};
 		};
 	};
@@ -209,36 +209,36 @@ function Class(){
 		var todoList = queue[event.eventType];
 		if (todoList != null) {
 			var todo = todoList.dequeue();
-			_model.handleEventResult(event, todo);
+			_.static.handleEventResult(event, todo);
 		};
 	}
 	
 	Static.Private.alertRelayedListeners=function(event) {
 		var _ = this;
-		return _model.alertQueue(_model.relayedListeners, event);
+		return _.static.alertQueue(_.static.relayedListeners, event);
 	};
 	
 	Static.Private.alertQueuedListeners=function(event) {
 		var _ = this;
-		return _model.alertQueue(_model.queuedListeners, event);
+		return _.static.alertQueue(_.static.queuedListeners, event);
 	};
 	
 	Static.Private.alertCumlativeListeners=function(event) {
 		var _ = this;
-		var potentialTodos = _model.cumlativeListeners.edgesFrom(event.eventType)
+		var potentialTodos = _.static.cumlativeListeners.edgesFrom(event.eventType)
 				|| [];
 		for ( var i = 0; i < potentialTodos.length; i++) {
-			_model.cumlativeListeners.removeEdge(event.eventType, potentialTodos[i]);
-			var edgesTo = _model.cumlativeListeners.edgesTo(potentialTodos[i]) || [];
+			_.static.cumlativeListeners.removeEdge(event.eventType, potentialTodos[i]);
+			var edgesTo = _.static.cumlativeListeners.edgesTo(potentialTodos[i]) || [];
 			if (edgesTo.length == 0) {
-				_model.handleEventResult(event, potentialTodos[i]);
-				_model.cumlativeListeners.removeNode(potentialTodos[i]);
+				_.static.handleEventResult(event, potentialTodos[i]);
+				_.static.cumlativeListeners.removeNode(potentialTodos[i]);
 			}
 			;
-			var leftoverTodos = _model.cumlativeListeners.edgesFrom(event.eventType)
+			var leftoverTodos = _.static.cumlativeListeners.edgesFrom(event.eventType)
 					|| [];
 			if (leftoverTodos.length == 0) {
-				_model.cumlativeListeners.removeNode(event.eventType);
+				_.static.cumlativeListeners.removeNode(event.eventType);
 			}
 			;
 		}

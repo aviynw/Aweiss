@@ -14,9 +14,9 @@
 		
 		Static.Public.init=function(){
 			var _ = this;
-			_model.usedFrames = new js_cols.LinkedList();
-			_model.freeFrames = new js_cols.LinkedList();
-			_model.createFrame();
+			_.static.usedFrames = new js_cols.LinkedList();
+			_.static.freeFrames = new js_cols.LinkedList();
+			_.static.createFrame();
 		}
 		
 		Static.Public.release=function(frame){
@@ -25,25 +25,25 @@
 			if(frame.document!=null){
 				frame.document.replaceChild(emptyNode, frame.document.documentElement);
 			}
-			_model.freeFrames.addLast(frame);
-			_model.usedFrames.remove(frame);
+			_.static.freeFrames.addLast(frame);
+			_.static.usedFrames.remove(frame);
 			DataManager.clearContext(frame.id);
 		}
 		
 		Static.Public.getFrame=function(){
 			var _ = this;
-			if(_model.freeFrames.size==0){
-				_model.createFrame();
+			if(_.static.freeFrames.size==0){
+				_.static.createFrame();
 			}
-			var frame = _model.freeFrames.removeLast();
-			_model.usedFrames.addLast(frame);
+			var frame = _.static.freeFrames.removeLast();
+			_.static.usedFrames.addLast(frame);
 			return frame
 		}
 		
 		Static.Private.createFrame = function() {
 			var _ = this;
-			var frame = new Frame(_model.counter++, null);
-			_model.freeFrames.addLast(frame);
+			var frame = new Frame(_.static.counter++, null);
+			_.static.freeFrames.addLast(frame);
 		}
 	}
 })(); 

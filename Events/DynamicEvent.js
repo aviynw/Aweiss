@@ -11,7 +11,7 @@ function Class(){
 	
 	Static.Public.init=function(generalEventType){
 		var _ = this;
-		_model.generalEventType=generalEventType;
+		_.static.generalEventType=generalEventType;
 	}
 	Public.init = function(specificEventType, message){
 		var _ = this;
@@ -24,15 +24,15 @@ function Class(){
 	
 	Public.getEventType=function(){
 		var _ = this;
-		return _model.getEventType(_this.specificEventType);
+		return _.static.getEventType(_this.specificEventType);
 	};
 	Static.Public.getEventType=function(specific){
 		var _ = this;
 		if(specific!=null&&specific!=""){
-			return _model.generalEventType+'_'+specific;
+			return _.static.generalEventType+'_'+specific;
 		}
 		else{
-			return _model.generalEventType;
+			return _.static.generalEventType;
 		}
 	}
 };

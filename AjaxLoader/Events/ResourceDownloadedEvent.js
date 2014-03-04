@@ -9,7 +9,7 @@ function Class(){
 	
 	Static.Public.init=function(){
 		var _ = this;
-		_model.this.super('RESOURCE_DOWNLOADED_');
+		_.static.this.super('RESOURCE_DOWNLOADED_');
 	}
 	Public.init = function(url, content){
 		//debugger;

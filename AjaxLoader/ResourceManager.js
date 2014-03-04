@@ -14,7 +14,7 @@
 		
 		Static.Public.init=function(){
 			var _ = this;
-			_model.stage=FrameManager.getFrame();	
+			_.static.stage=FrameManager.getFrame();	
 		}
 		
 		Static.Public.downloadDeps = function(doc){
@@ -34,7 +34,7 @@
 					addURL(backgroundImage);
 					
 					function addURL(url){
-						if(url!=null&&url!=""&&_model.pastDownloads.indexOf(url)==-1){
+						if(url!=null&&url!=""&&_.static.pastDownloads.indexOf(url)==-1){
 						if(Tools.isSameDomain(url)){
 							toDownload.push(url);
 							EventManager.addCumlativeListener(ResourceDownloadedEvent.getEventType(url), allDownloaded)
@@ -45,30 +45,30 @@
 				}
 				}
 				
-				// else if (!_model.allreadyDownloaded()) {
+				// else if (!_.static.allreadyDownloaded()) {
 				for (var i = 0; i < toDownload.length; i++) {
 					var url = toDownload[i];
-					if (!_model.isResourceLoading(url)) {
-						_model.retrieve(url, true);
+					if (!_.static.isResourceLoading(url)) {
+						_.static.retrieve(url, true);
 					}
 				}
 			}
 		
 		Static.Public.downloadDocAndDeps = function(url, callback) {
 			var _ = this;
-			_model.downloadAsType(url, 'document', function(doc){
-				_model.downloadDeps(doc);
+			_.static.downloadAsType(url, 'document', function(doc){
+				_.static.downloadDeps(doc);
 			});
 		}
 
 		Static.Public.downloadDoc = function(url, callback){
 			var _ = this;
-			_model.downloadAsType(url, 'document', callback);
+			_.static.downloadAsType(url, 'document', callback);
 		}
 		
 		Static.Public.Async.download = function(url, callback) {
 			var _ = this;
-			_model.downloadAsType(url, null, callback);
+			_.static.downloadAsType(url, null, callback);
 		};
 		
 		Static.Private.downloadAsType = function(url, responseType, callback) {
@@ -78,9 +78,9 @@
 					callback(e.content);
 				}
 				}, false);
-			// else if (!_model.allreadyDownloaded()) {
-			if (!_model.isResourceLoading(url)){
-				_model.retrieve(url, true, responseType);
+			// else if (!_.static.allreadyDownloaded()) {
+			if (!_.static.isResourceLoading(url)){
+				_.static.retrieve(url, true, responseType);
 			}
 			//else {
 			//if (callback != null) {
@@ -90,46 +90,46 @@
 		};
 
 		/*Static.Private.allreadyDownloaded = function(url) {
-		 return (_model.pastDownloads.indexOf(url) != -1);
+		 return (_.static.pastDownloads.indexOf(url) != -1);
 		 };*/
 
 		Static.Private.isResourceLoading = function(url) {
 			var _ = this;
-			return (_model.loadingResources[url]);
+			return (_.static.loadingResources[url]);
 		};
 		
 		Static.Private.markLoading=function(url, val){
 			var _ = this;
-			_model.loadingResources[url]=val;
+			_.static.loadingResources[url]=val;
 		}
 		
 		Static.Private.retrieve = function(url, asynchronous, responseType, callback) {
 			var _ = this;
 			/*var content;
-			 _model.markResourceLoading(url);
+			 _.static.markResourceLoading(url);
 			 var frame = ResourceManager.add(url, ready);
 
 			 function ready(iframe){
-			 if(_model.options.type=='rendered'){
-			 _model.Resources[url]=iframe.contentDocument.documentElement;
+			 if(_.static.options.type=='rendered'){
+			 _.static.Resources[url]=iframe.contentDocument.documentElement;
 			 }
-			 else if(_model.options.type='memory'){
-			 _model.Resources[url]=iframe.contentDocument.documentElement;
+			 else if(_.static.options.type='memory'){
+			 _.static.Resources[url]=iframe.contentDocument.documentElement;
 			 }
-			 else if(_model.options.type=="cached"){
+			 else if(_.static.options.type=="cached"){
 			 }
-			 _model.show(frame);
+			 _.static.show(frame);
 			 }
 
 			 DataManager.setItem(frame.contentWindow, 'type', 'stop');*/
-			/*_model.markLoading(url, true);
+			/*_.static.markLoading(url, true);
 			new Ajax.Request(url, {
 				method : 'get',
 				onSuccess : function(transport) {
 					var content = transport.responseText;
 					EventManager.fire(new ResourceDownloadedEvent(url, content));
-					_model.markLoading(url, false);
-					//_model.pastDownloads.push(url);
+					_.static.markLoading(url, false);
+					//_.static.pastDownloads.push(url);
 
 				},
 				onException : function(request, e) {
@@ -150,11 +150,11 @@ else{
 xhr.responseType=responseType;
 }
 xhr.onload = function() {
-//_model.pastDownloads.push(url);
+//_.static.pastDownloads.push(url);
 var content = this.response;
 
 EventManager.fire(new ResourceDownloadedEvent(url, content));
-_model.markLoading(url, false);
+_.static.markLoading(url, false);
 if(callback!=null){
 	callback();
 }

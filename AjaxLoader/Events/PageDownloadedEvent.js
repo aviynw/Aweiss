@@ -8,7 +8,7 @@ function Class(){
 	
 	Static.Public.init=function(){
 		var _ = this;
-		_model.this.super('Page_Downloaded_');
+		_.static.this.super('Page_Downloaded_');
 	}
 	
 	Public.init = function(url){

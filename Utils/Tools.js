@@ -91,6 +91,14 @@ Static.Public.unescapeXML=function(string){
 		}
 		return matches;
 	};	
+	Static.Public.values=function(obj){
+	var values=[];
+	for(key in obj) {
+		var value=obj[key];
+		values.push(value);
+	    }
+	return values;
+	}
 	
 	Static.Public.round=function(num, places){
 		

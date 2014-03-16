@@ -56,16 +56,51 @@ Static.Public.unescapeXML=function(string){
   Static.Public.isArray=function(obj) {
 		return Object.prototype.toString.apply(obj) === '[object Array]';
 	}
-	Static.Public.ie = ( function() {
-		var _ = this;
+	Static.Public.ie = IE=function(v) {
+			 var r = RegExp('msie' + (!isNaN(v) ? ('\\s' + v) : ''), 'i');
+			 return r.test(navigator.userAgent);
+	};
+	Static.Public.crossAjaxJson=function(req) {
+		var _=this;
+		var newReq={}
+		newReq.url=req.url;
+		if(req.success) newReq.success=function(data) { req.success(JSON.parse(data)) }
+		if(req.error) newReq.error=function(data) { req.error(JSON.parse(data)) }
+		if(req.always) newReq.always=function() { 	req.always() }
+		
+		_.static.crossAjax(newReq)
+		}
 
-			var undef, v = 3, div = document.createElement('div'), all = div.getElementsByTagName('i');
-
-			while (div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->', all[0]);
-
-			return v > 4 ? v : undef;
-
-		}());
+	Static.Public.crossAjax=function(req) {
+		var _=this;
+		var data=null;
+		var error=null;
+		var respond=function() {
+			if(data && req.success) req.success(data)
+			if(error && req.error) 	req.error(error)
+			if(req.always) req.always()
+		}
+		if (_.static.ie()) {
+			var xdr = new XDomainRequest();
+            xdr.open("get", req.url);
+            xdr.timeout = 3000;
+            xdr.onload= 	function() { data=xdr.responseText; respond();};
+	        xdr.onerror= 	function() { error="ERROR: XDomainRequest error"; 	respond();};
+	        xdr.ontimeout= 	function() { error="ERROR: XDomainRequest timeout"; respond();};
+	        xdr.onprogress=	function() {};
+            xdr.send();
+		} else {
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET', req.url, true);
+			xhr.timeout = 3000;
+			xhr.responseType = 'text';
+            xhr.onload= 	function() { if(xhr.status=='200') { data=xhr.responseText; } else error=xhr.responseText; respond();};
+	        xhr.onerror= 	function() { error=xhr.responseText; respond();};
+	        xhr.ontimeout= 	function() { error="ERROR: XMLHttpRequest timeout"; respond();};
+			xhr.send();
+		};
+	}
+	
 	
 	Static.Public.filter=function(obj, test){
 		var _ = this;

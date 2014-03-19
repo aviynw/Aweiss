@@ -12,7 +12,7 @@ function Class(){
 	}
 	
 	Public.init = function(url){
-		//debugger;
+		//;
 		var _ = this;
 		this.this.super(url);
 	};

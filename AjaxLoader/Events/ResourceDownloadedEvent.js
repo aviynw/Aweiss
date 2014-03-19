@@ -12,7 +12,7 @@ function Class(){
 		_.static.this.super('RESOURCE_DOWNLOADED_');
 	}
 	Public.init = function(url, content){
-		//debugger;
+		//;
 		var _ = this;
 		this.this.super(url);
 		_.content=content;

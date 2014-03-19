@@ -98,7 +98,7 @@
 			break;
 		}
 	}
-	debugger;
+	;
 	var contextName = 'aweiss_ajax_load_'
 	var initiatorName = contextName + 'initiator';
 	var initiatorWindow = getWindowByName(initiatorName);
@@ -195,7 +195,7 @@
 		
 		var writeEventName = "aweiss_ajax_load:write_";
 		function writeEvent(e) {
-			debugger;
+			;
 			var content = e.detail.content;
 			write(content);
 			window.removeEventListener(writeEventName, writeEvent);

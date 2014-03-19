@@ -94,7 +94,7 @@
 					}
 
 					if(i==null){
-						debugger
+						
 						i=0;
 					}
 					var script=scripts[i];
@@ -205,7 +205,7 @@
 		
 		Protected.replaceDoc=function(doc){
 			var _ = this;
-			//debugger;
+			//;
 			_.frame.replaceDoc(doc);
 			_.linksWatched=false;
 		}
@@ -240,9 +240,9 @@
 		
 		Public.render=function(inBackground, callback){
 			var _ = this;
-			debugger;
+			;
 			function rendered(){
-				//debugger;
+				//;
 				EventManager.fire(new PageRenderedEvent(_.url)); //do first or else if the callback waits for a pagerenderedevent, it will be executed for this page render
 				if(callback!=null){
 					callback();
@@ -280,7 +280,7 @@
 		}
 		}
 		else{
-			debugger;
+			;
 			EventManager.addListener(PageRenderedEvent.getEventType(_.url), rendered);
 		}
 		}
@@ -420,7 +420,7 @@
 			 links.each(function(element) {
 			 Event.observe(element, 'click', function(event) {
 			 //event.stop();
-			 debugger;
+			 ;
 			 event.preventDefault();
 			 // _.endAnimations();
 			 theFunction(element);

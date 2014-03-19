@@ -97,7 +97,7 @@
 			_.frame.docElement = _.savedDocElement
 			//_.frame.docElement =  _.doc.implementation.createHTMLDocument("").docElement;
 			//_.doc.body = _.doc.importNode(savedDoc.body, true);
-			debugger;
+			;
 			/*var elements = _.doc.getElementsByTagName('*');
 			 var toDownload = [];
 
@@ -108,15 +108,15 @@
 			 for (var i = 0; i < elements.length; i++) {
 			 var element = elements[i];
 			 element.onload=function(){
-			 debugger;
+			 ;
 			 alert('element loaded'+element.tagName+element.src+element.name);
 			 }
 			 element.onabort=function(){
-			 debugger;
+			 ;
 			 alert('element loaded'+element.tagName+element.src+element.name);
 			 }
 			 element.onerror=function(){
-			 debugger;
+			 ;
 			 alert('element loaded'+element.tagName+element.src+element.name);
 			 }
 			 }*/
@@ -126,7 +126,7 @@
 				_.win.dispatchEvent(customLoad);
 			}
 
-			function finished() { debugger;
+			function finished() { ;
 				/*function alertLoaded(){
 				 var load_event = _.doc.createEvent("HTMLEvents");
 				 load_event.initEvent("load", true, true);
@@ -159,7 +159,7 @@
 				_.doc.head.appendChild(script);
 			}
 
-			function addScripts(i) { debugger;
+			function addScripts(i) { ;
 				function nextScript() {
 					if (false) {
 						window.setTimeout(addScripts.bind(null, i + 1), 200);
@@ -284,7 +284,7 @@
 
 		Protected.replaceDoc = function(doc) {
 			var _ = this;
-			//debugger;
+			//;
 			_.frame.replaceDoc(doc);
 			_.linksWatched = false;
 		}
@@ -296,7 +296,7 @@
 
 		Protected.saveThis = function(docElement) {
 			var _ = this;
-			debugger;
+			;
 			_.savedDocElement = docElement;
 		}
 
@@ -346,7 +346,7 @@
 			var _ = this;
 			function rendered() {
 				//console.log('page rendered \n;');
-				//debugger;
+				//;
 				_.rendered = true;
 				if (callback != null) {
 					callback();
@@ -525,7 +525,7 @@
 				 links.each(function(element) {
 				 Event.observe(element, 'click', function(event) {
 				 //event.stop();
-				 debugger;
+				 ;
 				 event.preventDefault();
 				 // _.endAnimations();
 				 theFunction(element);

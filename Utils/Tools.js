@@ -64,12 +64,20 @@ Static.Public.unescapeXML=function(string){
 		var _=this;
 		var newReq={}
 		newReq.url=req.url;
-		if(req.success) newReq.success=function(data) { req.success(JSON.parse(data)) }
-		if(req.error) newReq.error=function(data) { req.error(JSON.parse(data)) }
-		if(req.always) newReq.always=function() { 	req.always() }
+		if(req.success) newReq.success=function(data) { 
+			req.success(JSON.parse(data));
+			};
+		if(req.error) newReq.error=function(data) { 
+			console.log('error');
+			req.error(JSON.parse(data)); 
+			};
+		if(req.always) newReq.always=function() { 	
+			console.log('always');
+			req.always() ;
+			};
 		
-		_.static.crossAjax(newReq)
-		}
+		_.static.crossAjax(newReq);
+		};
 
 	Static.Public.crossAjax=function(req) {
 		var _=this;
@@ -77,10 +85,15 @@ Static.Public.unescapeXML=function(string){
 		var error=null;
 		var respond=function() {
 			if(data && req.success) req.success(data)
-			if(error && req.error) 	req.error(error)
-			if(req.always) req.always()
+			if(error && req.error) 	{
+				console.log(error);
+				req.error(error);
+			}
+			if(req.always) {
+				req.always();
+			}
 		}
-		if (_.static.ie()) {
+		if (_.static.ie(8)||_.static.ie(9)||_.static.ie(7)||_.static.ie(6)) {
 			var xdr = new XDomainRequest();
             xdr.open("get", req.url);
             xdr.timeout = 3000;
@@ -99,7 +112,7 @@ Static.Public.unescapeXML=function(string){
 	        xhr.ontimeout= 	function() { error="ERROR: XMLHttpRequest timeout"; respond();};
 			xhr.send();
 		};
-	}
+	};
 	
 	
 	Static.Public.filter=function(obj, test){
@@ -137,7 +150,7 @@ Static.Public.unescapeXML=function(string){
 	
 	Static.Public.round=function(num, places){
 		
-	}
+	};
 	
 	Static.Public.addProperties=function(obj1, obj2, test) {
 		obj2 = obj2 || [];

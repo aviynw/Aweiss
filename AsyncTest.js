@@ -28,7 +28,7 @@ function Class(){
 	
 	Public.Async.test2=function(q){
 		var _ = this
-		debugger;
+		;
 		var test2 = new Test2();
 		var q = test2.q()
 		return test2.r(function(e){

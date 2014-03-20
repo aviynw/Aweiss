@@ -145,7 +145,7 @@
 			//EventManager.queueRelayListener(PageRenderedEvent.getEventType(""), newPage.render.bind(null, true, null));
 			//newPage.render(true);
 			/*newPage.download(function(){
-				debugger;
+				;
 				/*EventManager.queueRelayListener(PageRenderedEvent.getEventType(""), function(){
 					window.setTimeout(newPage.render.bind(null, true), 1);
 					}, true);*
@@ -199,7 +199,7 @@
 						_.appearPage(page, pageReady);
 					}
 					else{
-						//debugger;
+						//;
 						page.bringToForeground();
 						pageReady();
 					}
@@ -261,7 +261,7 @@
 
 		Private.appearPage = function(page, callback) {
 			var _ = this;
-			//debugger;
+			//;
 			if (_.destinationPage == Page) {
 				if (callback != null) {
 					callback();
@@ -272,7 +272,7 @@
 				}
 			} else {
 				_.animator.transition(_.currentPage, page, function() {
-					//debugger;
+					//;
 					var oldPage = _.currentPage;
 					var newPage = page;
 					newPage.bringToForeground();

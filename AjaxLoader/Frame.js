@@ -37,7 +37,7 @@
 		/*Private.initOnBeforeLoad = function() {
 			var _ = this;
 			_.onBeforeLoad(function() {
-				//debugger;
+				//;
 				switch(_.loadType){
 					case 'stop':
 					_.stop();
@@ -202,7 +202,7 @@
 			ResourceManager.retrieve(_.url, ready, true);
 
 			function ready(content) {
-				debugger;
+				;
 				_.loadType='null';
 				/*var initiatorString = 'initiator.js" type="text\/javascript"><\/script>'
 				var initiatorIndex = content.indexOf(initiatorString);

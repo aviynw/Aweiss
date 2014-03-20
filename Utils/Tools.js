@@ -65,6 +65,7 @@ Static.Public.unescapeXML=function(string){
 		var newReq={}
 		newReq.url=req.url;
 		if(req.success) newReq.success=function(data) { 
+			console.log('success');
 			req.success(JSON.parse(data));
 			};
 		if(req.error) newReq.error=function(data) { 

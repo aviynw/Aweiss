@@ -73,21 +73,29 @@ Static.Public.unescapeXML=function(string){
 
 	Static.Public.crossAjax=function(req) {
 		var _=this;
+		var myLoc=window.location.href.match(/http:\/\/.*?\//gi)
+		var reqLoc=req.url.match(/http:\/\/.*?\//gi)
+		xOrigin=true
+		
+		if(myLoc && reqLoc) { if(myLoc[0]==reqLoc[0]) xOrigin=false;}
+		
 		var data=null;
 		var error=null;
 		var respond=function() {
+			
 			if(data && req.success) req.success(data)
 			if(error && req.error) 	req.error(error)
 			if(req.always) req.always()
 		}
-		if (_.static.ie()) {
+		if (_.static.ie() && xOrigin) {
 			var xdr = new XDomainRequest();
-            xdr.open("get", req.url);
+            xdr.open("GET", req.url);
             xdr.timeout = 3000;
-            xdr.onload= 	function() { data=xdr.responseText; respond();};
-	        xdr.onerror= 	function() { error="ERROR: XDomainRequest error"; 	respond();};
+            
+            xdr.onload= 	function() { data=xdr.responseText;	respond();};
+	        xdr.onerror= 	function() { error="ERROR: XDomainRequest error"; respond();};
 	        xdr.ontimeout= 	function() { error="ERROR: XDomainRequest timeout"; respond();};
-	        xdr.onprogress=	function() {};
+	        xdr.onprogress=	function() { console.log("PROGRASS")};
             xdr.send();
 		} else {
 			var xhr = new XMLHttpRequest();

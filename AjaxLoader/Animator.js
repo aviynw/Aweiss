@@ -4,22 +4,24 @@
 
 	var name = 'Aweiss.AjaxLoader.Animator';
 
-	DEFINE(name, Class, importList);
+	OOPS.DEFINE(name, Class, importList);
 
-	function Class(){
-	eval(this.eval);
+	function Class() {
+eval(this.magic);
+(function(){
+'use strict';
 		Private.transitionAnimations = null;
 		Private.events = {
 			ANIMATION_DONE : 'ANIMATION_DONE'
 		};
 		
 		Public.init = function() {
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			_.transitionAnimations = new S2.FX.Queue();
 		}
 
 		Public.transition = function(oldPage, newPage, callback) {
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			function done() {
 				if (callback != null) {
 					callback();
@@ -50,7 +52,7 @@
 		}
 
 		Private.endAnimations = function() {
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			if (activeAnimations.active()) {
 				var effects = activeAnimations.getEffects();
 				var effectsToCancel = [];
@@ -64,7 +66,7 @@
 					activeAnimations.remove(effectsToCancel[i]);
 				}
 			}
-		};
+		}})();
 
 		/*$$('div').each(function(box, i) {
 		 box.morph('left:10px; right:10px', {

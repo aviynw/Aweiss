@@ -1,22 +1,24 @@
 (function(){
 var importList = ['Aweiss.Test2'];
-DEFINE('Aweiss.AsyncTest', Class, importList);
+OOPS.DEFINE('Aweiss.AsyncTest', Class, importList);
 
-function Class(){
-	eval(this.eval);
-	Static.Public.obj={
+function Class() {
+eval(this.magic);
+(function(){
+'use strict';
+	Public.Static.obj={
 		b:'b'
 	};
-	Static.Public.staticFunction=function(){
+	Public.Static.staticFunction=function(){
 		var a='a';
 	}
 	
 	Public.init=function(a){
-		var _ = this;
+		var _ = this.magic ? eval(this.magic) : this;
 	}
 	
 	Public.Async.test=function(p, callback){
-		var _ = this
+		var _ = this.magic ? eval(this.magic) : this;
 		if(false){
 			callback('potato');		
 		}
@@ -27,7 +29,7 @@ function Class(){
 	}
 	
 	Public.Async.test2=function(q){
-		var _ = this
+		var _ = this.magic ? eval(this.magic) : this;
 		;
 		var test2 = new Test2();
 		var q = test2.q()
@@ -37,7 +39,7 @@ function Class(){
 	}
 	
 	Public.test3=function(q){
-		var _ = this
+		var _ = this.magic ? eval(this.magic) : this;
 		return 'AsyncTEST3'+q;
 	}
 };

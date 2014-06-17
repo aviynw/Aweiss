@@ -6,19 +6,19 @@
 
 	var name = 'Aweiss.AjaxLoader.ManagedPage';
 
-	DEFINE(name, Class, importList, {'extends':'Aweiss.AjaxLoader.Page'});
+	OOPS.DEFINE(name, Class, importList, {'extends':'Aweiss.AjaxLoader.Page'});
 
 	function Class() {
 		
 	/*Public.addToBackground = function(){
-		var _ = this;
+		var _ = this.magic ? eval(this.magic) : this;
 		//;
 		_.bringToBackground();
 		//_.render(true);
 	}*/
 	
 	/*Public.remove = function() {
-		var _ = this;
+		var _ = this.magic ? eval(this.magic) : this;
 		this.super.remove();
 		/*_.clearMemory();
 		FrameManager.release(_.frame);
@@ -27,13 +27,13 @@
 	}*/
 	
 	/*Public.addToForeground = function(){
-		var _ = this;
+		var _ = this.magic ? eval(this.magic) : this;
 		_.bringToForeground();
 		_.addToStage();
 	}*/
 	
 	Public.bringToForeground = function() {
-		var _ = this;
+		var _ = this.magic ? eval(this.magic) : this;
 		if (_.isBackgroundPage) {
 			_.element.removeClassName(_.classes.background_page);
 		}
@@ -43,7 +43,7 @@
 	}
 
 	Public.bringToBackground = function() {
-		var _ = this;
+		var _ = this.magic ? eval(this.magic) : this;
 		if (_.isForegroundPage) {
 			_.element.removeClassName(_.classes.foreground_page);
 		}
@@ -53,12 +53,12 @@
 	}
 
 	Public.Get.isBackgroundPage = function() {
-		var _ = this;
+		var _ = this.magic ? eval(this.magic) : this;
 		return _.element.hasClassName(_.classes.background_page);
 	}
 
 	Public.Get.isForegroundPage = function() {
-		var _ = this;
+		var _ = this.magic ? eval(this.magic) : this;
 		return _.element.hasClassName(_.classes.foreground_page);
 	}
 	

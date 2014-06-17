@@ -7,10 +7,12 @@
 
 	var name = 'Aweiss.AjaxLoader.PageManager';
 
-	DEFINE(name, Class, importList);
+	OOPS.DEFINE(name, Class, importList);
 
-	function Class(){
-	eval(this.eval);
+	function Class() {
+eval(this.magic);
+(function(){
+'use strict';
 
 		Private.pages = {};
 		Private.currentPage = null;
@@ -24,7 +26,7 @@
 		Private.pageBeingRendered=null;
 
 		Public.init = function(animator) {
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			_.animator = animator;
 
 			window.onpopstate = function(event) {
@@ -35,7 +37,7 @@
 		}
 
 		Private.changeToHead = function(page) {
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			function isNotRequired() {
 				_.match = function(element) {
 					if (element.hasClassName('aweiss_ajax_load_required')) {
@@ -85,19 +87,19 @@
 		};
 
 		Public.removePage = function(id) {
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			page.removeFromStage();
 			_.pages[id] = null;
 		}
 
 		Private.createPage = function(url) {
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			var newPage = new ManagedPage(url, true);
 			return newPage
 		}
 
 		Public.addPage = function(url) {
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			url = unescape(url);
 			var newPage;
 			if(_.pages[url]!=null){
@@ -111,18 +113,18 @@
 		}
 		
 		Public.removePage=function(url){
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			_.page[url]=null;
 		}
 		
 		/*Public.removeBackgroundPage=function(url){
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			var page = _.pages[url];
 			page.removeFromStage();
 		}
 		
 		ublic.bringToBackground = function(page) {
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			page.bringToBackground();
 			page.setOpacity(1);
 			page.hide();
@@ -130,14 +132,14 @@
 		}
 
 		Public.bringToForeground = function(page, callback) {
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			page.bringToForeground();
 			page.setOpacity(1);
 			page.show();
 		}*/
 
 		Public.addBackgroundPage = function(url) {
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			if(_.pages[url]==null){
 			var newPage = _.addPage(url);
 			newPage.bringToBackground();
@@ -156,7 +158,7 @@
 		}
 		
 		Private.addBackgroundPages = function(urls) {
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			for(var i=0;i<urls.length;i++){
 				var url=urls[i];
 				_.addBackgroundPage(url);
@@ -164,14 +166,14 @@
 		};
 		
 		Public.getPage = function(id) {
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			return _.pages[id];
 		}
 
 
 
 		Public.setCurrentPage = function(url, pushState) {
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			var page=_.pages[url];
 			if(page==null){
 				page=_.addPage(url);
@@ -226,7 +228,7 @@
 		};
 		
 		Private.initPage=function(page){
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			_.changeToHead(page);
 			var urls = page.getLinkUrls();
 			_.addBackgroundPages(urls);
@@ -235,7 +237,7 @@
 		}
 		
 		Private.removeAllBut=function(urls){
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			for(var pageid in _.pages){
 				var page =_.pages[pageid];
 				if(urls.indexOf(page.url)==-1){
@@ -248,19 +250,19 @@
 		}
 		
 		Private.setDestination = function(destination) {
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			//var initiatorWindow = _.getInitiatorWindow();
 			destination = unescape(destination);
 			DataManager.setItem('destination', destination);
 		}
 
 		Private.getDestination = function() {
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			return DataManager.getItem('destination');
 		}
 
 		Private.appearPage = function(page, callback) {
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			//;
 			if (_.destinationPage == Page) {
 				if (callback != null) {
@@ -283,7 +285,7 @@
 		}
 
 		Private.watchForUnload = function(page) {
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			page.onLinkClick(function(element) {
 				_.setCurrentPage(unescape(element.href), true);
 			});
@@ -291,7 +293,7 @@
 		}
 
 		Private.copyAndSwitch = function(oldPage) {
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			var oldWin = oldPage.window;
 			var destination = _.getDestination();
 			var originalLocation = oldWin.location.href;
@@ -369,7 +371,7 @@
 			 req.open("GET", 'http://localhost/~avi2/ajax_load/About%20Me.html', false);
 			 req.send(null);
 			 }*/
-		}
+		}})();
 		/*var newDoc = newPage.contentWindow.document;
 		 newDoc.open();
 		 newDoc.write(_.pages[url]);

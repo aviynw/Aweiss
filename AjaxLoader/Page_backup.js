@@ -5,10 +5,12 @@
 
 	var name = 'Aweiss.AjaxLoader.Page';
 
-	DEFINE(name, Class, importList, {'extends':'Aweiss.Dom.Element'});
+	OOPS.DEFINE(name, Class, importList, {'extends':'Aweiss.Dom.Element'});
 
-	function Class(){
-	eval(this.eval);
+	function Class() {
+eval(this.magic);
+(function(){
+'use strict';
 
 		Public.originalUrl = '';
 		Public.currentUrl = '';
@@ -26,7 +28,7 @@
 		Public.rendering=false;
 		
 		Public.init = function(originalUrl) {
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			_.originalUrl = originalUrl;
 			_.url = originalUrl;
 			_.element = new Element('span', {});
@@ -34,12 +36,12 @@
 		}
 
 		/*Public.preDownload = function(callback) {
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			ResourceManager.download(_.url, callback);
 		}*/
 		
 		Public.download=function(callback){
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			ResourceManager.downloadDocAndDeps(_.url, function(doc){
 				_.saveThis(doc.documentElement);
 				if(callback!=null){
@@ -49,7 +51,7 @@
 		}
 		
 		Protected.initFrame = function() {
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			_.frame = FrameManager.getFrame();
 			_.frame.url = _.url;
 			_.element.insert({
@@ -58,7 +60,7 @@
 		}
 
 		Protected.loadFromSave = function(inBackground) {
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			if(inBackground==null){
 				inBackground=false;
 			}
@@ -196,7 +198,7 @@
 		}
 		
 		Protected.loadFromCache = function(inBackground) {
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			_.download(addContent);
 			function addContent(){
 				_.loadFromSave(inBackground);
@@ -204,42 +206,42 @@
 		}
 		
 		Protected.replaceDoc=function(doc){
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			//;
 			_.frame.replaceDoc(doc);
 			_.linksWatched=false;
 		}
 		
 		Protected.save = function() {
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			_.savedDocElement = _.frame.docElement;
 		}
 		
 		Protected.saveThis = function(docElement) {
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			_.savedDocElement = docElement;
 		}
 
 		Protected.Get.hasSave = function() {
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			return _.savedDocElement != null
 		}
 
 		Public.clearSave = function() {
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			_.savedDocElement = null;
 		}
 		
 		Public.downloadToCache=function(){
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 		}
 		
 		Public.downloadToSave=function(){
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 		}
 		
 		Public.render=function(inBackground, callback){
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			;
 			function rendered(){
 				//;
@@ -286,20 +288,20 @@
 		}
 		
 		Protected.addInBackground=function(){
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			_.linksWatched=false;
 			_.hasExecuted=false;
 			_.addToStage();
 		}
 		
 		Protected.addInForeground=function(){
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			_.hasExecuted=true;
 			_.addToStage();
 		}
 		
 		Protected.addToStage = function() {
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 				$$('body')[0].insert({
 					'top' : _.element
 				});
@@ -320,40 +322,40 @@
 			} 
 
 		Public.show = function(page) {
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			_.element.setStyle({
 				display : 'inline'
 			});
 		};
 
 		Public.hide = function(page) {
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			_.element.setStyle({
 				display : 'none'
 			});
 		};
 
 		Public.setOpacity = function(page, num) {
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			_.element.setStyle({
 				opacity : 1
 			});
 		};
 
 		Protected.removeFromStage = function() {
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			if(_.isOnStage){
 			$(_.element).remove();
 		}
 		}
 
 		Public.clearMemory = function() {
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			_.savedDocElement = null;
 		}
 
 		Public.isMatchingLink = function(link, includeHashes) {
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			if (Tools.isLinkSameDomain(link)&&link.href.indexOf('view=event')==-1) {
 				if (!includeHashes && link.hash != "") {
 					return false;
@@ -366,7 +368,7 @@
 		}
 
 	Public.getLinks = function(includeHashes) {
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			var links = [];
 		
 		/*var linkWrapper = _.document.body;
@@ -388,7 +390,7 @@
 	}
 	
 	Public.getLinkUrls=function(includeHashes){
-		var _ = this;
+		var _ = this.magic ? eval(this.magic) : this;
 		var links = _.getLinks(includeHashes);
 		var urls=[];
 		for(var i=0;i<links.length;i++){
@@ -400,7 +402,7 @@
 	}
 	
 	Protected.onBeforeUnload = function(theFunction) {
-		var _ = this;
+		var _ = this.magic ? eval(this.magic) : this;
 		//var initiatorWindow=_.getInitiatorWindow();
 		//event.observe
 		var win = _.window;
@@ -414,7 +416,7 @@
 	}
 
 	Public.onLinkClick = function(theFunction, includeHashes) {
-		var _ = this;
+		var _ = this.magic ? eval(this.magic) : this;
 		if (!_.linksWatched) {
 			/*var links = _.getLinks(_.url);
 			 links.each(function(element) {
@@ -440,27 +442,27 @@
 	}
 
 	Public.Get.document = function() {
-		var _ = this;
+		var _ = this.magic ? eval(this.magic) : this;
 		return _.frame.document;
 	}
 
 	Public.Set.document = function(doc) {
-		var _ = this;
+		var _ = this.magic ? eval(this.magic) : this;
 		_.frame.document = doc;
 	}
 
 	Public.Get.window = function() {
-		var _ = this;
+		var _ = this.magic ? eval(this.magic) : this;
 		return _.frame.window;
 	}
 
 	Public.Get.url = function() {
-		var _ = this;
+		var _ = this.magic ? eval(this.magic) : this;
 		return _.maskedUrl;
 	}
 
 	Public.Set.url = function(url) {
-		var _ = this;
+		var _ = this.magic ? eval(this.magic) : this;
 		_.maskedUrl = url;
 		if (_.frame != null) {
 			_.frame.url = url;
@@ -468,7 +470,7 @@
 	}
 
 	Public.remove = function() {
-		var _ = this;
+		var _ = this.magic ? eval(this.magic) : this;
 		console.log('removed:'+_.url)
 		_.clearMemory();
 		if(_.frame!=null){

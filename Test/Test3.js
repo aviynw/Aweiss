@@ -1,15 +1,17 @@
 (function(){
 var importList = ['Aweiss.Test.Test', 'Aweiss.Test2'];
-DEFINE('Aweiss.Test.Test3', Class, importList);
+OOPS.DEFINE('Aweiss.Test.Test3', Class, importList);
 
-function Class(){
-	eval(this.eval);
+function Class() {
+eval(this.magic);
+(function(){
+'use strict';
 	
-	Static.Public.staticPUB=function(){
+	Public.Static.staticPUB=function(){
 	var a ='a';	
 	};
 	
-	Static.Private.staticPriv=function(){
+	Private.Static.staticPriv=function(){
 	var a ='a';	
 	};
 	
@@ -18,6 +20,6 @@ function Class(){
 	}
 	Public.test=function(){
 		var a ='a';
-	}
+	}})();
 };
 })();

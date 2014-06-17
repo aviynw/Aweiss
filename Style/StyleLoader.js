@@ -4,15 +4,17 @@ var name='Aweiss.Style.StyleLoader';
 
 var importList = ['Aweiss.Utils.Tools', 'Aweiss.Style.Style'];
 
-DEFINE(name, Class, importList);
+OOPS.DEFINE(name, Class, importList);
 
-function Class(){
-	eval(this.eval);
+function Class() {
+eval(this.magic);
+(function(){
+'use strict';
 	Private.loadingSheets = 0;
 	Private.sheets = new Array();
 	
 	Public.removeSheet=function(styleSheet) {
-		var _ = this;
+		var _ = this.magic ? eval(this.magic) : this;
 		styleSheet.style.parentNode.removeChild(styleSheet.style);
 
 		var numberToRemove = 0;
@@ -40,7 +42,7 @@ function Class(){
 	}
 
 	Public.getSheet=function(name) {
-		var _ = this;
+		var _ = this.magic ? eval(this.magic) : this;
 		for (var i=0;i<_.sheets.length;i++) {
 			var sheet = _.sheets[i];
 			if (sheet.name == name) {
@@ -50,7 +52,7 @@ function Class(){
 	}
 	
 	Public.addBaseStyle = function(name, data) {
-		var _ = this;
+		var _ = this.magic ? eval(this.magic) : this;
 		_.loadingSheets += 1;
 		this.addStyle(name, data, function() {
 			_.loadingSheets -= 1;
@@ -58,7 +60,7 @@ function Class(){
 	};
 	
 	Public.addStyle = function(name, data, callBack) {
-		var _ = this;
+		var _ = this.magic ? eval(this.magic) : this;
 		var sheetToBeRemoved = _.getSheet(name);
 		if (sheetToBeRemoved) {
 			_.removeSheet(sheetToBeRemoved, name);
@@ -164,7 +166,7 @@ function Class(){
 	};
 
 	Public.allCssLoading = function(callback) {
-		var _ = this;
+		var _ = this.magic ? eval(this.magic) : this;
 		// alert('_.sheets loading at start'+_.loadingSheets);
 		var fi = window.setInterval(function() {
 			if (_.loadingSheets == 0) {
@@ -175,6 +177,6 @@ function Class(){
 				// alert('_.sheets still loading');
 			}
 		}, 1);
-	};
+	}})();
 };
 })();

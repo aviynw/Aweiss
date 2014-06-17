@@ -14,7 +14,7 @@ var importList = ['Aweiss.Tools', 'Aweiss.Events', 'Aweiss.EEvent', 'Aweiss.Even
 Importer.getAndDefine('Aweiss.AjaxLoader', importList);
 
 Aweiss.AjaxLoader = function() {
-	var _ = this;
+	var _ = this.magic ? eval(this.magic) : this;
 
 	Private.pages = {};
 	Private.loadingPages = {};
@@ -34,7 +34,7 @@ Aweiss.AjaxLoader = function() {
 	Private.options={};
 	
 	Public.init = function(options) {
-		var _ = this;
+		var _ = this.magic ? eval(this.magic) : this;
 		_this.transitionAnimations = new S2.FX.Queue();
 		_this.options=options;
 	};

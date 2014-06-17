@@ -4,20 +4,22 @@
 
 	var importList = ['Aweiss.Events.EventManager', 'Aweiss.Events.BaseEvent', 'Aweiss.AjaxLoader.Events.ResourceDownloadedEvent', 'Aweiss.Utils.Tools', 'Aweiss.AjaxLoader.FrameManager'];
 
-	DEFINE(name, Class, importList);
+	OOPS.DEFINE(name, Class, importList);
 
-	function Class(){
-	eval(this.eval);
-		Static.Private.loadingResources = {};
-		Static.Private.pastDownloads = [];
-		Static.Private.stage=null;
+	function Class() {
+eval(this.magic);
+(function(){
+'use strict';
+		Private.Static.loadingResources = {};
+		Private.Static.pastDownloads = [];
+		Private.Static.stage=null;
 		
-		Static.Public.init=function(){
-			var _ = this;
-			_.static.stage=FrameManager.getFrame();	
+		Public.Static.init=function(){
+			var _ = this.magic ? eval(this.magic) : this;
+			Static.stage=FrameManager.getFrame();	
 		}
 		
-		Static.Public.downloadDeps = function(doc){
+		Public.Static.downloadDeps = function(doc){
 				var elements = doc.getElementsByTagName('*');
 				var toDownload = [];
 				
@@ -34,7 +36,7 @@
 					addURL(backgroundImage);
 					
 					function addURL(url){
-						if(url!=null&&url!=""&&_.static.pastDownloads.indexOf(url)==-1){
+						if(url!=null&&url!=""&&Static.pastDownloads.indexOf(url)==-1){
 						if(Tools.isSameDomain(url)){
 							toDownload.push(url);
 							EventManager.addCumlativeListener(ResourceDownloadedEvent.getEventType(url), allDownloaded)
@@ -45,42 +47,42 @@
 				}
 				}
 				
-				// else if (!_.static.allreadyDownloaded()) {
+				// else if (!Static.allreadyDownloaded()) {
 				for (var i = 0; i < toDownload.length; i++) {
 					var url = toDownload[i];
-					if (!_.static.isResourceLoading(url)) {
-						_.static.retrieve(url, true);
+					if (!Static.isResourceLoading(url)) {
+						Static.retrieve(url, true);
 					}
 				}
 			}
 		
-		Static.Public.downloadDocAndDeps = function(url, callback) {
-			var _ = this;
-			_.static.downloadAsType(url, 'document', function(doc){
-				_.static.downloadDeps(doc);
+		Public.Static.downloadDocAndDeps = function(url, callback) {
+			var _ = this.magic ? eval(this.magic) : this;
+			Static.downloadAsType(url, 'document', function(doc){
+				Static.downloadDeps(doc);
 			});
 		}
 
-		Static.Public.downloadDoc = function(url, callback){
-			var _ = this;
-			_.static.downloadAsType(url, 'document', callback);
+		Public.Static.downloadDoc = function(url, callback){
+			var _ = this.magic ? eval(this.magic) : this;
+			Static.downloadAsType(url, 'document', callback);
 		}
 		
-		Static.Public.Async.download = function(url, callback) {
-			var _ = this;
-			_.static.downloadAsType(url, null, callback);
+		Public.Static.Async.download = function(url, callback) {
+			var _ = this.magic ? eval(this.magic) : this;
+			Static.downloadAsType(url, null, callback);
 		};
 		
-		Static.Private.downloadAsType = function(url, responseType, callback) {
-			var _ = this;
+		Private.Static.downloadAsType = function(url, responseType, callback) {
+			var _ = this.magic ? eval(this.magic) : this;
 			EventManager.addListener(ResourceDownloadedEvent.getEventType(url), function(e){
 				if(callback!=null){
 					callback(e.content);
 				}
 				}, false);
-			// else if (!_.static.allreadyDownloaded()) {
-			if (!_.static.isResourceLoading(url)){
-				_.static.retrieve(url, true, responseType);
+			// else if (!Static.allreadyDownloaded()) {
+			if (!Static.isResourceLoading(url)){
+				Static.retrieve(url, true, responseType);
 			}
 			//else {
 			//if (callback != null) {
@@ -89,47 +91,47 @@
 			//}
 		};
 
-		/*Static.Private.allreadyDownloaded = function(url) {
-		 return (_.static.pastDownloads.indexOf(url) != -1);
+		/*Private.Static.allreadyDownloaded = function(url) {
+		 return (Static.pastDownloads.indexOf(url) != -1);
 		 };*/
 
-		Static.Private.isResourceLoading = function(url) {
-			var _ = this;
-			return (_.static.loadingResources[url]);
+		Private.Static.isResourceLoading = function(url) {
+			var _ = this.magic ? eval(this.magic) : this;
+			return (Static.loadingResources[url]);
 		};
 		
-		Static.Private.markLoading=function(url, val){
-			var _ = this;
-			_.static.loadingResources[url]=val;
+		Private.Static.markLoading=function(url, val){
+			var _ = this.magic ? eval(this.magic) : this;
+			Static.loadingResources[url]=val;
 		}
 		
-		Static.Private.retrieve = function(url, asynchronous, responseType, callback) {
-			var _ = this;
+		Private.Static.retrieve = function(url, asynchronous, responseType, callback) {
+			var _ = this.magic ? eval(this.magic) : this;
 			/*var content;
-			 _.static.markResourceLoading(url);
+			 Static.markResourceLoading(url);
 			 var frame = ResourceManager.add(url, ready);
 
 			 function ready(iframe){
-			 if(_.static.options.type=='rendered'){
-			 _.static.Resources[url]=iframe.contentDocument.documentElement;
+			 if(Static.options.type=='rendered'){
+			 Static.Resources[url]=iframe.contentDocument.documentElement;
 			 }
-			 else if(_.static.options.type='memory'){
-			 _.static.Resources[url]=iframe.contentDocument.documentElement;
+			 else if(Static.options.type='memory'){
+			 Static.Resources[url]=iframe.contentDocument.documentElement;
 			 }
-			 else if(_.static.options.type=="cached"){
+			 else if(Static.options.type=="cached"){
 			 }
-			 _.static.show(frame);
+			 Static.show(frame);
 			 }
 
 			 DataManager.setItem(frame.contentWindow, 'type', 'stop');*/
-			/*_.static.markLoading(url, true);
+			/*Static.markLoading(url, true);
 			new Ajax.Request(url, {
 				method : 'get',
 				onSuccess : function(transport) {
 					var content = transport.responseText;
 					EventManager.fire(new ResourceDownloadedEvent(url, content));
-					_.static.markLoading(url, false);
-					//_.static.pastDownloads.push(url);
+					Static.markLoading(url, false);
+					//Static.pastDownloads.push(url);
 
 				},
 				onException : function(request, e) {
@@ -150,11 +152,11 @@ else{
 xhr.responseType=responseType;
 }
 xhr.onload = function() {
-//_.static.pastDownloads.push(url);
+//Static.pastDownloads.push(url);
 var content = this.response;
 
 EventManager.fire(new ResourceDownloadedEvent(url, content));
-_.static.markLoading(url, false);
+Static.markLoading(url, false);
 if(callback!=null){
 	callback();
 }
@@ -162,7 +164,7 @@ if(callback!=null){
 xhr.open("GET", url, asynchronous);
 //xhr.responseType = "document";
 xhr.send();
-		};
+		}})();
 	}
 
 })();

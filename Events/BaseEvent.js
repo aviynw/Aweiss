@@ -1,18 +1,20 @@
 (function(){
 var importList = [];
-DEFINE('Aweiss.Events.BaseEvent', Class, importList);
+OOPS.DEFINE('Aweiss.Events.BaseEvent', Class, importList);
 
-function Class(){
-	eval(this.eval);
+function Class() {
+eval(this.magic);
+(function(){
+'use strict';
 	Public.eventType=null;
 	Public.timestamp=null;
 	Public.message=null;
 	
 	Public.init = function(eventType, message){
-		var _ = this;
+		var _ = this.magic ? eval(this.magic) : this;
 		this.eventType=eventType;
 		this.message=message;
 		this.timestamp= new Date();
-	};
+	}})();
 };
 })();

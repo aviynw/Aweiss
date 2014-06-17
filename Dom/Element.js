@@ -4,15 +4,17 @@
 
 	var name = 'Aweiss.Dom.Element';
 
-	DEFINE(name, Class, importList);
+	OOPS.DEFINE(name, Class, importList);
 
-	function Class(){
-	eval(this.eval);
+	function Class() {
+eval(this.magic);
+(function(){
+'use strict';
 		Public.element=null;
 		
 		Public.Get.isOnStage = function() {
-			var _ = this;
+			var _ = this.magic ? eval(this.magic) : this;
 			return Tools.isInDocument(_.element);
-	}
+	}})();
 	}
 })();

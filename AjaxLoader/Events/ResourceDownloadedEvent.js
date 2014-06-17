@@ -1,21 +1,22 @@
 (function(){
 var importList = ['Aweiss.Events.DynamicEvent'];
 
-DEFINE('Aweiss.AjaxLoader.Events.ResourceDownloadedEvent', Class, importList, {'extends':'Aweiss.Events.DynamicEvent'});
+OOPS.DEFINE('Aweiss.AjaxLoader.Events.ResourceDownloadedEvent', Class, importList, {'extends':'Aweiss.Events.DynamicEvent'});
 
-function Class(){
-	eval(this.eval);
+function Class() {
+eval(this.magic);
+(function(){
+'use strict';
 	Public.content='';
-	
-	Static.Public.init=function(){
-		var _ = this;
-		_.static.this.super('RESOURCE_DOWNLOADED_');
+	Public.Static.init=function(){
+		var _ = this.magic ? eval(this.magic) : this;
+		Static.this.super('RESOURCE_DOWNLOADED_');
 	}
 	Public.init = function(url, content){
 		//;
-		var _ = this;
-		this.this.super(url);
+		var _ = this.magic ? eval(this.magic) : this;
+		_.super('init', url);
 		_.content=content;
-	};
+	}})();
 };
 })();

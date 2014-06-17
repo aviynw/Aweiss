@@ -1,39 +1,41 @@
 (function(){
 var importList = ['Aweiss.Events.BaseEvent'];
 
-DEFINE('Aweiss.Events.DynamicEvent', Class, importList, {'extends':'Aweiss.Events.BaseEvent'});
+OOPS.DEFINE('Aweiss.Events.DynamicEvent', Class, importList, {'extends':'Aweiss.Events.BaseEvent'});
 
-function Class(){
-	eval(this.eval);
+function Class() {
+eval(this.magic);
+(function(){
+'use strict';
 	
-	Static.Public.generalEventType=null;
+	Public.Static.generalEventType=null;
 	Public.specificEventType=null;
 	
-	Static.Public.init=function(generalEventType){
-		var _ = this;
-		_.static.generalEventType=generalEventType;
+	Public.Static.init=function(generalEventType){
+		var _ = this.magic ? eval(this.magic) : this;
+		Static.generalEventType=generalEventType;
 	}
 	Public.init = function(specificEventType, message){
-		var _ = this;
+		var _ = this.magic ? eval(this.magic) : this;
 		_.specificEventType=specificEventType;
 		if(_.specificEventType==null){
 			_.specificEventType="";
 		}
-		_.this.super(_this.getEventType(), message);
+		_.super(_.getEventType(), message);
 	};
 	
 	Public.getEventType=function(){
-		var _ = this;
-		return _.static.getEventType(_this.specificEventType);
+		var _ = this.magic ? eval(this.magic) : this;
+		return Static.getEventType(_.specificEventType);
 	};
-	Static.Public.getEventType=function(specific){
-		var _ = this;
+	Public.Static.getEventType=function(specific){
+		var _ = this.magic ? eval(this.magic) : this;
 		if(specific!=null&&specific!=""){
-			return _.static.generalEventType+'_'+specific;
+			return Static.generalEventType+'_'+specific;
 		}
 		else{
-			return _.static.generalEventType;
+			return Static.generalEventType;
 		}
-	}
+	}})();
 };
 })();

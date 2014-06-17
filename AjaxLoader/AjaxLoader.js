@@ -4,10 +4,12 @@ var name='Aweiss.AjaxLoader.AjaxLoader';
 
 var importList = ['Aweiss.AjaxLoader.PageManager', 'Aweiss.AjaxLoader.Page','Aweiss.AjaxLoader.DataManager', 'Aweiss.AjaxLoader.Animator'];
 
-DEFINE(name, Class, importList);
+OOPS.DEFINE(name, Class, importList);
 
-function Class(){
-	eval(this.eval);
+function Class() {
+eval(this.magic);
+(function(){
+'use strict';
 	
 	Private.options={};
 	Private.pageManager = null;
@@ -15,13 +17,13 @@ function Class(){
 	
 	
 	Public.init = function(options) {
-		var _ = this;
+		var _ = this.magic ? eval(this.magic) : this;
 		_.options=options;
 		_.pageManager = new PageManager(new Animator());
 	};
 	
 	Public.initialize = function() {
-		var _ = this;
+		var _ = this.magic ? eval(this.magic) : this;
 		/*var div = document.createElement("div");
 		 div.className += _.classes.foreground_page;
 		 div.id = unescape(location.href);
@@ -49,9 +51,9 @@ function Class(){
 		}
 	
 	Public.setOptions=function(options){
-		var _ = this;
+		var _ = this.magic ? eval(this.magic) : this;
 		_.options=options;
-	}
+	}})();
 };
 
 })();

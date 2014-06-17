@@ -4,46 +4,48 @@
 
 	var name = 'Aweiss.AjaxLoader.FrameManager';
 
-	DEFINE(name, Class, importList);
+	OOPS.DEFINE(name, Class, importList);
 
-	function Class(){
-	eval(this.eval);
-		Static.Private.counter=0;
-		Static.Private.freeFrames=null;
-		Static.Private.usedFrames=null;
+	function Class() {
+eval(this.magic);
+(function(){
+'use strict';
+		Private.Static.counter=0;
+		Private.Static.freeFrames=null;
+		Private.Static.usedFrames=null;
 		
-		Static.Public.init=function(){
-			var _ = this;
-			_.static.usedFrames = new js_cols.LinkedList();
-			_.static.freeFrames = new js_cols.LinkedList();
-			_.static.createFrame();
+		Public.Static.init=function(){
+			var _ = this.magic ? eval(this.magic) : this;
+			Static.usedFrames = new js_cols.LinkedList();
+			Static.freeFrames = new js_cols.LinkedList();
+			Static.createFrame();
 		}
 		
-		Static.Public.release=function(frame){
-			var _ = this;
+		Public.Static.release=function(frame){
+			var _ = this.magic ? eval(this.magic) : this;
 			var emptyNode = document.createElement('html');
 			if(frame.document!=null){
 				frame.document.replaceChild(emptyNode, frame.document.documentElement);
 			}
-			_.static.freeFrames.addLast(frame);
-			_.static.usedFrames.remove(frame);
+			Static.freeFrames.addLast(frame);
+			Static.usedFrames.remove(frame);
 			DataManager.clearContext(frame.id);
 		}
 		
-		Static.Public.getFrame=function(){
-			var _ = this;
-			if(_.static.freeFrames.size==0){
-				_.static.createFrame();
+		Public.Static.getFrame=function(){
+			var _ = this.magic ? eval(this.magic) : this;
+			if(Static.freeFrames.size==0){
+				Static.createFrame();
 			}
-			var frame = _.static.freeFrames.removeLast();
-			_.static.usedFrames.addLast(frame);
+			var frame = Static.freeFrames.removeLast();
+			Static.usedFrames.addLast(frame);
 			return frame
 		}
 		
-		Static.Private.createFrame = function() {
-			var _ = this;
-			var frame = new Frame(_.static.counter++, null);
-			_.static.freeFrames.addLast(frame);
-		}
+		Private.Static.createFrame = function() {
+			var _ = this.magic ? eval(this.magic) : this;
+			var frame = new Frame(Static.counter++, null);
+			Static.freeFrames.addLast(frame);
+		}})();
 	}
 })(); 

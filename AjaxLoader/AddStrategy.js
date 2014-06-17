@@ -4,10 +4,12 @@
 
 	var name = 'Aweiss.AjaxLoader.AddStrategy';
 
-	DEFINE(name, Class, importList);
+	OOPS.DEFINE(name, Class, importList);
 
-	function Class(){
-	eval(this.eval);
+	function Class() {
+eval(this.magic);
+(function(){
+'use strict';
 		
 		Public.add = function(page){
 			

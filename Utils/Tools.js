@@ -1,35 +1,37 @@
 (function(){
-DEFINE('Aweiss.Utils.Tools', Class);
+OOPS.DEFINE('Aweiss.Utils.Tools', Class);
 
-function Class(){
-	eval(this.eval);
+function Class() {
+eval(this.magic);
+(function(){
+'use strict';
 	/*if ( typeof String.prototype.startsWith != 'function') {
 		String.prototype.startsWith = function(str) {
 			return this.slice(0, str.length) == str;
 		};
 	}
 */
-	Static.Public.Dimension = {
+	Public.Static.Dimension = {
 		WIDTH : "width",
 		HEIGHT : "height",
 		//BOTH : "both"
 	};
 
-Static.Public.escapeHTML=function(string){
+Public.Static.escapeHTML=function(string){
 		return string.replace(/&/g, '&amp;')
                .replace(/</g, '&lt;')
                .replace(/>/g, '&gt;')
                .replace(/"/g, '&quot;');
   };
 	
-Static.Public.unescapeHTML=function(string){
+Public.Static.unescapeHTML=function(string){
 	return string.replace(/&quot;/g, '"')
                .replace(/&gt;/g, '>')
                .replace(/&lt;/g, '<')
                .replace(/&amp;/g, '&');
   };
   	
-Static.Public.escapeXML=function(string){
+Public.Static.escapeXML=function(string){
 		return string.replace(/&/g, '&amp;')
                .replace(/</g, '&lt;')
                .replace(/>/g, '&gt;')
@@ -37,31 +39,36 @@ Static.Public.escapeXML=function(string){
                .replace(/"/g, '&quot;');
   };
 	
-Static.Public.unescapeXML=function(string){
+Public.Static.unescapeXML=function(string){
 	return string.replace(/&quot;/g, '"')
                .replace(/&gt;/g, '>')
                .replace(/&lt;/g, '<')
                .replace(/@apos;/g, "'")
                .replace(/&amp;/g, '&');
   };
-  Static.Public.isString=function(obj) {
+  Public.Static.isString=function(obj) {
 		return Object.prototype.toString.apply(obj) === '[object String]';
 	}
-  Static.Public.isObject=function(obj) {
+  Public.Static.isObject=function(obj) {
 		return Object.prototype.toString.apply(obj) === '[object Object]';
 	}
-  Static.Public.isFunction=function(obj) {
+  Public.Static.isFunction=function(obj) {
 		return Object.prototype.toString.apply(obj) === '[object Function]';
 	}
-  Static.Public.isArray=function(obj) {
+  Public.Static.isArray=function(obj) {
 		return Object.prototype.toString.apply(obj) === '[object Array]';
 	}
-	Static.Public.ie = IE=function(v) {
-			 var r = RegExp('msie' + (!isNaN(v) ? ('\\s' + v) : ''), 'i');
-			 return r.test(navigator.userAgent);
+	
+  Public.Static.Get.ie =function(v) {
+		var undef, v = 3, div = document.createElement('div'), all = div.getElementsByTagName('i');
+
+		while (div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->', all[0]);
+
+		return v > 4 ? v : undef;
 	};
-	Static.Public.crossAjaxJson=function(req) {
-		var _=this;
+	
+	Public.Static.crossAjaxJson=function(req) {
+		var _ = this.magic ? eval(this.magic) : this;
 		var newReq={}
 		newReq.url=req.url;
 		if(req.success) newReq.success=function(data) { 
@@ -77,14 +84,14 @@ Static.Public.unescapeXML=function(string){
 			req.always() ;
 			};
 		
-		_.static.crossAjax(newReq);
+		Static.crossAjax(newReq);
 		};
 
-	Static.Public.crossAjax=function(req) {
-		var _=this;
+	Public.Static.crossAjax=function(req) {
+		var _ = this.magic ? eval(this.magic) : this;
 		var myLoc=window.location.href.match(/http:\/\/.*?\//gi)
 		var reqLoc=req.url.match(/http:\/\/.*?\//gi)
-		xOrigin=true
+		var xOrigin=true
 		
 		if(myLoc && reqLoc) { if(myLoc[0]==reqLoc[0]) xOrigin=false;}
 		
@@ -101,10 +108,10 @@ Static.Public.unescapeXML=function(string){
 				req.always();
 			}
 		}
-		if (_.static.ie(8)||_.static.ie(9)||_.static.ie(7)||_.static.ie(6) && xOrigin) {
+		if (Static.ie>=6 && Static.ie<=9  && xOrigin) {
 			var xdr = new XDomainRequest();
             xdr.open("GET", req.url);
-            xdr.timeout = 3000;
+            xdr.timeout = 99000;
             
             xdr.onload= 	function() { data=xdr.responseText;	respond();};
 	        xdr.onerror= 	function() { error="ERROR: XDomainRequest error"; respond();};
@@ -114,7 +121,7 @@ Static.Public.unescapeXML=function(string){
 		} else {
 			var xhr = new XMLHttpRequest();
 			xhr.open('GET', req.url, true);
-			xhr.timeout = 3000;
+			xhr.timeout = 99000;
 			xhr.responseType = 'text';
             xhr.onload= 	function() { if(xhr.status=='200') { data=xhr.responseText; } else error=xhr.responseText; respond();};
 	        xhr.onerror= 	function() { error=xhr.responseText; respond();};
@@ -124,12 +131,12 @@ Static.Public.unescapeXML=function(string){
 	};
 	
 	
-	Static.Public.filter=function(obj, test){
-		var _ = this;
+	Public.Static.filter=function(obj, test){
+		var _ = this.magic ? eval(this.magic) : this;
 		var matches=[];
 		for(var key in obj){
 			var value = obj[key];
-			if(_.static.isObject(test)){
+			if(Static.isObject(test)){
 				var match=true;
 				for(var propName in test){
 					if(value[propName]!=test[propName]){
@@ -148,20 +155,20 @@ Static.Public.unescapeXML=function(string){
 		}
 		return matches;
 	};	
-	Static.Public.values=function(obj){
+	Public.Static.values=function(obj){
 	var values=[];
-	for(key in obj) {
+	for(var key in obj) {
 		var value=obj[key];
 		values.push(value);
 	    }
 	return values;
 	}
 	
-	Static.Public.round=function(num, places){
+	Public.Static.round=function(num, places){
 		
 	};
 	
-	Static.Public.addProperties=function(obj1, obj2, test) {
+	Public.Static.addProperties=function(obj1, obj2, test) {
 		obj2 = obj2 || [];
 
 		var properties = Object.keys(obj2);
@@ -177,26 +184,26 @@ Static.Public.unescapeXML=function(string){
 		}
 	};
 	
-	Static.Public.getShortenedName = function (name) {
-		var _ = this;
+	Public.Static.getShortenedName = function (name) {
+		var _ = this.magic ? eval(this.magic) : this;
 		var last = name.lastIndexOf(".");
 		return name.substring(last + 1);
 	};
 	
-	Static.Public.getParentNameSpace=function(parent, name){
-		var _ = this;
+	Public.Static.getParentNameSpace=function(parent, name){
+		var _ = this.magic ? eval(this.magic) : this;
 		var lastDot= name.lastIndexOf('.');
 		if(lastDot!=-1){
 			name=name.substring(0, lastDot);
-			return _.static.getNameSpace(parent, name);
+			return Static.getNameSpace(parent, name);
 		}
 		else{
 			return parent;
 		}
 	}
 	
-	Static.Public.getNameSpace = function(parent, name) {
-		var _ = this;
+	Public.Static.getNameSpace = function(parent, name) {
+		var _ = this.magic ? eval(this.magic) : this;
 		var parts = name.split('.');
 		var currentPart = '';
 
@@ -209,8 +216,8 @@ Static.Public.unescapeXML=function(string){
 		return parent;
 	};
 	
-	Static.Public.executeFunctionByName = function(functionName, context /* , args */) {
-		var _ = this;
+	Public.Static.executeFunctionByName = function(functionName, context /* , args */) {
+		var _ = this.magic ? eval(this.magic) : this;
 		var args = Array.prototype.slice.call(arguments).splice(2);
 		var namespaces = functionName.split(".");
 		var func = namespaces.pop();
@@ -221,8 +228,8 @@ Static.Public.unescapeXML=function(string){
 	};
 	
 	
-	Static.Public.isAutoHeight = function(element) {
-		var _ = this;
+	Public.Static.isAutoHeight = function(element) {
+		var _ = this.magic ? eval(this.magic) : this;
 		// http://gregpettit.ca/2012/jquery-check-if-element-has-auto-widthheight/
 		// make a staging area for all our work.
 		var autoHeight = false;
@@ -247,8 +254,8 @@ Static.Public.unescapeXML=function(string){
 		return autoHeight;
 	};
 
-	Static.Public.getSiblingsHeight = function(e, debug) {
-		var _ = this;
+	Public.Static.getSiblingsHeight = function(e, debug) {
+		var _ = this.magic ? eval(this.magic) : this;
 		if (debug) {
 			alert('getting siblings For:' + e.attr('id'));
 		}
@@ -268,18 +275,18 @@ Static.Public.unescapeXML=function(string){
 	};
 	 //can't now if to get hieght or width fo siblings, based on the context should call 
 	 //'top':e.position().top+siblingsdimension.height ore.position().left+siblingsdimension.width
-	/*Static.Public.getTruePosition=function(e, dimension, debug){  
-		var _ = this;
-		var siblingsdimension = _.static.getSiblingsDimension(e, dimension, 'before');
+	/*Public.Static.getTruePosition=function(e, dimension, debug){  
+		var _ = this.magic ? eval(this.magic) : this;
+		var siblingsdimension = Static.getSiblingsDimension(e, dimension, 'before');
 		var truePosition
 		switch (dimension) {
-		case _.static.Dimension.HEIGHT:
+		case Static.Dimension.HEIGHT:
 			 truePosition=e.position().top+siblingsdimension;
 			break;
-		case _.static.Dimension.WIDTH:
+		case Static.Dimension.WIDTH:
 			 truePosition=e.position().left+siblingsdimension;
 			break;
-		case _.static.Dimension.BOTH:
+		case Static.Dimension.BOTH:
 			truePosition={
 				'top':e.position().top+siblingsdimension.height,
 				'left':e.position().left+siblingsdimension.width
@@ -288,12 +295,12 @@ Static.Public.unescapeXML=function(string){
 		}	
 		};
 	*/
-	Static.Public.getSiblingsDimension = function(e, dimension, type, debug) {
-		var _ = this;
-		/*if(dimension==_.static.Dimension.BOTH){
+	Public.Static.getSiblingsDimension = function(e, dimension, type, debug) {
+		var _ = this.magic ? eval(this.magic) : this;
+		/*if(dimension==Static.Dimension.BOTH){
 			var dimensions={
-					'height':_.static.getSiblingsDimension(e, _.static.Dimension.HEIGHT, type, debug),
-					'Width':_.static.getSiblingsDimension(e, _.static.Dimension.WIDTH, type, debug),
+					'height':Static.getSiblingsDimension(e, Static.Dimension.HEIGHT, type, debug),
+					'Width':Static.getSiblingsDimension(e, Static.Dimension.WIDTH, type, debug),
 			}
 			return dimensions;
 		}
@@ -312,11 +319,11 @@ Static.Public.unescapeXML=function(string){
 			var size = 0;
 			switch (dimension) {
 
-				case _.static.Dimension.HEIGHT:
+				case Static.Dimension.HEIGHT:
 					size = Math.ceil(jQuery(this).outerHeight(true));
 					break;
 
-				case _.static.Dimension.WIDTH:
+				case Static.Dimension.WIDTH:
 					size = Math.ceil(jQuery(this).outerWidth(true));
 					break;
 			};
@@ -346,8 +353,8 @@ Static.Public.unescapeXML=function(string){
 		return siblingsDimension;
 	};
 
-	Static.Public.fill_rest = function(e, dimension, debug) {
-		var _ = this;
+	Public.Static.fill_rest = function(e, dimension, debug) {
+		var _ = this.magic ? eval(this.magic) : this;
 		if (debug) {
 			alert("element:" + e.attr('id'));
 		}
@@ -355,8 +362,8 @@ Static.Public.unescapeXML=function(string){
 		var originalParent = e.parent();
 		var parent = originalParent;
 
-		if (dimension == _.static.Dimension.HEIGHT) {
-			while (this.isAutoHeight(parent)) {
+		if (dimension == Static.Dimension.HEIGHT) {
+			while (this.static.isAutoHeight(parent)) {
 				parent = parent.parent();
 			}
 		}
@@ -364,21 +371,21 @@ Static.Public.unescapeXML=function(string){
 			alert('Originalparent:' + originalParent.attr('id'));
 			alert('Parent:' + parent.attr('id'));
 		}
-		var siblingsDimension = _.static.getSiblingsDimension(e, dimension, debug);
+		var siblingsDimension = Static.getSiblingsDimension(e, dimension, debug);
 
 		if (parent != originalParent) {
-			siblingsDimension += _.static.getSiblingsDimension(originalParent, dimension, debug);
+			siblingsDimension += Static.getSiblingsDimension(originalParent, dimension, debug);
 		}
 		var parentDimension;
 		var borderStuff;
 		var newDimension;
 
 		switch (dimension) {
-			case _.static.Dimension.HEIGHT:
+			case Static.Dimension.HEIGHT:
 				parentDimension = Math.floor(parent.height());
 				borderStuff = Math.ceil(e.outerHeight(true)) - Math.floor(e.height());
 				break;
-			case _.static.Dimension.WIDTH:
+			case Static.Dimension.WIDTH:
 				parentDimension = Math.floor(parent.width());
 				borderStuff = Math.ceil(e.outerWidth(true)) - Math.floor(e.width());
 				break;
@@ -394,18 +401,18 @@ Static.Public.unescapeXML=function(string){
 		}
 		switch (dimension) {//not sure why the -1 is needed, but seems needed for firefox and ie9.
 
-			case _.static.Dimension.HEIGHT:
+			case Static.Dimension.HEIGHT:
 				e.height(newDimension);
 				break;
-			case _.static.Dimension.WIDTH:
+			case Static.Dimension.WIDTH:
 				e.width(newDimension);
 				break;
 		}
 
 	};
 
-	Static.Public.verticallyCenter = function(e) {
-		var _ = this;
+	Public.Static.verticallyCenter = function(e) {
+		var _ = this.magic ? eval(this.magic) : this;
 		var halfSize = e.outerHeight() / 2;
 		var parentHeight = e.parent().height();
 		var top = (parentHeight / 2) - halfSize;
@@ -413,8 +420,8 @@ Static.Public.unescapeXML=function(string){
 		e.css('position', 'relative');
 	};
 
-	Static.Public.verticallyCenterText = function(e) {
-		var _ = this;
+	Public.Static.verticallyCenterText = function(e) {
+		var _ = this.magic ? eval(this.magic) : this;
 		var centerWrapperClass = 'center_wrapper';
 		var outerDiv = jQuery(e).children(":first");
 		if(outerDiv.length==0){
@@ -424,50 +431,50 @@ Static.Public.unescapeXML=function(string){
 		if (!outerDiv.hasClass(centerWrapperClass)) {
 			outerDiv.addClass(centerWrapperClass);
 		}
-		_.static.verticallyCenter(outerDiv);
+		Static.verticallyCenter(outerDiv);
 	};
 
-	Static.Public.hide = function(e) {
-		var _ = this;
+	Public.Static.hide = function(e) {
+		var _ = this.magic ? eval(this.magic) : this;
 		e.css('visibility', 'hidden');
 	};
 
-	Static.Public.show = function(e) {
-		var _ = this;
+	Public.Static.show = function(e) {
+		var _ = this.magic ? eval(this.magic) : this;
 		e.css('visibility', 'visible');
 	};
 
-	Static.Public.fadeIn = function(e, duration, easing, callBack) {
-		var _ = this;
+	Public.Static.fadeIn = function(e, duration, easing, callBack) {
+		var _ = this.magic ? eval(this.magic) : this;
 		e.fadeTo(duration, 1, easing, callBack);
-		_.static.show(e);
+		Static.show(e);
 		e.show(e);
 	};
 
-	Static.Public.fadeOut = function(e, duration, easing, callBack) {
-		var _ = this;
+	Public.Static.fadeOut = function(e, duration, easing, callBack) {
+		var _ = this.magic ? eval(this.magic) : this;
 		e.fadeTo(duration, 0, easing, callBack);
-		_.static.hide(e);
+		Static.hide(e);
 		e.hide();
 	};
 
-	Static.Public.getParam = function(name) {
-		var _ = this;
-		return _.static.getParamFromString(_.static.getHash(), name);
+	Public.Static.getParam = function(name) {
+		var _ = this.magic ? eval(this.magic) : this;
+		return Static.getParamFromString(Static.getHash(), name);
 	};
 
-	Static.Public.removeParam = function(name) {
-		var _ = this;
-		_.static.setHash(removeParamFromString(_.static.getHash(), name));
+	Public.Static.removeParam = function(name) {
+		var _ = this.magic ? eval(this.magic) : this;
+		Static.setHash(removeParamFromString(Static.getHash(), name));
 	};
 
-	Static.Public.addParam = function(name, value) {
-		var _ = this;
-		_.static.setHash(addParamToString(_.static.getHash(), name, value, '#'));
+	Public.Static.addParam = function(name, value) {
+		var _ = this.magic ? eval(this.magic) : this;
+		Static.setHash(addParamToString(Static.getHash(), name, value, '#'));
 	};
 	
-	Static.Public.addProperties=function(obj1, obj2, test) {
-		var _ = this;
+	Public.Static.addProperties=function(obj1, obj2, test) {
+		var _ = this.magic ? eval(this.magic) : this;
 		obj2 = obj2 || [];
 
 		var properties = Object.keys(obj2);
@@ -486,9 +493,9 @@ Static.Public.unescapeXML=function(string){
 		}
 		
 	};
-	Static.Public.removeParamFromString = function(string, name) {
-		var _ = this;
-		var toReplace = name + '=' + _.static.getParamFromString(string, name);
+	Public.Static.removeParamFromString = function(string, name) {
+		var _ = this.magic ? eval(this.magic) : this;
+		var toReplace = name + '=' + Static.getParamFromString(string, name);
 		var indexOf = string.indexOf(toReplace);
 		var newString = string;
 		if (indexOf != -1) {
@@ -503,8 +510,8 @@ Static.Public.unescapeXML=function(string){
 		return newString;
 	};
 
-	Static.Public.getParamFromString = function(string, name) {
-		var _ = this;
+	Public.Static.getParamFromString = function(string, name) {
+		var _ = this.magic ? eval(this.magic) : this;
 		var hash = string;
 		if (!hash) {
 			return null;
@@ -522,9 +529,9 @@ Static.Public.unescapeXML=function(string){
 		return param;
 	};
 
-	Static.Public.addParamToString = function(string, name, value, seperator) {
-		var _ = this;
-		if (!_.static.getParamFromString(string, name)) {
+	Public.Static.addParamToString = function(string, name, value, seperator) {
+		var _ = this.magic ? eval(this.magic) : this;
+		if (!Static.getParamFromString(string, name)) {
 
 			if (string.indexOf(seperator) != -1) {
 				string += '&' + name + '=' + value;
@@ -532,14 +539,14 @@ Static.Public.unescapeXML=function(string){
 				string += seperator + name + '=' + value;
 			}
 		} else {
-			string = _.static.removeParamFromString(string, name);
-			string = _.static.addParamToString(string, name, value);
+			string = Static.removeParamFromString(string, name);
+			string = Static.addParamToString(string, name, value);
 		}
 		return string;
 	};
 
-	Static.Public.getParamsFromString = function(hash) {
-		var _ = this;
+	Public.Static.getParamsFromString = function(hash) {
+		var _ = this.magic ? eval(this.magic) : this;
 		if (!hash) {
 			return null;
 		}
@@ -558,57 +565,57 @@ Static.Public.unescapeXML=function(string){
 		return Params;
 	};
 
-	Static.Public.addParamsToString = function(string, params, seperator) {
-		var _ = this;
+	Public.Static.addParamsToString = function(string, params, seperator) {
+		var _ = this.magic ? eval(this.magic) : this;
 		for (var param in params) {
-			string = _.static.addParamToString(string, param, params[param], seperator);
+			string = Static.addParamToString(string, param, params[param], seperator);
 		}
 		return string;
 	};
 
-	Static.Public.removeParamsFromString = function(string, params) {
-		var _ = this;
+	Public.Static.removeParamsFromString = function(string, params) {
+		var _ = this.magic ? eval(this.magic) : this;
 		if (params instanceof Array) {
 			for (var i = 0; i < params.length; i++) {
-				string = _.static.removeParamFromString(string, params[i]);
+				string = Static.removeParamFromString(string, params[i]);
 			}
 		} else {//must be dictionary
 			for (var param in params) {
-				string = _.static.removeParamFromString(string, param);
+				string = Static.removeParamFromString(string, param);
 			}
 		}
 		return string;
 	};
 
-	Static.Public.addParams = function(params) {
-		var _ = this;
+	Public.Static.addParams = function(params) {
+		var _ = this.magic ? eval(this.magic) : this;
 		for (var param in params) {
-			_.static.addParam(getHash(), param);
+			Static.addParam(getHash(), param);
 		}
 	};
 
-	Static.Public.getParams = function() {
-		var _ = this;
-		return _.static.getParamsFromString(getHash());
+	Public.Static.getParams = function() {
+		var _ = this.magic ? eval(this.magic) : this;
+		return Static.getParamsFromString(getHash());
 	};
 
-	Static.Public.removeParams = function(params) {
-		var _ = this;
+	Public.Static.removeParams = function(params) {
+		var _ = this.magic ? eval(this.magic) : this;
 		for (var param in params) {
-			_.static.removeParam(param);
+			Static.removeParam(param);
 		}
 	};
 
-	Static.Public.setHash = function(hash) {
-		var _ = this;
+	Public.Static.setHash = function(hash) {
+		var _ = this.magic ? eval(this.magic) : this;
 		if (string.indexOf('#') != -1) {
 			hash = '#' + hash;
 		}
 		window.location.hash = hash;
 	};
 
-	Static.Public.extractHash = function(string) {
-		var _ = this;
+	Public.Static.extractHash = function(string) {
+		var _ = this.magic ? eval(this.magic) : this;
 		var position = string.indexOf('#');
 		if (position == -1) {
 			return null;
@@ -617,8 +624,8 @@ Static.Public.unescapeXML=function(string){
 		}
 	};
 	
-	Static.Public.extractDomain = function(string){
-		var _ = this;
+	Public.Static.extractDomain = function(string){
+		var _ = this.magic ? eval(this.magic) : this;
 		var domain='';
 		var parts = string.split('/');
 		if(string.indexOf('://')>0){
@@ -630,24 +637,24 @@ Static.Public.unescapeXML=function(string){
 		return domain;
 	};
 	
-	Static.Public.isSameDomain = function(string){
-		var _ = this;
-		return(location.host==_.static.extractDomain(string));
+	Public.Static.isSameDomain = function(string){
+		var _ = this.magic ? eval(this.magic) : this;
+		return(location.host==Static.extractDomain(string));
 	};
 	
-	Static.Public.isLinkSameDomain = function(link){
-		var _ = this;
-		//return(_.static.extractDomain(link.baseURI)==_.static.extractDomain(link.href));
+	Public.Static.isLinkSameDomain = function(link){
+		var _ = this.magic ? eval(this.magic) : this;
+		//return(Static.extractDomain(link.baseURI)==Static.extractDomain(link.href));
 		return (location.host==link.host);
 	};
 	
-	Static.Public.isLinkSameBase=function(link){
-		var _ = this;
-		return (_.static.removeHash(location.href)==_.static.removeHash(link.href));
+	Public.Static.isLinkSameBase=function(link){
+		var _ = this.magic ? eval(this.magic) : this;
+		return (Static.removeHash(location.href)==Static.removeHash(link.href));
 	};
 		
-	Static.Public.getPage = function(string) {
-		var _ = this;
+	Public.Static.getPage = function(string) {
+		var _ = this.magic ? eval(this.magic) : this;
 		var position = string.indexOf('#');
 		if (position == -1) {
 			position = String.length;
@@ -655,19 +662,19 @@ Static.Public.unescapeXML=function(string){
 		var baseLink = string.substring(0, position);
 	};
 	
-	Static.Public.removeHash = function(string){
-		var _ = this;
-		var newString =string.replace(_.static.extractHash(string), '').replace('#', '');
+	Public.Static.removeHash = function(string){
+		var _ = this.magic ? eval(this.magic) : this;
+		var newString =string.replace(Static.extractHash(string), '').replace('#', '');
 		return newString;
 	}
 	
-	Static.Public.getHash = function() {
-		var _ = this;
+	Public.Static.getHash = function() {
+		var _ = this.magic ? eval(this.magic) : this;
 		return decodeURIComponent(window.location.hash).substring(1);
 	};
 
-	Static.Public.hasOverFlow = function(element) {
-		var _ = this;
+	Public.Static.hasOverFlow = function(element) {
+		var _ = this.magic ? eval(this.magic) : this;
 		if (element.offsetHeight < element.scrollHeight || element.offsetWidth < element.scrollWidth) {
 			return true;
 		} else {
@@ -675,13 +682,13 @@ Static.Public.unescapeXML=function(string){
 		}
 	};
 	
-	Static.Public.modulateFontSize = function(element) {
-		var _ = this;
-		/*if(!_.static.hasOverFlow(element)){
-			while(!_.static.hasOverFlow(element)){
-				_.static.increaseFontSizeBy(element, 1);
-				if(_.static.hasOverFlow(element)){
-					_.static.decreaseFontSizeBy(element, 1);
+	Public.Static.modulateFontSize = function(element) {
+		var _ = this.magic ? eval(this.magic) : this;
+		/*if(!Static.hasOverFlow(element)){
+			while(!Static.hasOverFlow(element)){
+				Static.increaseFontSizeBy(element, 1);
+				if(Static.hasOverFlow(element)){
+					Static.decreaseFontSizeBy(element, 1);
 					break;
 				}
 			}
@@ -695,31 +702,31 @@ Static.Public.unescapeXML=function(string){
 			parentDiv.html(wrapperDiv.html());
 		}
 		
-		if(_.static.hasOverFlow(element)){
+		if(Static.hasOverFlow(element)){
 			jQuery(element).wrapInner('<div class="' + wrapperClass + '"/>');
 			var wrapperDiv = jQuery(element).find('.'+wrapperClass);
-			while(_.static.hasOverFlow(element)){
-				_.static.decreaseFontSizeBy(wrapperDiv, 1);
+			while(Static.hasOverFlow(element)){
+				Static.decreaseFontSizeBy(wrapperDiv, 1);
 		}
 		}
 	};
 	
-	Static.Public.increaseFontSizeBy = function(element, amount){
-		var _ = this;
+	Public.Static.increaseFontSizeBy = function(element, amount){
+		var _ = this.magic ? eval(this.magic) : this;
 		jQuery(element).css('font-size', parseInt(jQuery(element).css('font-size').replace('px', '')) + amount);
 	};
 	
-	Static.Public.decreaseFontSizeBy = function(element, amount){
-		var _ = this;
-		_.static.increaseFontSizeBy(element, -1 * amount);
+	Public.Static.decreaseFontSizeBy = function(element, amount){
+		var _ = this.magic ? eval(this.magic) : this;
+		Static.increaseFontSizeBy(element, -1 * amount);
 	};
 	
-	Static.Public.redraw = function(element){
-		var _ = this;
+	Public.Static.redraw = function(element){
+		var _ = this.magic ? eval(this.magic) : this;
 	};
 	
-	Static.Public.changeAlpha = function(original, alpha){
-		var _ = this;
+	Public.Static.changeAlpha = function(original, alpha){
+		var _ = this.magic ? eval(this.magic) : this;
 		var parts = original.split(',');
 		var newColor;
 		if(parts[3]){
@@ -732,12 +739,12 @@ Static.Public.unescapeXML=function(string){
 		return newColor;
 	};
 	
-	Static.Public.getClass = function(object){
-		  var _ = this;
+	Public.Static.getClass = function(object){
+		  var _ = this.magic ? eval(this.magic) : this;
 		  return Object.prototype.toString.call(object).match(/^\[object\s(.*)\]$/)[1];
 		};
-	Static.Public.getWindowByName=function(name) {
-		var _ = this;
+	Public.Static.getWindowByName=function(name) {
+		var _ = this.magic ? eval(this.magic) : this;
 		if (window.name == name) {
 			return window;
 		} else {
@@ -751,8 +758,8 @@ Static.Public.unescapeXML=function(string){
 		}
 	};
 	
-	Static.Public.isInDocument=function(el) {
-    var _ = this;
+	Public.Static.isInDocument=function(el) {
+    var _ = this.magic ? eval(this.magic) : this;
     var html = document.body.parentNode;
     while (el) {
         if (el === html) {
@@ -761,7 +768,7 @@ Static.Public.unescapeXML=function(string){
         el = el.parentNode;
     }
     return false;
-};
+}})();
 
 };
 })();

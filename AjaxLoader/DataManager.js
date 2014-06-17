@@ -3,46 +3,48 @@
 var importList = ['Aweiss.Utils.Tools'];
 var name='Aweiss.AjaxLoader.DataManager';
 
-DEFINE(name, Class, importList);
+OOPS.DEFINE(name, Class, importList);
 
-function Class(){
-	eval(this.eval);
+function Class() {
+eval(this.magic);
+(function(){
+'use strict';
 	
-	Static.Private.contextName ='aweiss_ajax_load_';
-	Static.Private.initiatorName='initiator';
-	Static.Public.initiatorWindow=null;
+	Private.Static.contextName ='aweiss_ajax_load_';
+	Private.Static.initiatorName='initiator';
+	Public.Static.initiatorWindow=null;
 	
-	Static.Public.init=function(){
-		var _ = this;
-		_.static.initiatorWindow=_.static.getWindowByName(_.static.initiatorName);
-		_.static.initiatorWindow[_.static.contextName]={};
+	Public.Static.init=function(){
+		var _ = this.magic ? eval(this.magic) : this;
+		Static.initiatorWindow=Static.getWindowByName(Static.initiatorName);
+		Static.initiatorWindow[Static.contextName]={};
 	}
 	
-	Static.Private.getWindowByName = function(name){
-		var _ = this;
-		return Tools.getWindowByName(_.static.contextualizeName(name));
+	Private.Static.getWindowByName = function(name){
+		var _ = this.magic ? eval(this.magic) : this;
+		return Tools.getWindowByName(Static.contextualizeName(name));
 	}
 	
-	Static.Private.setWindowName = function(theWindow, name){
-		var _ = this;
-		theWindow.name=_.static.contextualizeName(name);
+	Private.Static.setWindowName = function(theWindow, name){
+		var _ = this.magic ? eval(this.magic) : this;
+		theWindow.name=Static.contextualizeName(name);
 	}
 	
-	Static.Private.contextualizeName = function(name){
-		var _ = this;
-		return _.static.contextName+name;
+	Private.Static.contextualizeName = function(name){
+		var _ = this.magic ? eval(this.magic) : this;
+		return Static.contextName+name;
 	}
 	
-	Static.Public.getItem=function(itemName, id){
-		var _ = this;
-		return _.static.getContext(id)[itemName];
+	Public.Static.getItem=function(itemName, id){
+		var _ = this.magic ? eval(this.magic) : this;
+		return Static.getContext(id)[itemName];
 	}
 	
-	Static.Public.getContext = function(id){
-		var _ = this;
+	Public.Static.getContext = function(id){
+		var _ = this.magic ? eval(this.magic) : this;
 		id=unescape(id);
 		try{
-			var context = _.static.initiatorWindow[_.static.contextName];
+			var context = Static.initiatorWindow[Static.contextName];
 		if(id!=null){
 			if(context[id]==null){
 				context[id]={};
@@ -58,35 +60,35 @@ function Class(){
 		}
 	}
 	
-	Static.Public.removeItem=function(itemName, id){
-		var _ = this;
-		_.static.setItem(itemName,null,id);
+	Public.Static.removeItem=function(itemName, id){
+		var _ = this.magic ? eval(this.magic) : this;
+		Static.setItem(itemName,null,id);
 	}
 	
-	Static.Public.clearContext = function(id){
-		var _ = this;
-		_.static.setContext(null, id);
+	Public.Static.clearContext = function(id){
+		var _ = this.magic ? eval(this.magic) : this;
+		Static.setContext(null, id);
 	}
 	
-	Static.Public.setItem=function(itemName, obj, id){
-		var _ = this;
-		var context = _.static.getContext(id);
+	Public.Static.setItem=function(itemName, obj, id){
+		var _ = this.magic ? eval(this.magic) : this;
+		var context = Static.getContext(id);
 		context[itemName]=obj;
 	}
 	
-	Static.Public.setContext=function(context, id){
-		var _ = this;
+	Public.Static.setContext=function(context, id){
+		var _ = this.magic ? eval(this.magic) : this;
 		id=unescape(id);
-		if(_.static.initiatorWindow[_.static.contextName]==null){
-			_.static.initiatorWindow[_.static.contextName]={};
+		if(Static.initiatorWindow[Static.contextName]==null){
+			Static.initiatorWindow[Static.contextName]={};
 		}
-		var context = _.static.initiatorWindow[_.static.contextName];
+		var context = Static.initiatorWindow[Static.contextName];
 		if(id!=null){
 			context[id]=context;
 		}
 		else{
 			context['initiator']=context;
 		}
-	}
+	}})();
 }
 })();

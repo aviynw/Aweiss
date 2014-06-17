@@ -3,16 +3,18 @@
 var importList = ['Aweiss.Utils.Exception'];
 var name='Aweiss.Utils.Asserter';
 
-DEFINE(name, Class, importList);
+OOPS.DEFINE(name, Class, importList);
 
-function Class(){
-	eval(this.eval);
+function Class() {
+eval(this.magic);
+(function(){
+'use strict';
 	
-	Static.Public.assert=function(statement){
-		var _ = this;
+	Public.Static.assert=function(statement){
+		var _ = this.magic ? eval(this.magic) : this;
 		if(!statement){
 			throw new Error('assertion failed');
 		}
-	}
+	}})();
 }
 })();

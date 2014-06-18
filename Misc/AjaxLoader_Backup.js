@@ -1,8 +1,8 @@
 function jsCols(callBack) {
-	Importer.get('js_cols/base.js', ready);
+	OOPS.get('js_cols/base.js', ready);
 	function ready() {
-		js_cols.basePath = Importer.baseDir;
-		Importer.get('js_cols/LinkedList.js', callBack);
+		js_cols.basePath = OOPS.baseDir;
+		OOPS.get('js_cols/LinkedList.js', callBack);
 	}
 
 }
@@ -11,7 +11,7 @@ var importList = ['Aweiss.Tools', 'Aweiss.Events', 'Aweiss.EEvent', 'Aweiss.Even
 	'scripty2/dist/s2.js' : ['http://ajax.googleapis.com/ajax/libs/prototype/1.7.1.0/prototype.js']
 }, 'history/src/history.js', jsCols];
 
-Importer.getAndDefine('Aweiss.AjaxLoader', importList);
+OOPS.getAndDefine('Aweiss.AjaxLoader', importList);
 
 Aweiss.AjaxLoader = function() {
 	var _ = this.magic ? eval(this.magic) : this;

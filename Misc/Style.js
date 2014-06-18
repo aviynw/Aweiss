@@ -1,6 +1,6 @@
 Namespace("Aweiss");
 
-Importer.whenReady('Aweiss.Style', ready);
+OOPS.whenReady('Aweiss.Style', ready);
 
 Aweiss.Style = function(name, number, style) {
 	this.name=name;

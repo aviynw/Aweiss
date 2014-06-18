@@ -119,18 +119,44 @@ Public.Static.unescapeXML=function(string){
 	        xdr.onprogress=	function() { console.log("PROGRASS")};
             xdr.send();
 		} else {
-			var xhr = new XMLHttpRequest();
-			xhr.open('GET', req.url, true);
-			xhr.timeout = 99000;
-			xhr.responseType = 'text';
-            xhr.onload= 	function() { if(xhr.status=='200') { data=xhr.responseText; } else error=xhr.responseText; respond();};
-	        xhr.onerror= 	function() { error=xhr.responseText; respond();};
-	        xhr.ontimeout= 	function() { error="ERROR: XMLHttpRequest timeout"; respond();};
-			xhr.send();
-		};
-	};
+            if(Static.inNode&&req.url.indexOf('://')==-1) {
+                var fs = require('fs');
+                fs.readFile(window.location._url.path.split('/').slice(1, -1).join('/') + req.url, 'utf8',function (err, response) {
+                    if (err) {
+                        throw err;
+                    }
+                    data=response;
+                    respond();
+                });
+            }
+            else {
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', req.url, true);
+                xhr.timeout = 99000;
+                xhr.responseType = 'text';
+                xhr.onload = function () {
+                    if (xhr.status == '200') {
+                        data = xhr.responseText;
+                    } else error = xhr.responseText;
+                    respond();
+                };
+                xhr.onerror = function () {
+                    error = xhr.responseText;
+                    respond();
+                };
+                xhr.ontimeout = function () {
+                    error = "ERROR: XMLHttpRequest timeout";
+                    respond();
+                };
+                xhr.send();
+            }
+        }
+        ;
+    };
 	
-	
+	Public.Static.Get.inNode=function(){
+        return (typeof exports !== 'undefined' && this.exports !== exports)
+    }
 	Public.Static.filter=function(obj, test){
 		var _ = this.magic ? eval(this.magic) : this;
 		var matches=[];

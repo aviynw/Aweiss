@@ -1,7 +1,7 @@
 (function(){
 var importList = ['Aweiss.Events.DynamicEvent'];
 
-Importer.getAndDefine('Aweiss.AjaxLoader.Events.WindowLoadedEvent', Class, importList, {'extends':'Aweiss.Events.DynamicEvent'});
+OOPS.getAndDefine('Aweiss.AjaxLoader.Events.WindowLoadedEvent', Class, importList, {'extends':'Aweiss.Events.DynamicEvent'});
 
 function Class() {
 eval(this.magic);

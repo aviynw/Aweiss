@@ -108,7 +108,7 @@
 		var newDoc = newWin.document;
 		newWin.name = initiatorName;
 		newWin.localStorage.url = window.location.href;
-		//addScript(newDoc, 'js/Importer.js');
+		//addScript(newDoc, 'js/OOPS.js');
 		//addScript(newDoc, 'js/ajax_load.js');
 		//addStyle(newDoc, 'css/base.css');
 		newWin.focus();

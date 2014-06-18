@@ -5,7 +5,7 @@ var className = 'Transition';
 var fullName = nameSpace + '.' + className;
 Namespace(fullName);
 
-Importer.getList(['Aweiss.Tools'], fullName, ready);
+OOPS.getList(['Aweiss.Tools'], fullName, ready);
 
 Aweiss.Transition = function(url) {
 	

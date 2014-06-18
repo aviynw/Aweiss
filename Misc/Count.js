@@ -1,6 +1,6 @@
 Namespace("Aweiss");
 
-Importer.whenReady('Aweiss.Count', ready);
+OOPS.whenReady('Aweiss.Count', ready);
 
 Aweiss.Count = function() {
 	var counter=0;

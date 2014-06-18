@@ -5,7 +5,7 @@ var className = 'State';
 var fullName = nameSpace + '.' + className;
 Namespace(fullName);
 
-Importer.getList(['Aweiss.Count', 'Aweiss.Tools', 'Aweiss.Transition'], fullName, ready);
+OOPS.getList(['Aweiss.Count', 'Aweiss.Tools', 'Aweiss.Transition'], fullName, ready);
 
 Aweiss.State = function() {
 	var model=this;

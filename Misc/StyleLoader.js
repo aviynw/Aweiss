@@ -4,7 +4,7 @@ var className ='StyleLoader';
 var fullName = nameSpace + '.' + className;
 Namespace(fullName);
 
-Importer.getList(['Aweiss.Style', 'Aweiss.Tools'], fullName, ready);
+OOPS.getList(['Aweiss.Style', 'Aweiss.Tools'], fullName, ready);
 
 Aweiss.StyleLoader = function() {
 	

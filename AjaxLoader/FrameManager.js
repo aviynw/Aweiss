@@ -16,9 +16,9 @@ eval(this.magic);
 		
 		Public.Static.init=function(){
 			var _ = this.magic ? eval(this.magic) : this;
-			Static.usedFrames = new js_cols.LinkedList();
-			Static.freeFrames = new js_cols.LinkedList();
-			Static.createFrame();
+			_.Static.usedFrames = new js_cols.LinkedList();
+			_.Static.freeFrames = new js_cols.LinkedList();
+			_.Static.createFrame();
 		}
 		
 		Public.Static.release=function(frame){
@@ -27,25 +27,25 @@ eval(this.magic);
 			if(frame.document!=null){
 				frame.document.replaceChild(emptyNode, frame.document.documentElement);
 			}
-			Static.freeFrames.addLast(frame);
-			Static.usedFrames.remove(frame);
+			_.Static.freeFrames.addLast(frame);
+			_.Static.usedFrames.remove(frame);
 			DataManager.clearContext(frame.id);
 		}
 		
 		Public.Static.getFrame=function(){
 			var _ = this.magic ? eval(this.magic) : this;
-			if(Static.freeFrames.size==0){
-				Static.createFrame();
+			if(_.Static.freeFrames.size==0){
+				_.Static.createFrame();
 			}
-			var frame = Static.freeFrames.removeLast();
-			Static.usedFrames.addLast(frame);
+			var frame = _.Static.freeFrames.removeLast();
+			_.Static.usedFrames.addLast(frame);
 			return frame
 		}
 		
 		Private.Static.createFrame = function() {
 			var _ = this.magic ? eval(this.magic) : this;
-			var frame = new Frame(Static.counter++, null);
-			Static.freeFrames.addLast(frame);
+			var frame = new Frame(_.Static.counter++, null);
+			_.Static.freeFrames.addLast(frame);
 		}})();
 	}
 })(); 

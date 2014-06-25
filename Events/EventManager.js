@@ -1,6 +1,9 @@
 (function(){
 
-var importList = [ 'Aweiss.Events.BaseEvent', 'Aweiss.Events.DynamicEvent', 'Aweiss/DataStructures/DirectedGraph.js', {'Libs/js_cols/LinkedList.js':'Libs/js_cols/base.js'}, {'Libs/js_cols/Queue.js':['Libs/js_cols/LinkedList.js']}];
+var importList = [ 'Aweiss.Events.BaseEvent', 'Aweiss.Events.DynamicEvent', 'Aweiss/DataStructures/DirectedGraph.js',
+    ['JSCOLS-BASE', 'Libs/js_cols/base.js'],
+    ['JSCOLS-LINKEDLIST','Libs/js_cols/LinkedList.js',['JSCOLS-BASE']],
+    ['JSCOLS-QUEUE','Libs/js_cols/Queue.js',['JSCOLS-LINKEDLIST']]];
 
 OOPS.DEFINE('Aweiss.Events.EventManager', Class, importList);
 
@@ -17,20 +20,20 @@ eval(this.magic);
 	
 	Public.Static.init=function(){
 		var _ = this.magic ? eval(this.magic) : this;
-		Static.cumlativeListeners = new DirectedGraph();
-		Static.cumlativeListeners.setType('unidirectional');
-		Static.pastEvents = new js_cols.LinkedList();
+		_.Static.cumlativeListeners = new DirectedGraph();
+		_.Static.cumlativeListeners.setType('unidirectional');
+		_.Static.pastEvents = new js_cols.LinkedList();
 	}
 	
 	Public.Static.addListener = function(eventType, todo, happenedMatters) {
 		var _ = this.magic ? eval(this.magic) : this;
-		var todoList = Static.listeners[eventType];
+		var todoList = _.Static.listeners[eventType];
 		if (todoList == null) {
-			Static.listeners[eventType] = new js_cols.LinkedList();
+			_.Static.listeners[eventType] = new js_cols.LinkedList();
 		}
-		Static.listeners[eventType].addLast(todo);
+		_.Static.listeners[eventType].addLast(todo);
 		if(happenedMatters===true){
-			Static.alertForPastEvents(eventType, Static.alertListeners);
+			_.Static.alertForPastEvents(eventType, _.Static.alertListeners);
 		}
 	};
 	
@@ -43,7 +46,7 @@ eval(this.magic);
 				return false;
 			}
 		}
-		if (Static.pastEvents.containsPassingElement(test)) {
+		if (_.Static.pastEvents.containsPassingElement(test)) {
 			return true;
 		}
 		else{
@@ -59,12 +62,12 @@ eval(this.magic);
 				return false;
 			}
 		}
-		return Static.pastEvents.filter(test);
+		return _.Static.pastEvents.filter(test);
 	};
 	
 	Private.Static.alertForPastEvents=function(eventType, alertFunction){
 		var _ = this.magic ? eval(this.magic) : this;
-		var pastEventsOfType = Static.getPastEventsOfType(eventType);
+		var pastEventsOfType = _.Static.getPastEventsOfType(eventType);
 		var lastEvent = pastEventsOfType[pastEventsOfType.length-1];
 		if(lastEvent!=null){
 			alertFunction(lastEvent);
@@ -77,7 +80,7 @@ eval(this.magic);
 			result(event);
 		}
 		if (typeof result === 'string') {
-			Static.fire(new BaseEvent(result));
+			_.Static.fire(new BaseEvent(result));
 		}
 	};
 	
@@ -94,31 +97,31 @@ eval(this.magic);
 	
 	Public.Static.queueListener = function(eventType, todo) {
 		var _ = this.magic ? eval(this.magic) : this;
-		Static.addToQueue(Static.queuedListeners, eventType, todo)
+		_.Static.addToQueue(_.Static.queuedListeners, eventType, todo)
 	};
 	
 	/*Public.Static.hasRelayedListeners = function(eventType){
-		var queue = Static.relayedListeners;
+		var queue = _.Static.relayedListeners;
 		if(queue)
 	}*/
 	
 	Public.Static.queueRelayListener = function(eventType, todo) {
 		var _ = this.magic ? eval(this.magic) : this;
-		var queueList = Static.relayedListeners;
-		var queue = Static.addToQueue(queueList, eventType, todo);
+		var queueList = _.Static.relayedListeners;
+		var queue = _.Static.addToQueue(queueList, eventType, todo);
 		if(queue.size==1){
 			queue.enqueue(function(e){
-				Static.alertRelayedListeners(e);
+				_.Static.alertRelayedListeners(e);
 			});
-			Static.alertRelayedListeners(new BaseEvent(eventType, 'Fake Event.  listenered queued on empty queue, so running now.'));
+			_.Static.alertRelayedListeners(new BaseEvent(eventType, 'Fake Event.  listenered queued on empty queue, so running now.'));
 		}
 	};
 	
 	Public.Static.addCumlativeListener = function(eventType, todo) {
 		var _ = this.magic ? eval(this.magic) : this;
-		Static.cumlativeListeners.addNode(eventType);
-		Static.cumlativeListeners.addNode(todo);
-		Static.cumlativeListeners.addEdge(eventType, todo);
+		_.Static.cumlativeListeners.addNode(eventType);
+		_.Static.cumlativeListeners.addNode(todo);
+		_.Static.cumlativeListeners.addEdge(eventType, todo);
 		/*if(happenedMatters===true){
 			alertForPastEvents(eventType, alertStatic.cumlativeListeners);
 		}*/
@@ -126,10 +129,10 @@ eval(this.magic);
 
 	Public.Static.addCumlativeListeners= function(eventTypes, todo, happenedMatters) {
 		var _ = this.magic ? eval(this.magic) : this;
-		Static.cumlativeListeners.addNodesFromArray(eventTypes);
-		Static.cumlativeListeners.addNode(todo);
+		_.Static.cumlativeListeners.addNodesFromArray(eventTypes);
+		_.Static.cumlativeListeners.addNode(todo);
 		for ( var i = 0; i < eventTypes.length; i++) {
-			Static.cumlativeListeners.addEdge(eventTypes[i], todo);
+			_.Static.cumlativeListeners.addEdge(eventTypes[i], todo);
 		}
 		if(happenedMatters===true){
 			for ( var i = 0; i < eventTypes.length; i++) {
@@ -157,15 +160,15 @@ eval(this.magic);
 	
 	Public.Static.hasQueuedListener=function(eventType){
 		var _ = this.magic ? eval(this.magic) : this;
-		return Static.listHasListener(eventType, Static.queuedListeners);
+		return _.Static.listHasListener(eventType, _.Static.queuedListeners);
 	}
 	
 	Public.Static.removeListener = function(eventType, todo) {
 		var _ = this.magic ? eval(this.magic) : this;
-		Static.removeFromList(eventType, todo, Static.listeners);
-		Static.removeFromList(eventType, todo, Static.queuedListeners);
-		Static.removeFromList(eventType, todo, Static.cumlativeListeners);
-		Static.removeFromList(eventType, todo, Static.relayedListeners);
+		_.Static.removeFromList(eventType, todo, _.Static.listeners);
+		_.Static.removeFromList(eventType, todo, _.Static.queuedListeners);
+		_.Static.removeFromList(eventType, todo, _.Static.cumlativeListeners);
+		_.Static.removeFromList(eventType, todo, _.Static.relayedListeners);
 	};
 
 	Private.Static.removeFromList=function(eventType, todo, list) {
@@ -176,32 +179,32 @@ eval(this.magic);
 
 	Private.Static.alert=function(event){
 		var _ = this.magic ? eval(this.magic) : this;
-		Static.alertListeners(event);
-		Static.alertQueuedListeners(event);
-		Static.alertRelayedListeners(event);
-		Static.alertCumlativeListeners(event);
-		Static.pastEvents.addLast(event);
+		_.Static.alertListeners(event);
+		_.Static.alertQueuedListeners(event);
+		_.Static.alertRelayedListeners(event);
+		_.Static.alertCumlativeListeners(event);
+		_.Static.pastEvents.addLast(event);
 	}
 	
 	Public.Static.fire = function(event) {
 		var _ = this.magic ? eval(this.magic) : this;
-		Static.alert(event);
+		_.Static.alert(event);
 		if(event instanceof DynamicEvent){
-			var generalEvent = new BaseEvent(event._Static.generalEventType, "General Event generated by:" + event.getEventType() +'Message:'+event.message);
-			Static.alert(generalEvent);
+			var generalEvent = new BaseEvent(event.__.Static.generalEventType, "General Event generated by:" + event.getEventType() +'Message:'+event.message);
+			_.Static.alert(generalEvent);
 		}
 		
 	};
 
 	Private.Static.alertListeners=function(event) {
 		var _ = this.magic ? eval(this.magic) : this;
-		var todoList = Static.listeners[event.eventType];
+		var todoList = _.Static.listeners[event.eventType];
 		if (todoList != null) {
-			var todoArray = Static.listeners[event.eventType].toArray();
-			Static.listeners[event.eventType] = null;
+			var todoArray = _.Static.listeners[event.eventType].toArray();
+			_.Static.listeners[event.eventType] = null;
 			for(var i=0;i<todoArray.length;i++) {
 				var todo = todoArray[i];
-				Static.handleEventResult(event, todo);
+				_.Static.handleEventResult(event, todo);
 			};
 		};
 	};
@@ -211,36 +214,36 @@ eval(this.magic);
 		var todoList = queue[event.eventType];
 		if (todoList != null) {
 			var todo = todoList.dequeue();
-			Static.handleEventResult(event, todo);
+			_.Static.handleEventResult(event, todo);
 		};
 	}
 	
 	Private.Static.alertRelayedListeners=function(event) {
 		var _ = this.magic ? eval(this.magic) : this;
-		return Static.alertQueue(Static.relayedListeners, event);
+		return _.Static.alertQueue(_.Static.relayedListeners, event);
 	};
 	
 	Private.Static.alertQueuedListeners=function(event) {
 		var _ = this.magic ? eval(this.magic) : this;
-		return Static.alertQueue(Static.queuedListeners, event);
+		return _.Static.alertQueue(_.Static.queuedListeners, event);
 	};
 	
 	Private.Static.alertCumlativeListeners=function(event) {
 		var _ = this.magic ? eval(this.magic) : this;
-		var potentialTodos = Static.cumlativeListeners.edgesFrom(event.eventType)
+		var potentialTodos = _.Static.cumlativeListeners.edgesFrom(event.eventType)
 				|| [];
 		for ( var i = 0; i < potentialTodos.length; i++) {
-			Static.cumlativeListeners.removeEdge(event.eventType, potentialTodos[i]);
-			var edgesTo = Static.cumlativeListeners.edgesTo(potentialTodos[i]) || [];
+			_.Static.cumlativeListeners.removeEdge(event.eventType, potentialTodos[i]);
+			var edgesTo = _.Static.cumlativeListeners.edgesTo(potentialTodos[i]) || [];
 			if (edgesTo.length == 0) {
-				Static.handleEventResult(event, potentialTodos[i]);
-				Static.cumlativeListeners.removeNode(potentialTodos[i]);
+				_.Static.handleEventResult(event, potentialTodos[i]);
+				_.Static.cumlativeListeners.removeNode(potentialTodos[i]);
 			}
 			;
-			var leftoverTodos = Static.cumlativeListeners.edgesFrom(event.eventType)
+			var leftoverTodos = _.Static.cumlativeListeners.edgesFrom(event.eventType)
 					|| [];
 			if (leftoverTodos.length == 0) {
-				Static.cumlativeListeners.removeNode(event.eventType);
+				_.Static.cumlativeListeners.removeNode(event.eventType);
 			}
 			;
 		}

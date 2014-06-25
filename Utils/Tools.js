@@ -84,7 +84,7 @@ Public.Static.unescapeXML=function(string){
 			req.always() ;
 			};
 		
-		Static.crossAjax(newReq);
+		_.Static.crossAjax(newReq);
 		};
 
 	Public.Static.crossAjax=function(req) {
@@ -108,7 +108,7 @@ Public.Static.unescapeXML=function(string){
 				req.always();
 			}
 		}
-		if (Static.ie>=6 && Static.ie<=9  && xOrigin) {
+		if (_.Static.ie>=6 && _.Static.ie<=9  && xOrigin) {
 			var xdr = new XDomainRequest();
             xdr.open("GET", req.url);
             xdr.timeout = 99000;
@@ -119,7 +119,7 @@ Public.Static.unescapeXML=function(string){
 	        xdr.onprogress=	function() { console.log("PROGRASS")};
             xdr.send();
 		} else {
-            if(Static.inNode&&req.url.indexOf('://')==-1) {
+            if(_.Static.inNode&&req.url.indexOf('://')==-1) {
                 var fs = require('fs');
                 fs.readFile(window.location._url.path.split('/').slice(1, -1).join('/') + req.url, 'utf8',function (err, response) {
                     if (err) {
@@ -162,7 +162,7 @@ Public.Static.unescapeXML=function(string){
 		var matches=[];
 		for(var key in obj){
 			var value = obj[key];
-			if(Static.isObject(test)){
+			if(_.Static.isObject(test)){
 				var match=true;
 				for(var propName in test){
 					if(value[propName]!=test[propName]){
@@ -221,7 +221,7 @@ Public.Static.unescapeXML=function(string){
 		var lastDot= name.lastIndexOf('.');
 		if(lastDot!=-1){
 			name=name.substring(0, lastDot);
-			return Static.getNameSpace(parent, name);
+			return _.Static.getNameSpace(parent, name);
 		}
 		else{
 			return parent;
@@ -303,16 +303,16 @@ Public.Static.unescapeXML=function(string){
 	 //'top':e.position().top+siblingsdimension.height ore.position().left+siblingsdimension.width
 	/*Public.Static.getTruePosition=function(e, dimension, debug){  
 		var _ = this.magic ? eval(this.magic) : this;
-		var siblingsdimension = Static.getSiblingsDimension(e, dimension, 'before');
+		var siblingsdimension = _.Static.getSiblingsDimension(e, dimension, 'before');
 		var truePosition
 		switch (dimension) {
-		case Static.Dimension.HEIGHT:
+		case _.Static.Dimension.HEIGHT:
 			 truePosition=e.position().top+siblingsdimension;
 			break;
-		case Static.Dimension.WIDTH:
+		case _.Static.Dimension.WIDTH:
 			 truePosition=e.position().left+siblingsdimension;
 			break;
-		case Static.Dimension.BOTH:
+		case _.Static.Dimension.BOTH:
 			truePosition={
 				'top':e.position().top+siblingsdimension.height,
 				'left':e.position().left+siblingsdimension.width
@@ -323,10 +323,10 @@ Public.Static.unescapeXML=function(string){
 	*/
 	Public.Static.getSiblingsDimension = function(e, dimension, type, debug) {
 		var _ = this.magic ? eval(this.magic) : this;
-		/*if(dimension==Static.Dimension.BOTH){
+		/*if(dimension==_.Static.Dimension.BOTH){
 			var dimensions={
-					'height':Static.getSiblingsDimension(e, Static.Dimension.HEIGHT, type, debug),
-					'Width':Static.getSiblingsDimension(e, Static.Dimension.WIDTH, type, debug),
+					'height':_.Static.getSiblingsDimension(e, _.Static.Dimension.HEIGHT, type, debug),
+					'Width':_.Static.getSiblingsDimension(e, _.Static.Dimension.WIDTH, type, debug),
 			}
 			return dimensions;
 		}
@@ -345,11 +345,11 @@ Public.Static.unescapeXML=function(string){
 			var size = 0;
 			switch (dimension) {
 
-				case Static.Dimension.HEIGHT:
+				case _.Static.Dimension.HEIGHT:
 					size = Math.ceil(jQuery(this).outerHeight(true));
 					break;
 
-				case Static.Dimension.WIDTH:
+				case _.Static.Dimension.WIDTH:
 					size = Math.ceil(jQuery(this).outerWidth(true));
 					break;
 			};
@@ -388,7 +388,7 @@ Public.Static.unescapeXML=function(string){
 		var originalParent = e.parent();
 		var parent = originalParent;
 
-		if (dimension == Static.Dimension.HEIGHT) {
+		if (dimension == _.Static.Dimension.HEIGHT) {
 			while (this.static.isAutoHeight(parent)) {
 				parent = parent.parent();
 			}
@@ -397,21 +397,21 @@ Public.Static.unescapeXML=function(string){
 			alert('Originalparent:' + originalParent.attr('id'));
 			alert('Parent:' + parent.attr('id'));
 		}
-		var siblingsDimension = Static.getSiblingsDimension(e, dimension, debug);
+		var siblingsDimension = _.Static.getSiblingsDimension(e, dimension, debug);
 
 		if (parent != originalParent) {
-			siblingsDimension += Static.getSiblingsDimension(originalParent, dimension, debug);
+			siblingsDimension += _.Static.getSiblingsDimension(originalParent, dimension, debug);
 		}
 		var parentDimension;
 		var borderStuff;
 		var newDimension;
 
 		switch (dimension) {
-			case Static.Dimension.HEIGHT:
+			case _.Static.Dimension.HEIGHT:
 				parentDimension = Math.floor(parent.height());
 				borderStuff = Math.ceil(e.outerHeight(true)) - Math.floor(e.height());
 				break;
-			case Static.Dimension.WIDTH:
+			case _.Static.Dimension.WIDTH:
 				parentDimension = Math.floor(parent.width());
 				borderStuff = Math.ceil(e.outerWidth(true)) - Math.floor(e.width());
 				break;
@@ -427,10 +427,10 @@ Public.Static.unescapeXML=function(string){
 		}
 		switch (dimension) {//not sure why the -1 is needed, but seems needed for firefox and ie9.
 
-			case Static.Dimension.HEIGHT:
+			case _.Static.Dimension.HEIGHT:
 				e.height(newDimension);
 				break;
-			case Static.Dimension.WIDTH:
+			case _.Static.Dimension.WIDTH:
 				e.width(newDimension);
 				break;
 		}
@@ -457,7 +457,7 @@ Public.Static.unescapeXML=function(string){
 		if (!outerDiv.hasClass(centerWrapperClass)) {
 			outerDiv.addClass(centerWrapperClass);
 		}
-		Static.verticallyCenter(outerDiv);
+		_.Static.verticallyCenter(outerDiv);
 	};
 
 	Public.Static.hide = function(e) {
@@ -473,30 +473,30 @@ Public.Static.unescapeXML=function(string){
 	Public.Static.fadeIn = function(e, duration, easing, callBack) {
 		var _ = this.magic ? eval(this.magic) : this;
 		e.fadeTo(duration, 1, easing, callBack);
-		Static.show(e);
+		_.Static.show(e);
 		e.show(e);
 	};
 
 	Public.Static.fadeOut = function(e, duration, easing, callBack) {
 		var _ = this.magic ? eval(this.magic) : this;
 		e.fadeTo(duration, 0, easing, callBack);
-		Static.hide(e);
+		_.Static.hide(e);
 		e.hide();
 	};
 
 	Public.Static.getParam = function(name) {
 		var _ = this.magic ? eval(this.magic) : this;
-		return Static.getParamFromString(Static.getHash(), name);
+		return _.Static.getParamFromString(_.Static.getHash(), name);
 	};
 
 	Public.Static.removeParam = function(name) {
 		var _ = this.magic ? eval(this.magic) : this;
-		Static.setHash(removeParamFromString(Static.getHash(), name));
+		_.Static.setHash(removeParamFromString(_.Static.getHash(), name));
 	};
 
 	Public.Static.addParam = function(name, value) {
 		var _ = this.magic ? eval(this.magic) : this;
-		Static.setHash(addParamToString(Static.getHash(), name, value, '#'));
+		_.Static.setHash(addParamToString(_.Static.getHash(), name, value, '#'));
 	};
 	
 	Public.Static.addProperties=function(obj1, obj2, test) {
@@ -521,7 +521,7 @@ Public.Static.unescapeXML=function(string){
 	};
 	Public.Static.removeParamFromString = function(string, name) {
 		var _ = this.magic ? eval(this.magic) : this;
-		var toReplace = name + '=' + Static.getParamFromString(string, name);
+		var toReplace = name + '=' + _.Static.getParamFromString(string, name);
 		var indexOf = string.indexOf(toReplace);
 		var newString = string;
 		if (indexOf != -1) {
@@ -557,7 +557,7 @@ Public.Static.unescapeXML=function(string){
 
 	Public.Static.addParamToString = function(string, name, value, seperator) {
 		var _ = this.magic ? eval(this.magic) : this;
-		if (!Static.getParamFromString(string, name)) {
+		if (!_.Static.getParamFromString(string, name)) {
 
 			if (string.indexOf(seperator) != -1) {
 				string += '&' + name + '=' + value;
@@ -565,8 +565,8 @@ Public.Static.unescapeXML=function(string){
 				string += seperator + name + '=' + value;
 			}
 		} else {
-			string = Static.removeParamFromString(string, name);
-			string = Static.addParamToString(string, name, value);
+			string = _.Static.removeParamFromString(string, name);
+			string = _.Static.addParamToString(string, name, value);
 		}
 		return string;
 	};
@@ -594,7 +594,7 @@ Public.Static.unescapeXML=function(string){
 	Public.Static.addParamsToString = function(string, params, seperator) {
 		var _ = this.magic ? eval(this.magic) : this;
 		for (var param in params) {
-			string = Static.addParamToString(string, param, params[param], seperator);
+			string = _.Static.addParamToString(string, param, params[param], seperator);
 		}
 		return string;
 	};
@@ -603,11 +603,11 @@ Public.Static.unescapeXML=function(string){
 		var _ = this.magic ? eval(this.magic) : this;
 		if (params instanceof Array) {
 			for (var i = 0; i < params.length; i++) {
-				string = Static.removeParamFromString(string, params[i]);
+				string = _.Static.removeParamFromString(string, params[i]);
 			}
 		} else {//must be dictionary
 			for (var param in params) {
-				string = Static.removeParamFromString(string, param);
+				string = _.Static.removeParamFromString(string, param);
 			}
 		}
 		return string;
@@ -616,19 +616,19 @@ Public.Static.unescapeXML=function(string){
 	Public.Static.addParams = function(params) {
 		var _ = this.magic ? eval(this.magic) : this;
 		for (var param in params) {
-			Static.addParam(getHash(), param);
+			_.Static.addParam(getHash(), param);
 		}
 	};
 
 	Public.Static.getParams = function() {
 		var _ = this.magic ? eval(this.magic) : this;
-		return Static.getParamsFromString(getHash());
+		return _.Static.getParamsFromString(getHash());
 	};
 
 	Public.Static.removeParams = function(params) {
 		var _ = this.magic ? eval(this.magic) : this;
 		for (var param in params) {
-			Static.removeParam(param);
+			_.Static.removeParam(param);
 		}
 	};
 
@@ -665,18 +665,18 @@ Public.Static.unescapeXML=function(string){
 	
 	Public.Static.isSameDomain = function(string){
 		var _ = this.magic ? eval(this.magic) : this;
-		return(location.host==Static.extractDomain(string));
+		return(location.host==_.Static.extractDomain(string));
 	};
 	
 	Public.Static.isLinkSameDomain = function(link){
 		var _ = this.magic ? eval(this.magic) : this;
-		//return(Static.extractDomain(link.baseURI)==Static.extractDomain(link.href));
+		//return(_.Static.extractDomain(link.baseURI)==_.Static.extractDomain(link.href));
 		return (location.host==link.host);
 	};
 	
 	Public.Static.isLinkSameBase=function(link){
 		var _ = this.magic ? eval(this.magic) : this;
-		return (Static.removeHash(location.href)==Static.removeHash(link.href));
+		return (_.Static.removeHash(location.href)==_.Static.removeHash(link.href));
 	};
 		
 	Public.Static.getPage = function(string) {
@@ -690,7 +690,7 @@ Public.Static.unescapeXML=function(string){
 	
 	Public.Static.removeHash = function(string){
 		var _ = this.magic ? eval(this.magic) : this;
-		var newString =string.replace(Static.extractHash(string), '').replace('#', '');
+		var newString =string.replace(_.Static.extractHash(string), '').replace('#', '');
 		return newString;
 	}
 	
@@ -710,11 +710,11 @@ Public.Static.unescapeXML=function(string){
 	
 	Public.Static.modulateFontSize = function(element) {
 		var _ = this.magic ? eval(this.magic) : this;
-		/*if(!Static.hasOverFlow(element)){
-			while(!Static.hasOverFlow(element)){
-				Static.increaseFontSizeBy(element, 1);
-				if(Static.hasOverFlow(element)){
-					Static.decreaseFontSizeBy(element, 1);
+		/*if(!_.Static.hasOverFlow(element)){
+			while(!_.Static.hasOverFlow(element)){
+				_.Static.increaseFontSizeBy(element, 1);
+				if(_.Static.hasOverFlow(element)){
+					_.Static.decreaseFontSizeBy(element, 1);
 					break;
 				}
 			}
@@ -728,11 +728,11 @@ Public.Static.unescapeXML=function(string){
 			parentDiv.html(wrapperDiv.html());
 		}
 		
-		if(Static.hasOverFlow(element)){
+		if(_.Static.hasOverFlow(element)){
 			jQuery(element).wrapInner('<div class="' + wrapperClass + '"/>');
 			var wrapperDiv = jQuery(element).find('.'+wrapperClass);
-			while(Static.hasOverFlow(element)){
-				Static.decreaseFontSizeBy(wrapperDiv, 1);
+			while(_.Static.hasOverFlow(element)){
+				_.Static.decreaseFontSizeBy(wrapperDiv, 1);
 		}
 		}
 	};
@@ -744,7 +744,7 @@ Public.Static.unescapeXML=function(string){
 	
 	Public.Static.decreaseFontSizeBy = function(element, amount){
 		var _ = this.magic ? eval(this.magic) : this;
-		Static.increaseFontSizeBy(element, -1 * amount);
+		_.Static.increaseFontSizeBy(element, -1 * amount);
 	};
 	
 	Public.Static.redraw = function(element){

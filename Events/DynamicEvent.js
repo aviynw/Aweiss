@@ -13,7 +13,7 @@ eval(this.magic);
 	
 	Public.Static.init=function(generalEventType){
 		var _ = this.magic ? eval(this.magic) : this;
-		Static.generalEventType=generalEventType;
+		_.Static.generalEventType=generalEventType;
 	}
 	Public.init = function(specificEventType, message){
 		var _ = this.magic ? eval(this.magic) : this;
@@ -26,15 +26,15 @@ eval(this.magic);
 	
 	Public.getEventType=function(){
 		var _ = this.magic ? eval(this.magic) : this;
-		return Static.getEventType(_.specificEventType);
+		return _.Static.getEventType(_.specificEventType);
 	};
 	Public.Static.getEventType=function(specific){
 		var _ = this.magic ? eval(this.magic) : this;
 		if(specific!=null&&specific!=""){
-			return Static.generalEventType+'_'+specific;
+			return _.Static.generalEventType+'_'+specific;
 		}
 		else{
-			return Static.generalEventType;
+			return _.Static.generalEventType;
 		}
 	}})();
 };

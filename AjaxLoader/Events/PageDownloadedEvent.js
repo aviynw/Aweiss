@@ -10,7 +10,7 @@ eval(this.magic);
 	
 	Public.Static.init=function(){
 		var _ = this.magic ? eval(this.magic) : this;
-		Static.this.super('Page_Downloaded_');
+		_.Static.this.super('Page_Downloaded_');
 	}
 	
 	Public.init = function(url){

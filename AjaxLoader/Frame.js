@@ -147,7 +147,7 @@ eval(this.magic);
 				if (callback != null) {
 					callback();
 				}
-				//EventManager.fire(Static.events.PAGE_Rendered+url);
+				//EventManager.fire(_.Static.events.PAGE_Rendered+url);
 			}
 			window.addEventListener(eventName, ready, true);
 			//_.pendingEvents.push(new DomEvent(window, eventName, ready));

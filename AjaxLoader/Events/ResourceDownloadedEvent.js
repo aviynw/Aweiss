@@ -10,7 +10,7 @@ eval(this.magic);
 	Public.content='';
 	Public.Static.init=function(){
 		var _ = this.magic ? eval(this.magic) : this;
-		_.Static.this.super('RESOURCE_DOWNLOADED_');
+		_.Static._.super('RESOURCE_DOWNLOADED_');
 	}
 	Public.init = function(url, content){
 		//;

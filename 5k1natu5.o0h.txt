@@ -1,0 +1,21 @@
+﻿
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#	modified:   AjaxLoader/Events/PageDownloadedEvent.js
+#	modified:   AjaxLoader/Events/PageExecutedEvent.js
+#	modified:   AjaxLoader/Events/PageRenderedEvent.js
+#	modified:   AjaxLoader/Events/ResourceDownloadedEvent.js
+#	modified:   AjaxLoader/Frame.js
+#	modified:   AjaxLoader/ManagedPage.js
+#	modified:   AjaxLoader/Page.js
+#	modified:   AjaxLoader/PageManager.js
+#	modified:   AjaxLoader/Page_backup.js
+#	modified:   AjaxLoader/initiator.js
+#	modified:   AsyncTest.js
+#	modified:   Utils/Tools.js
+#
+

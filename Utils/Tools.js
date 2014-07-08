@@ -69,25 +69,26 @@ Public.Static.unescapeXML=function(string){
 	
 	Public.Static.crossAjaxJson=function(req) {
 		var _ = this.magic ? eval(this.magic) : this;
-		var newReq={}
-		newReq.url=req.url;
-		if(req.success) newReq.success=function(data) { 
+        var success=req.success;
+        var error= req.error;
+        var always=req.always;
+		if(req.success) req.success=function(data) {
 			console.log('success');
-			req.success(JSON.parse(data));
+			success(JSON.parse(data));
 			};
-		if(req.error) newReq.error=function(data) { 
+		if(req.error) req.error=function(data) {
 			console.log('error');
-			req.error(JSON.parse(data)); 
+			error(JSON.parse(data));
 			};
-		if(req.always) newReq.always=function() { 	
+		if(req.always) req.always=function() {
 			console.log('always');
-			req.always() ;
+			always() ;
 			};
 		
-		_.Static.crossAjax(newReq);
+		_.Static.crossAjax(req);
 		};
 
-	Public.Static.crossAjax=function(req) {
+	Public.Static.crossAjax=function(req) {//POST DATA DOESNT WORK WITH IE<9
 		var _ = this.magic ? eval(this.magic) : this;
 		var myLoc=window.location.href.match(/http:\/\/.*?\//gi)
 		var reqLoc=req.url.match(/http:\/\/.*?\//gi)
@@ -131,7 +132,12 @@ Public.Static.unescapeXML=function(string){
             }
             else {
                 var xhr = new XMLHttpRequest();
-                xhr.open('GET', req.url, true);
+                if(!req.post){
+                    xhr.open('GET', req.url, true);
+                }
+                else{
+                    xhr.open('POST', req.url, true);
+                }
                 xhr.timeout = 99000;
                 xhr.responseType = 'text';
                 xhr.onload = function () {
@@ -148,7 +154,12 @@ Public.Static.unescapeXML=function(string){
                     error = "ERROR: XMLHttpRequest timeout";
                     respond();
                 };
-                xhr.send();
+                if(!req.post){
+                    xhr.send();
+                }
+                else{
+                    xhr.send(JSON.stringify(req.post));
+                }
             }
         }
         ;

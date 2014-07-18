@@ -805,7 +805,30 @@ Public.Static.unescapeXML=function(string){
         el = el.parentNode;
     }
     return false;
-}})();
+}
+
+    Public.Static.hashcode=function(skuObj){
+        var _ = this.magic ? eval(this.magic) : this;
+        var string="";
+        for(var propName in skuObj){
+            var value=skuObj[propName];
+            if(value!=null){
+                string+=skuObj[propName];
+            }
+        };
+        string.replace(/\s/g, '');
+        string.toUpperCase();
+        var hash = 0;
+        if (string.length == 0) return hash;
+        for (i = 0; i < string.length; i++) {
+            var char = string.charCodeAt(i);
+            hash = ((hash<<5)-hash)+char;
+            hash = hash & hash; // Convert to 32bit integer
+        }
+        return  (hash >>> 0); //converts to positive
+    };
+
+})();
 
 };
 })();

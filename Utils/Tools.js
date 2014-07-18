@@ -497,17 +497,17 @@ Public.Static.unescapeXML=function(string){
 
 	Public.Static.getParam = function(name) {
 		var _ = this.magic ? eval(this.magic) : this;
-		return _.Static.getParamFromString(_.Static.getHash(), name);
+		return _.Static.getParamFromString(_.Static._.getHash(), name);
 	};
 
 	Public.Static.removeParam = function(name) {
 		var _ = this.magic ? eval(this.magic) : this;
-		_.Static.setHash(removeParamFromString(_.Static.getHash(), name));
+		_.Static.setHash(removeParamFromString(_.Static._.getHash(), name));
 	};
 
 	Public.Static.addParam = function(name, value) {
 		var _ = this.magic ? eval(this.magic) : this;
-		_.Static.setHash(addParamToString(_.Static.getHash(), name, value, '#'));
+		_.Static.setHash(addParamToString(_.Static._.getHash(), name, value, '#'));
 	};
 	
 	Public.Static.addProperties=function(obj1, obj2, test) {
@@ -627,13 +627,13 @@ Public.Static.unescapeXML=function(string){
 	Public.Static.addParams = function(params) {
 		var _ = this.magic ? eval(this.magic) : this;
 		for (var param in params) {
-			_.Static.addParam(getHash(), param);
+			_.Static.addParam(_.getHash(), param);
 		}
 	};
 
 	Public.Static.getParams = function() {
 		var _ = this.magic ? eval(this.magic) : this;
-		return _.Static.getParamsFromString(getHash());
+		return _.Static.getParamsFromString(_.getHash());
 	};
 
 	Public.Static.removeParams = function(params) {

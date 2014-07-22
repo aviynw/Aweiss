@@ -497,17 +497,17 @@ Public.Static.unescapeXML=function(string){
 
 	Public.Static.getParam = function(name) {
 		var _ = this.magic ? eval(this.magic) : this;
-		return _.Static.getParamFromString(_.Static._.getHash(), name);
+		return _.Static.getParamFromString(_.Static.getHash(), name);
 	};
 
 	Public.Static.removeParam = function(name) {
 		var _ = this.magic ? eval(this.magic) : this;
-		_.Static.setHash(removeParamFromString(_.Static._.getHash(), name));
+		_.Static.setHash(removeParamFromString(_.Static.getHash(), name));
 	};
 
 	Public.Static.addParam = function(name, value) {
 		var _ = this.magic ? eval(this.magic) : this;
-		_.Static.setHash(_.Static.addParamToString(_.Static._.getHash(), name, value, '#'));
+		_.Static.setHash(_.Static.addParamToString(_.Static.getHash(), name, value, '#'));
 	};
 	
 	Public.Static.addProperties=function(obj1, obj2, test) {

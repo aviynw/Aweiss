@@ -645,9 +645,6 @@ Public.Static.unescapeXML=function(string){
 
 	Public.Static.setHash = function(hash) {
 		var _ = this.magic ? eval(this.magic) : this;
-		if (string.indexOf('#') != -1) {
-			hash = '#' + hash;
-		}
 		window.location.hash = hash;
 	};
 

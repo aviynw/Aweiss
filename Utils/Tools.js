@@ -578,7 +578,7 @@ Public.Static.unescapeXML=function(string){
 			}
 		} else {
 			string = _.Static.removeParamFromString(string, name);
-			string = _.Static.addParamToString(string, name, value);
+			string = _.Static.addParamToString(string, name, value, seperator);
 		}
 		return string;
 	};

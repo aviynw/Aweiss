@@ -568,13 +568,13 @@ Public.Static.unescapeXML=function(string){
 
 	Public.Static.addParamToString = function(string, name, value, seperator) {
 		var _ = this.magic ? eval(this.magic) : this;
-        value=JSON.stringify(value);
+        stringValue=JSON.stringify(stringValue);
 		if (!_.Static.getParamFromString(string, name)) {
 
 			if (string.indexOf(seperator) != -1) {
-				string += '&' + name + '=' + value;
+				string += '&' + name + '=' + stringValue;
 			} else {
-				string += seperator + name + '=' + value;
+				string += seperator + name + '=' + stringValue;
 			}
 		} else {
 			string = _.Static.removeParamFromString(string, name);

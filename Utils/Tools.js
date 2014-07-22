@@ -563,11 +563,12 @@ Public.Static.unescapeXML=function(string){
 		}
 		var valuePosition = position + name.length + 1;
 		var param = hash.substring(valuePosition, nextParam);
-		return param;
+		return JSON.parse(param);
 	};
 
 	Public.Static.addParamToString = function(string, name, value, seperator) {
 		var _ = this.magic ? eval(this.magic) : this;
+        value=JSON.parse(value);
 		if (!_.Static.getParamFromString(string, name)) {
 
 			if (string.indexOf(seperator) != -1) {
@@ -597,7 +598,7 @@ Public.Static.unescapeXML=function(string){
 		for (var i = 0; i < pairs.length; i++) {
 			var pair = pairs[i];
 			var mapping = pair.split('=');
-			Params[mapping[0]] = mapping[1];
+			Params[mapping[0]] = JSON.parse(mapping[1]);
 		}
 		return Params;
 	};

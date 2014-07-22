@@ -532,7 +532,7 @@ Public.Static.unescapeXML=function(string){
 	};
 	Public.Static.removeParamFromString = function(string, name) {
 		var _ = this.magic ? eval(this.magic) : this;
-		var toReplace = name + '=' + _.Static.getParamFromString(string, name);
+		var toReplace = name + '=' + JSON.stringify(_.Static.getParamFromString(string, name));
 		var indexOf = string.indexOf(toReplace);
 		var newString = string;
 		if (indexOf != -1) {

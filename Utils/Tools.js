@@ -585,7 +585,7 @@ Public.Static.unescapeXML=function(string){
 	Public.Static.getParamsFromString = function(hash) {
 		var _ = this.magic ? eval(this.magic) : this;
 		if (!hash) {
-			return null;
+			return {};
 		}
 		var Params = {};
 		var pairs = [];

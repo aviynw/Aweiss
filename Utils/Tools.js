@@ -507,7 +507,7 @@ Public.Static.unescapeXML=function(string){
 
 	Public.Static.addParam = function(name, value) {
 		var _ = this.magic ? eval(this.magic) : this;
-		_.Static.setHash(addParamToString(_.Static._.getHash(), name, value, '#'));
+		_.Static.setHash(_.Static.addParamToString(_.Static._.getHash(), name, value, '#'));
 	};
 	
 	Public.Static.addProperties=function(obj1, obj2, test) {

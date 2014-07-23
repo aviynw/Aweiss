@@ -507,7 +507,7 @@ Public.Static.unescapeXML=function(string){
 
 	Public.Static.addParam = function(name, value) {
 		var _ = this.magic ? eval(this.magic) : this;
-		_.Static.setHash(_.Static.addParamToString(_.Static.getHash(), name, value, '#'));
+		_.Static.setHash(_.Static.addParamToString(_.Static.getHash(), name, value));
 	};
 	
 	Public.Static.addProperties=function(obj1, obj2, test) {
@@ -566,20 +566,20 @@ Public.Static.unescapeXML=function(string){
 		return JSON.parse(param);
 	};
 
-	Public.Static.addParamToString = function(theString, name, value, seperator) {
+	Public.Static.addParamToString = function(theString, name, value) {
 		var _ = this.magic ? eval(this.magic) : this;
         var string =theString;
         var stringValue=JSON.stringify(value);
 		if (!_.Static.getParamFromString(string, name)) {
 
-			if (string.indexOf(seperator) != -1) {
+			if (string.length>0) {
 				string += '&' + name + '=' + stringValue;
 			} else {
-				string += seperator + name + '=' + stringValue;
+				string += name + '=' + stringValue;
 			}
 		} else {
 			string = _.Static.removeParamFromString(string, name);
-			string = _.Static.addParamToString(string, name, value, seperator);
+			string = _.Static.addParamToString(string, name, value);
 		}
 		return string;
 	};
@@ -604,10 +604,10 @@ Public.Static.unescapeXML=function(string){
 		return Params;
 	};
 
-	Public.Static.addParamsToString = function(string, params, seperator) {
+	Public.Static.addParamsToString = function(string, params) {
 		var _ = this.magic ? eval(this.magic) : this;
 		for (var param in params) {
-			string = _.Static.addParamToString(string, param, params[param], seperator);
+			string = _.Static.addParamToString(string, param, params[param]);
 		}
 		return string;
 	};

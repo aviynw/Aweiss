@@ -566,8 +566,9 @@ Public.Static.unescapeXML=function(string){
 		return JSON.parse(param);
 	};
 
-	Public.Static.addParamToString = function(string, name, value, seperator) {
+	Public.Static.addParamToString = function(theString, name, value, seperator) {
 		var _ = this.magic ? eval(this.magic) : this;
+        var string =theString;
         var stringValue=JSON.stringify(value);
 		if (!_.Static.getParamFromString(string, name)) {
 

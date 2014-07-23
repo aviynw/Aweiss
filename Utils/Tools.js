@@ -517,7 +517,7 @@ Public.Static.unescapeXML=function(string){
 		var properties = Object.keys(obj2);
 		for (var i = 0; i < properties.length; i++) {
 			var propName = properties[i];
-			pass = false;
+			var pass = false;
 			if(test==null){
 				pass=true;
 			}
@@ -629,7 +629,8 @@ Public.Static.unescapeXML=function(string){
 	Public.Static.addParams = function(params) {
 		var _ = this.magic ? eval(this.magic) : this;
 		for (var param in params) {
-			_.Static.addParam(_.getHash(), param);
+            var value=params[param]
+			_.Static.addParam(param, value);
 		}
 	};
 

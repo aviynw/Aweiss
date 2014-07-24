@@ -211,9 +211,9 @@ Public.Static.unescapeXML=function(string){
 		var properties = Object.keys(obj2);
 		for (var i = 0; i < properties.length; i++) {
 			var propName = properties[i];
-			pass = true;
+			var pass = true;
 			if (test != null && test(propName, obj2[propName]) == false) {
-				pass = false;
+				var pass = false;
 			}
 			if (pass) {
 				obj1[propName] = obj2[propName];

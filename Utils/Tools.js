@@ -570,7 +570,7 @@ Public.Static.unescapeXML=function(string){
 		var _ = this.magic ? eval(this.magic) : this;
         var string =theString;
         var stringValue=JSON.stringify(value);
-		if (!_.Static.getParamFromString(string, name)) {
+		if (!_.Static.getParamFromString(string, name)==null) {
 
 			if (string.length>0) {
 				string += '&' + name + '=' + stringValue;

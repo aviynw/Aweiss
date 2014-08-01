@@ -122,7 +122,7 @@ Public.Static.unescapeXML=function(string){
 		} else {
             if(_.Static.inNode&&req.url.indexOf('://')==-1) {
                 var fs = require('fs');
-                fs.readFile(window.location._url.path.split('/').slice(1, -1).join('/') + req.url, 'utf8',function (err, response) {
+                fs.readFile(/*window.location._url.path.split('/').slice(1, -1).join('/') + */req.url, 'utf8',function (err, response) {
                     if (err) {
                         throw err;
                     }

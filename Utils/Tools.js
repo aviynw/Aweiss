@@ -46,8 +46,14 @@ Public.Static.unescapeXML=function(string){
                .replace(/@apos;/g, "'")
                .replace(/&amp;/g, '&');
   };
+    Public.Static.isBoolean=function(obj) {
+		return Object.prototype.toString.apply(obj) === '[object Boolean]';
+	}
   Public.Static.isString=function(obj) {
 		return Object.prototype.toString.apply(obj) === '[object String]';
+	}
+	Public.Static.isNumber=function(obj){
+		return Object.prototype.toString.apply(obj) === '[object Number]';
 	}
   Public.Static.isObject=function(obj) {
 		return Object.prototype.toString.apply(obj) === '[object Object]';

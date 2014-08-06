@@ -64,7 +64,9 @@ Public.Static.unescapeXML=function(string){
   Public.Static.isArray=function(obj) {
 		return Object.prototype.toString.apply(obj) === '[object Array]';
 	}
-	
+	Public.Static.roundToTwo=function(num){
+		return Math.round((100 * num) / 100) 
+	}
   Public.Static.Get.ie =function(v) {
 		var undef, v = 3, div = document.createElement('div'), all = div.getElementsByTagName('i');
 

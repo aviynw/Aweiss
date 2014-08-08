@@ -46,6 +46,9 @@ Public.Static.unescapeXML=function(string){
                .replace(/@apos;/g, "'")
                .replace(/&amp;/g, '&');
   };
+  Public.Static.isError=function(obj) {
+  	return Object.prototype.toString.apply(obj) === '[object Error]';
+  }
     Public.Static.isBoolean=function(obj) {
 		return Object.prototype.toString.apply(obj) === '[object Boolean]';
 	}
@@ -98,6 +101,9 @@ Public.Static.unescapeXML=function(string){
 
 	Public.Static.crossAjax=function(req) {//POST DATA DOESNT WORK WITH IE<9
 		var _ = this.magic ? eval(this.magic) : this;
+		if(!req||!req.url){
+			throw('empty request or empty url')
+		}
 		var myLoc=window.location.href.match(/http:\/\/.*?\//gi)
 		var reqLoc=req.url.match(/http:\/\/.*?\//gi)
 		var xOrigin=true
@@ -106,27 +112,60 @@ Public.Static.unescapeXML=function(string){
 		
 		var data=null;
 		var error=null;
+		var isError =false;
+		var isSuccess=false;
+		var requestBody;
+
 		var respond=function() {
 			
-			if(data && req.success) req.success(data)
-			if(error && req.error) 	{
+			if(isSuccess && req.success) {
+				req.success(data)
+			}
+			if(isError){
 				console.log(error);
+				if(req.error) 	{
 				req.error(error);
 			}
+		}
 			if(req.always) {
 				req.always();
 			}
 		}
+
 		if (_.Static.ie>=6 && _.Static.ie<=9  && xOrigin) {
 			var xdr = new XDomainRequest();
-            xdr.open("GET", req.url);
-            xdr.timeout = 99000;
-            
-            xdr.onload= 	function() { data=xdr.responseText;	respond();};
-	        xdr.onerror= 	function() { error="ERROR: XDomainRequest error"; respond();};
-	        xdr.ontimeout= 	function() { error="ERROR: XDomainRequest timeout"; respond();};
-	        xdr.onprogress=	function() { console.log("PROGRASS")};
-            xdr.send();
+            if(req.timeout){
+            	xdr.timeout=req.timeout;
+            }
+            else{
+            	xdr.timeout = 99000;
+            }
+                if(req.post){
+                    xdr.open('POST', req.url);
+                    requestBody=_.getRequestBody(req.post)
+                }
+                else if(req.put){
+                    xdr.open('PUT', req.url);
+                    requestBody=_.getRequestBody(req.put)
+                }
+                else if(req.delete){
+                    xdr.open('DELETE', req.url);
+                    requestBody=_.getRequestBody(req.put)
+                }
+                else{
+                	xdr.open('GET', req.url, true);
+                }
+
+            xdr.onload= 	function() { data=xdr.responseText;	isSuccess=true;respond();};
+	        xdr.onerror= 	function() { error="ERROR: XDomainRequest error"; isError=true; respond();};
+	        xdr.ontimeout= 	function() { error="ERROR: XDomainRequest timeout"; isError=true;respond();};
+	        xdr.onprogress=	function() { console.log("PROGRESS")};
+                if(req.get){
+                	xdr.send();
+                }
+                else{
+                    xdr.send(requestBody);
+                }
 		} else {
             if(_.Static.inNode&&req.url.indexOf('://')==-1) {
                 var fs = require('fs');
@@ -135,47 +174,86 @@ Public.Static.unescapeXML=function(string){
                         throw err;
                     }
                     data=response;
+                    isSuccess=true;
                     respond();
                 });
             }
             else {
                 var xhr = new XMLHttpRequest();
-                if(!req.post){
-                    xhr.open('GET', req.url, true);
+                if(req.post){
+                    xhr.open('POST', req.url, true);
+                    requestBody=_.getRequestBody(req.post)
+                }
+                else if(req.put){
+                    xhr.open('PUT', req.url, true);
+                    requestBody=_.getRequestBody(req.put)
+                }
+                else if(req.delete){
+                    xhr.open('DELETE', req.url, true);
+                    requestBody=_.getRequestBody(req.put)
                 }
                 else{
-                    xhr.open('POST', req.url, true);
+                	xhr.open('GET', req.url, true);
                 }
-                xhr.timeout = 99000;
+            if(req.timeout){
+            	xhr.timeout=req.timeout;
+            }
+            else{
+            	xhr.timeout = 99000;
+            }
                 xhr.responseType = 'text';
                 xhr.onload = function () {
                     if (xhr.status == '200') {
                         data = xhr.responseText;
-                    } else error = xhr.responseText;
+                        isSuccess=true;
+                    } 
+                    else{
+                    	isError=true;
+                    	error = xhr.responseText;
+                    }
                     respond();
                 };
                 xhr.onerror = function () {
+                    isError=true;
                     error = xhr.responseText;
                     respond();
                 };
                 xhr.ontimeout = function () {
                     error = "ERROR: XMLHttpRequest timeout";
+                    isError=true;
                     respond();
                 };
-                if(!req.post){
-                    xhr.send();
+                if(req.headers){
+                	for(var header in req.headers){
+                		var headerValue=req.headers[header];
+                		xhr.setRequestHeader(header, headerValue)
+                	}
+                }
+                if(req.get){
+                	xhr.send();
                 }
                 else{
-                    xhr.send(JSON.stringify(req.post));
+                    xhr.send(requestBody);
                 }
             }
         }
         ;
     };
+
+	Private.Static.getRequestBody=function(obj){
+		var _ = this.magic ? eval(this.magic) : this;
+		if(_.isString(obj)){
+			return obj;
+		}
+		else{
+			return JSON.stringify(obj);
+		}
+	};
 	
 	Public.Static.Get.inNode=function(){
         return (typeof exports !== 'undefined' && this.exports !== exports)
-    }
+    };
+
 	Public.Static.filter=function(obj, test){
 		var _ = this.magic ? eval(this.magic) : this;
 		var matches=[];

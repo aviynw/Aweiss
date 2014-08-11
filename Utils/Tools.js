@@ -259,25 +259,50 @@ Public.Static.unescapeXML=function(string){
 		var matches=[];
 		for(var key in obj){
 			var value = obj[key];
+			var match;
 			if(_.Static.isObject(test)){
-				var match=true;
+				match=true;
 				for(var propName in test){
 					if(value[propName]!=test[propName]){
 						match = false;
 						}
 				}
-				if(match){
-					matches.push(value);
-				}
 			}
 			else{
-				if(test(value)){
-				matches.push(value);
+				match=test(value);
 			}
+			if(match){
+				matches.push(value);
 			}
 		}
 		return matches;
 	};	
+
+	Public.Static.hasOne=function(obj, test){
+		var _ = this.magic ? eval(this.magic) : this;
+		var hasOne=false;
+		for(var key in obj){
+			var value = obj[key];
+			var match;
+			if(_.Static.isObject(test)){
+				match=true;
+				for(var propName in test){
+					if(value[propName]!=test[propName]){
+						match = false;
+						}
+				}
+			}
+			else{
+				match=test(value);
+			}
+			if(match){
+				hasOne=true;
+				break;
+			}
+		}
+		return hasOne;
+	};	
+
 	Public.Static.values=function(obj){
 	var values=[];
 	for(var key in obj) {

@@ -58,6 +58,10 @@ Public.Static.unescapeXML=function(string){
 	Public.Static.isNumber=function(obj){
 		return Object.prototype.toString.apply(obj) === '[object Number]';
 	}
+	Public.Static.isNumberish=function(obj){
+		var _ = this.magic ? eval(this.magic) : this;
+		return (isNumber(obj) || (!isNaN(obj)&&!_.isArray(obj)))
+	}
   Public.Static.isObject=function(obj) {
 		return Object.prototype.toString.apply(obj) === '[object Object]';
 	}

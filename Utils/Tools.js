@@ -60,7 +60,7 @@ Public.Static.unescapeXML=function(string){
 	}
 	Public.Static.isNumberish=function(obj){
 		var _ = this.magic ? eval(this.magic) : this;
-		return (isNumber(obj) || (!isNaN(obj)&&!_.isArray(obj)))
+		return (_.isNumber(obj) || (!isNaN(obj)&&!_.isArray(obj)))
 	}
   Public.Static.isObject=function(obj) {
 		return Object.prototype.toString.apply(obj) === '[object Object]';
@@ -73,7 +73,7 @@ Public.Static.unescapeXML=function(string){
 	}
 	Public.Static.roundToTwo=function(num){
 		return Math.round((100 * num) / 100) 
-	}
+	};
   Public.Static.Get.ie =function(v) {
 		var undef, v = 3, div = document.createElement('div'), all = div.getElementsByTagName('i');
 
@@ -273,7 +273,12 @@ Public.Static.unescapeXML=function(string){
 				}
 			}
 			else{
-				match=test(value);
+				if(_.isFunction(test)){
+					match=test(value);
+				}
+				else{
+					match=true
+				}
 			}
 			if(match){
 				matches.push(value);
@@ -315,10 +320,6 @@ Public.Static.unescapeXML=function(string){
 	    }
 	return values;
 	}
-	
-	Public.Static.round=function(num, places){
-		
-	};
 	
 	Public.Static.addProperties=function(obj1, obj2, test) {
 		obj2 = obj2 || [];

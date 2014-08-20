@@ -1,6 +1,6 @@
 (function(){
-var importList = ['Aweiss.Test.Test', 'Aweiss.Test2'];
-OOPS.DEFINE('Aweiss.Test.Test3', Class, importList);
+var importList = ['Aweiss.Test.Test'];
+OOPS.DEFINE('Aweiss.Test.Test3', Class, importList,{extends:'Aweiss.Test.Test2'});
 
 function Class() {
 eval(this.magic);
@@ -16,10 +16,13 @@ eval(this.magic);
 	};
 	
 	Public.init=function(){
-		var a = new Test2();
+		//var a = new Test2();
 	}
+
 	Public.test=function(){
 		var a ='a';
-	}})();
+	}
+	
+})();
 };
 })();

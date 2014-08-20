@@ -1,6 +1,6 @@
 (function(){
 var importList = [];
-OOPS.DEFINE('Aweiss.Test.Test', Class, importList);
+OOPS.DEFINE('Aweiss.Test.Test2', Class, importList, {extends:'Aweiss.Test.Test'});
 
 function Class() {
 eval(this.magic);
@@ -13,9 +13,7 @@ eval(this.magic);
 	Package.d='VALUE OF D';
 	Private.maskedA='masked a';
 	Private.p='p';
-	Public.getterSuperTest=null;
-
-	Private.p2=function(){};
+	Private.p2=function(){}
 	Public.init=function(a){
 		var _ = this.magic ? eval(this.magic) : this;
 	}
@@ -53,19 +51,19 @@ eval(this.magic);
 	Public.test=function(testArg){
 			_.b='b';
 		}
-	Public.Static.static=function(){
+	Public.Static.static=function(){}
 
-	}
 	Public.Get.getterSuperTest=function(){
 		var _ = this.magic ? eval(this.magic) : this;
-		return 'getterSuperTest';
-	}
+		return _.super('Get.getterSuperTest');
+	};
+
 	Public.Set.getterSuperTest=function(){
 		var _ = this.magic ? eval(this.magic) : this;
-		return 'setterSuperTest';
-	}
+		return _.super('Set.getterSuperTest');
+	};
 
-
-})();
+}
+	)();
 };
 })();

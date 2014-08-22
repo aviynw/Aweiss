@@ -911,7 +911,7 @@ Public.Static.unescapeXML=function(string){
 		}
 	};
 	
-	Public.Static.isInDocument=function(el) {
+Public.Static.isInDocument=function(el) {
     var _ = this.magic ? eval(this.magic) : this;
     var html = document.body.parentNode;
     while (el) {
@@ -943,6 +943,13 @@ Public.Static.unescapeXML=function(string){
         }
         return  (hash >>> 0); //converts to positive
     };
+
+  Public.Static.isEmpty=function(obj) {
+    for(var i in obj) {
+        return false
+    }
+    return true;
+}
 
 })();
 

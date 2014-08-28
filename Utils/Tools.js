@@ -82,6 +82,21 @@ Public.Static.unescapeXML=function(string){
 		return v > 4 ? v : undef;
 	};
 	
+    Public.Static.distinct=function(a) {
+                    var b = [],
+                        c, i, l = a.length,
+                        j, k = 0;
+                    again: for (i = 0; i < l; i++) {
+                        c = a[i];
+                        for (j = 0; j < k; j++) {
+                            if (b[j] === c) {
+                                continue again;
+                            }
+                        }
+                        b[k++] = c;
+                    }
+                    return b;
+                };
 	Public.Static.crossAjaxJson=function(req) {
 		var _ = this.magic ? eval(this.magic) : this;
         var success=req.success;
@@ -932,7 +947,11 @@ Public.Static.isInDocument=function(el) {
                 string+=skuObj[propName];
             }
         };
-        string.replace(/\s/g, '');
+        return this.getHash(string);
+    };
+    Public.Static.getHash=function(string){
+    	var _ = this.magic ? eval(this.magic) : this;
+    	string.replace(/\s/g, '');
         string.toUpperCase();
         var hash = 0;
         if (string.length == 0) return hash;
@@ -942,8 +961,7 @@ Public.Static.isInDocument=function(el) {
             hash = hash & hash; // Convert to 32bit integer
         }
         return  (hash >>> 0); //converts to positive
-    };
-
+    }
   Public.Static.isEmpty=function(obj) {
     for(var i in obj) {
         return false

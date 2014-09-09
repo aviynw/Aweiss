@@ -141,7 +141,7 @@ Public.Static.unescapeXML=function(string){
 				req.success(data)
 			}
 			if(isError){
-				console.log(error);
+				OOPS.warn(xhr.status + error);
 				if(req.error) 	{
 				req.error(error);
 			}

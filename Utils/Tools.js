@@ -962,6 +962,15 @@ Public.Static.isInDocument=function(el) {
         }
         return  (hash >>> 0); //converts to positive
     }
+    Public.Static.toArray=function(obj){
+        var _ = this.magic ? eval(this.magic) : this;
+        var array=[];
+        for(var propName in obj){
+            var item = obj[propName];
+            array.push(item)
+        }
+        return array;
+    }
   Public.Static.isEmpty=function(obj) {
     for(var i in obj) {
         return false

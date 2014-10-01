@@ -48,15 +48,19 @@ Public.Static.unescapeXML=function(string){
   };
   Public.Static.isError=function(obj) {
   	return Object.prototype.toString.apply(obj) === '[object Error]';
+  	//return obj.constructor===Boolean;
   }
     Public.Static.isBoolean=function(obj) {
 		return Object.prototype.toString.apply(obj) === '[object Boolean]';
+		//return obj.constructor===Boolean;
 	}
   Public.Static.isString=function(obj) {
 		return Object.prototype.toString.apply(obj) === '[object String]';
+		//return obj.constructor===String;
 	}
 	Public.Static.isNumber=function(obj){
 		return Object.prototype.toString.apply(obj) === '[object Number]';
+		//return obj.constructor===Number;
 	}
 	Public.Static.isNumberish=function(obj){
 		var _ = this.magic ? eval(this.magic) : this;
@@ -64,12 +68,15 @@ Public.Static.unescapeXML=function(string){
 	}
   Public.Static.isObject=function(obj) {
 		return Object.prototype.toString.apply(obj) === '[object Object]';
+		//return obj.constructor===Object;
 	}
   Public.Static.isFunction=function(obj) {
 		return Object.prototype.toString.apply(obj) === '[object Function]';
+		//return obj.constructor===Function;
 	}
   Public.Static.isArray=function(obj) {
 		return Object.prototype.toString.apply(obj) === '[object Array]';
+		//return obj.constructor===Array;
 	}
 	Public.Static.roundToTwo=function(num){
 		return Math.round((100 * num) / 100) 

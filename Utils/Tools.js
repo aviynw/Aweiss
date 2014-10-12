@@ -948,7 +948,12 @@ Public.Static.isInDocument=function(el) {
     Public.Static.hashcode=function(skuObj){
         var _ = this.magic ? eval(this.magic) : this;
         var string="";
-        for(var propName in skuObj){
+        var keys = Object.keys(skuObj);
+        var orderArray= keys.sort(function(a, b){
+        	return a>b;
+        });
+        for(i=0;i<orderArray.length;i++){
+        	var propName = orderArray[i];
             var value=skuObj[propName];
             if(value!=null){
                 string+=skuObj[propName];
@@ -958,8 +963,8 @@ Public.Static.isInDocument=function(el) {
     };
     Public.Static.getHash=function(string){
     	var _ = this.magic ? eval(this.magic) : this;
-    	string.replace(/\s/g, '');
-        string.toUpperCase();
+    	//string.replace(/\s/g, '');
+        //string.toUpperCase();
         var hash = 0;
         if (string.length == 0) return hash;
         for (i = 0; i < string.length; i++) {

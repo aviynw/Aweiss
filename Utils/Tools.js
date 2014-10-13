@@ -959,9 +959,9 @@ Public.Static.isInDocument=function(el) {
                 string+=skuObj[propName];
             }
         };
-        return this.getHash(string);
+        return this.getHashcode(string);
     };
-    Public.Static.getHash=function(string){
+    Public.Static.getHashcode=function(string){
     	var _ = this.magic ? eval(this.magic) : this;
     	//string.replace(/\s/g, '');
         //string.toUpperCase();

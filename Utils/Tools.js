@@ -111,11 +111,17 @@ Public.Static.unescapeXML=function(string){
         var always=req.always;
 		if(req.success) req.success=function(data) {
 			console.log('success');
-			success(JSON.parse(data));
+            if(data){
+                data=JSON.parse(data);
+            }
+			success(data);
 			};
 		if(req.error) req.error=function(data) {
 			console.log('error');
-			error(JSON.parse(data));
+            if(data){
+                data=JSON.parse(data);
+            }
+			error(data);
 			};
 		if(req.always) req.always=function() {
 			console.log('always');

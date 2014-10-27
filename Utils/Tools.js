@@ -216,7 +216,7 @@ Public.Static.unescapeXML=function(string){
                     xdr.send(requestBody);
                 }
 		} else {
-            if(OOPS.inNode) {
+            if(OOPS.inNode&&req.url.indexOf('://') == -1) {
                 if (req.url.indexOf('://') == -1) {
                     fs.readFile(/*window.location._url.path.split('/').slice(1, -1).join('/') + */req.url, 'utf8', function (err, response) {
                         if (err) {
@@ -227,7 +227,7 @@ Public.Static.unescapeXML=function(string){
                         respond();
                     });
                 }
-                else {
+                else{
 
                     var host = url.parse(req.url).hostname;
                     var path = url.parse(req.url).path

@@ -345,7 +345,7 @@ Public.Static.unescapeXML=function(string){
                 		xhr.setRequestHeader(header, headerValue)
                 	}
                 }
-                if(req.get){
+                if(type=='GET'){
                 	xhr.send();
                 }
                 else{

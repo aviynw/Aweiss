@@ -312,7 +312,6 @@ Public.Static.unescapeXML=function(string){
             	xhr.timeout=req.timeout;
             }
             else{
-            	xhr.timeout = 99000;
             }
                 xhr.responseType = 'text';
                 xhr.onload = function () {

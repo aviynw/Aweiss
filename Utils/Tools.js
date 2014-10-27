@@ -1,6 +1,7 @@
 (function(){
-OOPS.DEFINE('Aweiss.Utils.Tools', Class);
-
+    var importList = [];
+    var nodeList = [['http','http','http'],['https','https','https'],['fs','fs','fs'],['url','url','url']]
+    OOPS.DEFINE('Aweiss.Utils.Tools', Class, importList,{}, nodeList);
 function Class() {
 eval(this.magic);
 (function(){
@@ -142,21 +143,37 @@ Public.Static.unescapeXML=function(string){
 		
 		if(myLoc && reqLoc) { if(myLoc[0]==reqLoc[0]) xOrigin=false;}
 		
-		var data=null;
-		var error=null;
+		var data;
+		var error;
+        var status;
 		var isError =false;
 		var isSuccess=false;
 		var requestBody;
-
+        var type;
+        var postData;
+        if (req.post) {
+            type = 'POST'
+            postData = req.post;
+        }
+        else if (req.put) {
+            type = 'PUT';
+            postData = req.put;
+        }
+        else if (req.delete) {
+            type = 'DELETE'
+        }
+        else {
+            type = 'GET'
+        }
 		var respond=function() {
 			
 			if(isSuccess && req.success) {
 				req.success(data)
 			}
 			if(isError){
-				OOPS.warn(xhr.status + error);
+				OOPS.warn(status.toString() + error);
 				if(req.error) 	{
-				req.error(error);
+				req.error(error, status);
 			}
 		}
 			if(req.always) {
@@ -199,16 +216,80 @@ Public.Static.unescapeXML=function(string){
                     xdr.send(requestBody);
                 }
 		} else {
-            if(_.Static.inNode&&req.url.indexOf('://')==-1) {
-                var fs = require('fs');
-                fs.readFile(/*window.location._url.path.split('/').slice(1, -1).join('/') + */req.url, 'utf8',function (err, response) {
-                    if (err) {
-                        throw err;
+            if(OOPS.inNode) {
+                if (req.url.indexOf('://') == -1) {
+                    fs.readFile(/*window.location._url.path.split('/').slice(1, -1).join('/') + */req.url, 'utf8', function (err, response) {
+                        if (err) {
+                            throw err;
+                        }
+                        postData = response;
+                        isSuccess = true;
+                        respond();
+                    });
+                }
+                else {
+
+                    var host = url.parse(req.url).hostname;
+                    var path = url.parse(req.url).path
+                    var port = url.parse(req.url).port;
+                    var protocol = url.parse(req.url).protocol;
+                    var headers={};
+                    if(req.headers){
+                        for(var header in req.headers){
+                            var headerValue=req.headers[header];
+                            headers[header]=headerValue
+                        }
                     }
-                    data=response;
-                    isSuccess=true;
-                    respond();
-                });
+                    var httpObj;
+                    if(protocol=='http:'){
+                        httpObj = http;
+                    }
+                    else if(protocol='https:'){
+                        httpObj=https;
+                    }
+                    var request = httpObj.request({method: type, hostname: host, path: path, port:port,headers:headers}, function (res) {
+                        var responseData = '';
+                        res.on('error', function (chunk) {
+                            status = res.statusCode
+                            isError = true;
+                            data = responseData;
+                            respond();
+                        });
+                        res.on('data', function (chunk) {
+                            if (res.statusCode != 200) {
+                                status = res.statusCode
+                                isError = true;
+                                data = responseData;
+                                respond();
+                            }
+                            else {
+                                responseData += chunk;
+                            }
+                        });
+                        res.on('end', function () {
+                            if (res.statusCode != 200) {
+                                status = res.statusCode
+                                isError = true;
+                                data = responseData;
+                                respond();
+                            }
+                            else {
+                                status = res.statusCode
+                                isSuccess = true;
+                                data = responseData;
+                                respond();
+                            }
+                        })
+                    });
+                    request.on('error', function () {
+                        isError = true;
+                        respond();
+                    });
+                    if (postData) {
+                        request.write(postData);
+                    }
+                    request.end();
+                }
             }
             else {
                 var xhr = new XMLHttpRequest();
@@ -235,6 +316,7 @@ Public.Static.unescapeXML=function(string){
             }
                 xhr.responseType = 'text';
                 xhr.onload = function () {
+                    status=xhr.status;
                     if (xhr.status == '200') {
                         data = xhr.responseText;
                         isSuccess=true;
@@ -246,11 +328,13 @@ Public.Static.unescapeXML=function(string){
                     respond();
                 };
                 xhr.onerror = function () {
+                    status=xhr.status;
                     isError=true;
                     error = xhr.responseText;
                     respond();
                 };
                 xhr.ontimeout = function () {
+                    status=xhr.status;
                     error = "ERROR: XMLHttpRequest timeout";
                     isError=true;
                     respond();

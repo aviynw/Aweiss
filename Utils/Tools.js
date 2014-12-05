@@ -355,6 +355,15 @@ Public.Static.unescapeXML=function(string){
         ;
     };
 
+    Public.Static.isPrimitive=function(obj) {
+        var type = typeof obj;
+        if (type === 'object' || type === 'function' || type === 'undefined') {
+            return false;
+        } else {
+            return true;
+        }
+    };
+
 	Private.Static.getRequestBody=function(obj){
 		var _ = this.magic ? eval(this.magic) : this;
 		if(_.isString(obj)){
@@ -1041,7 +1050,7 @@ Public.Static.isInDocument=function(el) {
         var orderArray= keys.sort(function(a, b){
         	return a>b;
         });
-        for(i=0;i<orderArray.length;i++){
+        for(var i=0;i<orderArray.length;i++){
         	var propName = orderArray[i];
             var value=skuObj[propName];
             if(value!=null){
@@ -1056,7 +1065,7 @@ Public.Static.isInDocument=function(el) {
         //string.toUpperCase();
         var hash = 0;
         if (string.length == 0) return hash;
-        for (i = 0; i < string.length; i++) {
+        for (var i = 0; i < string.length; i++) {
             var char = string.charCodeAt(i);
             hash = ((hash<<5)-hash)+char;
             hash = hash & hash; // Convert to 32bit integer

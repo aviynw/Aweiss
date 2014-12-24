@@ -1071,7 +1071,8 @@ Public.Static.isInDocument=function(el) {
             hash = hash & hash; // Convert to 32bit integer
         }
         return  (hash >>> 0); //converts to positive
-    }
+    };
+
     Public.Static.toArray=function(obj){
         var _ = this.magic ? eval(this.magic) : this;
         var array=[];
@@ -1080,7 +1081,19 @@ Public.Static.isInDocument=function(el) {
             array.push(item)
         }
         return array;
-    }
+    };
+
+    Public.Static.removeFromArray=function(array, toRemove){
+        var _ = this.magic ? eval(this.magic) : this;
+        for(var i=0;i<toRemove.length;i++){
+            var value = toRemove[i];
+            var index = array.indexOf(value);
+            if(index>=0){
+                array.splice(index, 1);
+            }
+        }
+    };
+
   Public.Static.isEmpty=function(obj) {
     for(var i in obj) {
         return false

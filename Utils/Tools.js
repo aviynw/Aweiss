@@ -80,7 +80,7 @@ Public.Static.unescapeXML=function(string){
 		//return obj.constructor===Array;
 	}
 	Public.Static.roundToTwo=function(num){
-		return Math.round((100 * num) / 100) 
+		return +(Math.round(num + "e+2")  + "e-2");
 	};
   Public.Static.Get.ie =function(v) {
 		var undef, v = 3, div = document.createElement('div'), all = div.getElementsByTagName('i');

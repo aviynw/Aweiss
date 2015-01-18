@@ -1,7 +1,9 @@
 (function(){
     var importList = [];
-    var nodeList = [['http','http','http'],['https','https','https'],['fs','fs','fs'],['url','url','url']]
-    OOPS.DEFINE('Aweiss.Utils.Tools', Class, importList,{}, nodeList);
+    var browserList=[];
+    var nodeList = [['http','http','http'],['https','https','https'],['fs','fs','fs'],['url','url','url'], ['fnv-plus','fnv-plus','fnv'],]
+
+    OOPS.DEFINE('Aweiss.Utils.Tools', Class, importList,{}, nodeList, browserList);
 function Class() {
 eval(this.magic);
 (function(){
@@ -1061,16 +1063,32 @@ Public.Static.isInDocument=function(el) {
     };
     Public.Static.getHashcode=function(string){
     	var _ = this.magic ? eval(this.magic) : this;
-    	//string.replace(/\s/g, '');
-        //string.toUpperCase();
-        var hash = 0;
+    	string.replace(/\s/g, '');
+        string=string.toUpperCase();
+        var result='';
+        var num = fnv.hash(string, 64).dec();
+        var shortNums=[];
+        for(var i=0;i<num.length;i++){
+            var index=Math.floor(i/15);
+            if(!shortNums[index]){
+                shortNums[index]='';
+            }
+            shortNums[index]+=num.charAt(i);
+        }
+        for(var i=0;i<shortNums.length;i++){
+            var shortNum=shortNums[i];
+            var encoded = _.toBase(shortNum,"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz");//all ascii characters
+            result+=encoded;
+        }
+        return result
+        /*var hash = 0;
         if (string.length == 0) return hash;
         for (var i = 0; i < string.length; i++) {
             var char = string.charCodeAt(i);
             hash = ((hash<<5)-hash)+char;
             hash = hash & hash; // Convert to 32bit integer
         }
-        return  (hash >>> 0); //converts to positive
+        return  (hash >>> 0); //converts to positive*/
     };
 
     Public.Static.toArray=function(obj){
@@ -1092,6 +1110,35 @@ Public.Static.isInDocument=function(el) {
                 array.splice(index, 1);
             }
         }
+    };
+    Public.Static.fromBase = function(rixits, characters) {
+        var result = 0;
+        rixits = rixits.split('');
+        for (var e in rixits) {
+            result = (result * characters.length) + characters.indexOf(rixits[e]);
+        }
+        return result;
+    };
+
+    Public.Static.toBase = function(number, characters){
+        var result = 0;
+            if (isNaN(Number(number)) || number === null ||
+                number === Number.POSITIVE_INFINITY)
+                throw "The input is not valid";
+            if (number < 0)
+                throw "Can't represent negative numbers now";
+
+            var rixit; // like 'digit', only in some non-decimal radix
+            var residual = Math.floor(number);
+            var result = '';
+            while (true) {
+                rixit = residual % characters.length
+                result = characters.charAt(rixit) + result;
+                residual = Math.floor(residual / characters.length);
+                if (residual == 0)
+                    break;
+            }
+            return result;
     };
 
   Public.Static.isEmpty=function(obj) {

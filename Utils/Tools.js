@@ -121,9 +121,9 @@ Public.Static.unescapeXML=function(string){
 			};
 		if(req.error) req.error=function(data) {
 			console.log('error');
-            if(data){
+            /*if(data){
                 data=JSON.parse(data);
-            }
+            }*/
 			error(data);
 			};
 		if(req.always) req.always=function() {
@@ -1140,6 +1140,24 @@ Public.Static.isInDocument=function(el) {
             }
             return result;
     };
+    Public.Static.randomString=function(length, possibilities){
+            var text = "";
+            if(!possibilities){
+                possibilities = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            }
+            for( var i=0; i < 5; i++ )
+                text += possibilities.charAt(Math.floor(Math.random() * possibilities.length));
+
+            return text;
+    };
+
+    Public.Static.insertCharacterEvery= function(string, n, char) {
+    var ret = [];
+    for(var i=0, len=string.length; i < len; i += n) {
+        ret.push(string.substr(i, n))
+    }
+    return ret.join(char);
+};
 
   Public.Static.isEmpty=function(obj) {
     for(var i in obj) {

@@ -1,7 +1,7 @@
 (function(){
     var importList = [];
     var browserList=[];
-    var nodeList = [['http','http','http'],['https','https','https'],['fs','fs','fs'],['url','url','url'], ['fnv-plus','fnv-plus','fnv'],]
+    var nodeList = [['http','http','http'],['https','https','https'],['fs','fs','fs'],['url','url','url'], ['fnv-plus','fnv-plus','fnv'],['external-ip','external-ip','ExternalIp']]
 
     OOPS.DEFINE('Aweiss.Utils.Tools', Class, importList,{}, nodeList, browserList);
 function Class() {
@@ -1158,6 +1158,13 @@ Public.Static.isInDocument=function(el) {
     }
     return ret.join(char);
 };
+    Public.Static.getIp=function(callback){
+        var _ = this.magic ? eval(this.magic) : this;
+        var externalIp=ExternalIp();
+        externalIp(function (err, ip) {
+            callback(ip); // => 8.8.8.8
+        });
+    };
 
   Public.Static.isEmpty=function(obj) {
     for(var i in obj) {

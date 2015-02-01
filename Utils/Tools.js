@@ -167,22 +167,31 @@ Public.Static.unescapeXML=function(string){
         else {
             type = 'GET'
         }
+        var responded=false;
 		var respond=function() {
-			
-			if(isSuccess && req.success) {
-				req.success(data)
-			}
-			if(isError){
-				//OOPS.warn(status.toString() + error);
-				if(req.error) 	{
-				req.error(error, status);
-			}
+            if (!responded) {
+                responded = true;
+                if (isSuccess && req.success) {
+                    req.success(data)
+                }
+                if (isError) {
+                    //OOPS.warn(status.toString() + error);
+                    if (req.error) {
+                        req.error(error, status);
+                    }
+                }
+                if (req.always) {
+                    req.always();
+                }
+            }
 		}
-			if(req.always) {
-				req.always();
-			}
-		}
-
+        if(req.timeout){
+            setTimeout(function(){
+                isError=true;
+                error='MANUAL ERROR FROM AWEISS.TOOLS.CROSSAJAX DUE TO TIMEOUT';
+                respond();
+            },req.timeout+10000);//to allow the request timeout to activate itself if its able t
+        }
 		if (_.Static.ie>=6 && _.Static.ie<=9  && xOrigin) {
 			var xdr = new XDomainRequest();
             if(req.timeout){
@@ -218,7 +227,7 @@ Public.Static.unescapeXML=function(string){
                     xdr.send(requestBody);
                 }
 		} else {
-            if(OOPS.inNode&&req.url.indexOf('://') == -1) {
+            if(OOPS.inNode) {
                 if (req.url.indexOf('://') == -1) {
                     fs.readFile(/*window.location._url.path.split('/').slice(1, -1).join('/') + */req.url, 'utf8', function (err, response) {
                         if (err) {

@@ -1,7 +1,8 @@
 (function(){
     var importList = [];
     var browserList=[];
-    var nodeList = [['http','http','http'],['https','https','https'],['fs','fs','fs'],['url','url','url'], ['fnv-plus','fnv-plus','fnv'],['external-ip','external-ip','ExternalIp']]
+    var nodeList = [['request','request','request'],['http','http','http'],['https','https','https'],
+        ['fs','fs','fs'],['url','url','url'], ['fnv-plus','fnv-plus','fnv'],['external-ip','external-ip','ExternalIp']]
 
     OOPS.DEFINE('Aweiss.Utils.Tools', Class, importList,{}, nodeList, browserList);
 function Class() {
@@ -238,50 +239,79 @@ Public.Static.unescapeXML=function(string){
                         respond();
                     });
                 }
-                else{
+                else {
+                    /*   var options = {type:type,
+                     url:req.url,
+                     headers:req.headers
+                     }
+
+                     request(options, function callback(error, response, body) {
+                     if (!error && response.statusCode == 200) {
+                     isSuccess=true;
+                     data=body;
+                     respond();
+                     }
+                     else{
+                     isError=true;
+                     error=body;
+                     respond();
+                     }
+                     });*/
 
                     var host = url.parse(req.url).hostname;
                     var path = url.parse(req.url).path
                     var port = url.parse(req.url).port;
+                    if(port==null){
+                        //port=80;
+                    }
                     var protocol = url.parse(req.url).protocol;
-                    var headers={};
-                    if(req.headers){
-                        for(var header in req.headers){
-                            var headerValue=req.headers[header];
-                            headers[header]=headerValue
+                    var headers = {};
+                    if (req.headers) {
+                        for (var header in req.headers) {
+                            var headerValue = req.headers[header];
+                            headers[header] = headerValue
                         }
                     }
                     var httpObj;
-                    if(protocol=='http:'){
+                    if (protocol == 'http:') {
                         httpObj = http;
                     }
-                    else if(protocol='https:'){
-                        httpObj=https;
+                    else if (protocol = 'https:') {
+                        httpObj = https;
                     }
-                    var request = httpObj.request({method: type, hostname: host, path: path, port:port,headers:headers}, function (res) {
-                        var responseData = '';
+                    var responseData = '';
+                    var request = httpObj.request({
+                        method: type,
+                        hostname: host,
+                        path: path,
+                        port: port,
+                        headers: headers
+                    }, function (res) {
                         res.on('error', function (chunk) {
                             status = res.statusCode
                             isError = true;
-                            data = responseData;
+                            responseData += chunk
+                            error = responseData.toString();
                             respond();
                         });
                         res.on('data', function (chunk) {
                             if (res.statusCode != 200) {
                                 status = res.statusCode
                                 isError = true;
-                                data = responseData;
+                                responseData += chunk
+                                error = responseData.toString();
                                 respond();
                             }
                             else {
                                 responseData += chunk;
                             }
                         });
-                        res.on('end', function () {
+                        res.on('end', function (chunk) {
                             if (res.statusCode != 200) {
                                 status = res.statusCode
                                 isError = true;
-                                data = responseData;
+                                responseData += chunk
+                                error = responseData.toString();
                                 respond();
                             }
                             else {
@@ -292,7 +322,9 @@ Public.Static.unescapeXML=function(string){
                             }
                         })
                     });
-                    request.on('error', function () {
+                    request.on('error', function (chunk) {
+                        responseData += chunk
+                        error = responseData.toString();
                         isError = true;
                         respond();
                     });

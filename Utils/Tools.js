@@ -50,6 +50,7 @@ Public.Static.unescapeXML=function(string){
                .replace(/@apos;/g, "'")
                .replace(/&amp;/g, '&');
   };
+
   Public.Static.isError=function(obj) {
   	return Object.prototype.toString.apply(obj) === '[object Error]';
   	//return obj.constructor===Boolean;
@@ -833,9 +834,14 @@ Public.Static.unescapeXML=function(string){
 			return null;
 		}
 		var position = hash.indexOf(name);
+        var before=string.charAt(position-1);
+        var after=string.charAt(position+name.length)
 		if (position == -1) {
 			return null;
 		}
+        else if((before!='?'&&before!='"'&&before!='=')||(after!=null&&after!='"'&&after!='&')){
+        	return null;
+        }
 		var nextParam = hash.indexOf('&', position);
 		if (nextParam == -1) {
 			nextParam = hash.length;
@@ -845,10 +851,15 @@ Public.Static.unescapeXML=function(string){
 		return JSON.parse(param);
 	};
 
-	Public.Static.addParamToString = function(theString, name, value) {
+	Public.Static.addParamToString = function(theString, name, value, dontParse) {
 		var _ = this.magic ? eval(this.magic) : this;
         var string =theString;
-        var stringValue=JSON.stringify(value);
+        var stringValue
+        if(dontParse) {
+            stringValue=value;
+        }else{
+            stringValue=JSON.stringify(value);
+            }
 		if (_.Static.getParamFromString(string, name)==null) {
 
 			if (string.length>0) {
@@ -883,10 +894,18 @@ Public.Static.unescapeXML=function(string){
 		return Params;
 	};
 
-	Public.Static.addParamsToString = function(string, params) {
+	Public.Static.addParamsToString = function(string, params, dontParse, order) {
 		var _ = this.magic ? eval(this.magic) : this;
-		for (var param in params) {
-			string = _.Static.addParamToString(string, param, params[param]);
+        var paramsArray;
+        if(order){
+            paramsArray=order;
+        }
+        else{
+            paramsArray=Object.keys(params);
+        }
+		for (var i=0;i<paramsArray.length;i++) {
+            var param = paramsArray[i];
+			string = _.Static.addParamToString(string, param, params[param], dontParse);
 		}
 		return string;
 	};

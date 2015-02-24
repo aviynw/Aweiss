@@ -183,7 +183,7 @@ Public.Static.unescapeXML=function(string){
                     }
                 }
                 if (req.always) {
-                    req.always();
+                    req.always(data, isSuccess);
                 }
             }
 		}
@@ -1224,6 +1224,21 @@ Public.Static.isInDocument=function(el) {
         externalIp(function (err, ip) {
             callback(ip); // => 8.8.8.8
         });
+    };
+
+    Public.Static.getDirFilesSync = function(dir) {
+        var files_ = [];
+        var files = fs.readdirSync(dir);
+        for (var i in files) {
+            if (!files.hasOwnProperty(i)) continue;
+            var name = files[i];
+            if (fs.statSync(dir + '/' + name).isDirectory()) {
+                _.getDirFiles(dir + '/' +name, files_);
+            } else {
+                files_.push(name);
+            }
+        }
+        return files_;
     };
 
   Public.Static.isEmpty=function(obj) {

@@ -241,7 +241,8 @@ Public.Static.unescapeXML=function(string){
                     });
                 }
                 else {
-                    /*   var options = {type:type,
+                    var options = {
+                        type:type,
                      url:req.url,
                      headers:req.headers
                      }
@@ -257,8 +258,8 @@ Public.Static.unescapeXML=function(string){
                      error=body;
                      respond();
                      }
-                     });*/
-
+                     });
+                     /*
                     var host = url.parse(req.url).hostname;
                     var path = url.parse(req.url).path
                     var port = url.parse(req.url).port;
@@ -332,7 +333,7 @@ Public.Static.unescapeXML=function(string){
                     if (postData) {
                         request.write(postData);
                     }
-                    request.end();
+                    request.end();*/
                 }
             }
             else {
@@ -1227,6 +1228,7 @@ Public.Static.isInDocument=function(el) {
     };
 
     Public.Static.getDirFilesSync = function(dir) {
+        var _ = this.magic ? eval(this.magic) : this;
         var files_ = [];
         var files = fs.readdirSync(dir);
         for (var i in files) {
@@ -1240,8 +1242,20 @@ Public.Static.isInDocument=function(el) {
         }
         return files_;
     };
+    Public.Static.getTagText=function(element){
+        var _ = this.magic ? eval(this.magic) : this;
+        var innerRegex=_.escapeRegExp(element.innerHTML);
+        innerRegex = '(.*)'+innerRegex;
+        var tagText=element.outerHTML.match(innerRegex)[1];
+        return tagText;
+    }
+    Public.Static.escapeRegExp=function(str){
+        var _ = this.magic ? eval(this.magic) : this;
+        return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+    };
 
   Public.Static.isEmpty=function(obj) {
+      var _ = this.magic ? eval(this.magic) : this;
     for(var i in obj) {
         return false
     }

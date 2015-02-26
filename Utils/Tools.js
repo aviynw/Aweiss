@@ -301,7 +301,7 @@ Public.Static.unescapeXML=function(string){
                             respond();
                         });
                         res.on('data', function (chunk) {
-                            if (res.statusCode != 200) {
+                            if (res.statusCode.toString().charAt(0)!='2') {
                                 status = res.statusCode
                                 isError = true;
                                 responseData += chunk
@@ -313,7 +313,7 @@ Public.Static.unescapeXML=function(string){
                             }
                         });
                         res.on('end', function (chunk) {
-                            if (res.statusCode != 200) {
+                            if (res.statusCode.toString().charAt(0)!='2') {
                                 status = res.statusCode
                                 isError = true;
                                 responseData += chunk

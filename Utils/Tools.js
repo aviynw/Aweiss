@@ -63,6 +63,10 @@ Public.Static.unescapeXML=function(string){
 		return Object.prototype.toString.apply(obj) === '[object String]';
 		//return obj.constructor===String;
 	}
+    Public.Static.isRegex=function(obj) {
+        return Object.prototype.toString.apply(obj) === '[object RegExp]';
+        //return obj.constructor===String;
+    }
 	Public.Static.isNumber=function(obj){
 		return Object.prototype.toString.apply(obj) === '[object Number]';
 		//return obj.constructor===Number;

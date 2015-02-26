@@ -245,7 +245,7 @@ Public.Static.unescapeXML=function(string){
                     });
                 }
                 else {
-                    var options = {
+                    /*var options = {
                         type:type,
                      url:req.url,
                      headers:req.headers
@@ -263,7 +263,7 @@ Public.Static.unescapeXML=function(string){
                      respond();
                      }
                      });
-                     /*
+                     */
                     var host = url.parse(req.url).hostname;
                     var path = url.parse(req.url).path
                     var port = url.parse(req.url).port;
@@ -337,7 +337,7 @@ Public.Static.unescapeXML=function(string){
                     if (postData) {
                         request.write(postData);
                     }
-                    request.end();*/
+                    request.end();
                 }
             }
             else {

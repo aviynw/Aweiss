@@ -1168,6 +1168,9 @@ Public.Static.isInDocument=function(el) {
 
     Public.Static.removeFromArray=function(array, toRemove){
         var _ = this.magic ? eval(this.magic) : this;
+        if(!_.isArray(toRemove)){
+            toRemove=[toRemove];
+        }
         for(var i=0;i<toRemove.length;i++){
             var value = toRemove[i];
             var index = array.indexOf(value);
